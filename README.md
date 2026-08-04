@@ -37,3 +37,45 @@ Phase 1 — Foundations of Trust
 - Everything observable
 - Everything auditable
 - Security as code
+
+## Platform Capabilities
+
+The platform will eventually provide:
+
+- Human authentication
+- Machine authentication
+- Workload identity
+- AI agent identity
+- Dynamic credential issuance
+- Certificate lifecycle management
+- Authorization as Code
+- Hardware attestation
+- Confidential Computing
+- Secure software supply chain
+- Post-Quantum Cryptography
+- End-to-end observability
+
+## Architecture
+
+> Architecture diagrams will evolve throughout the project.
+
+Current Status
+
+Foundational design
+
+Planned Architecture
+
+Coming in Phase 1.
+
+## Success Criteria
+
+The project is considered successful when it demonstrates:
+
+- Cryptographically verifiable machine identities
+- End-to-end workload authentication
+- Policy-driven authorization
+- AI agents operating under delegated trust
+- Hardware-backed attestation
+- Crypto-agile PKI
+- Observable and auditable trust decisions
+- A production-inspired reference architecture
