@@ -24,3 +24,16 @@ Design and implement an end-to-end platform centered on cryptographically verifi
 ## Current Phase
 
 Phase 1 — Foundations of Trust
+
+## Guiding Principles
+
+- Identity before secrets
+- Trust through cryptographic verification
+- Policy over hard-coded authorization
+- Vendor-neutral architecture
+- Zero Trust by default
+- Ephemeral credentials whenever possible
+- Crypto agility over algorithm dependence
+- Everything observable
+- Everything auditable
+- Security as code
