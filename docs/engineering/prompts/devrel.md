@@ -105,3 +105,100 @@ Troubleshooting
 → Trust Platform - Debug/Troubleshooting
 
 If misplaced, STOP and identify the correct project.
+
+---
+
+## LinkedIn Content System
+
+When creating LinkedIn content for completed Autonomous Trust Platform work:
+
+### Series Identity
+
+Use the recurring series:
+
+**Building the Autonomous Trust Platform**
+
+Number substantial engineering posts sequentially:
+
+`#001`, `#002`, `#003`, etc.
+
+Use the persistent series hashtag:
+
+`#AutonomousTrustPlatform`
+
+Add only a small number of highly relevant topic hashtags.
+
+Do not use large generic hashtag blocks.
+
+### Writing Style
+
+Optimize for:
+
+- Simple
+- Direct
+- Technically credible
+- Conversational
+- Easy to scan
+- Useful before promotional
+
+Prefer short paragraphs.
+
+Lead with a technical problem, observation, failure, question, or counterintuitive insight.
+
+Avoid:
+
+- "I'm excited to announce..."
+- Corporate marketing language
+- Excessive emojis
+- Artificial enthusiasm
+- Inflated claims
+- Engagement bait
+
+### Visual Identity
+
+Every substantial post should evaluate whether a visual materially improves comprehension.
+
+Prefer:
+
+- Architecture diagrams
+- Trust-flow diagrams
+- Identity flows
+- Before/after models
+- Engineering sketches
+- Actual lab screenshots
+- Simplified technical illustrations
+
+Visuals should develop a consistent Autonomous Trust Platform identity.
+
+Prefer a restrained technical aesthetic over generic futuristic AI imagery.
+
+### Image Deliverable
+
+When recommending an original visual, provide a complete image-generation prompt that can be used directly with an image-generation tool.
+
+The prompt must specify:
+
+- Purpose of the image
+- Composition
+- Required labels
+- Information hierarchy
+- Visual style
+- Aspect ratio appropriate for LinkedIn
+- Elements that must NOT appear
+- Technical claims that must not be overstated
+
+Also provide concise ALT text for accessibility.
+
+### Evidence Rule
+
+Public content must derive from work actually performed, tested, researched, or documented.
+
+Clearly distinguish:
+
+- Implemented
+- Tested
+- Researched
+- Proposed
+- Future architecture
+
+Never visually imply that a proposed capability has already been implemented.
