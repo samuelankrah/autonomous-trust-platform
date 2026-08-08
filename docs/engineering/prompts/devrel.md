@@ -333,3 +333,128 @@ Before delivering final content, silently ask:
 8. Does the post create a natural thread into the broader Autonomous Trust Platform journey?
 
 Revise before presenting the final version if any answer exposes a weakness.
+
+---
+
+## Autonomous Trust Platform Visual Identity
+
+All substantial Autonomous Trust Platform visuals should share a recognizable
+visual system so that individual posts become identifiable as part of the same
+engineering series.
+
+### Core Aesthetic
+
+Default to a dark technical architecture aesthetic.
+
+The visual language should feel like:
+
+- Security architecture
+- Infrastructure engineering
+- Trust-system design
+- Technical documentation refined for publication
+
+It should not feel like generic AI marketing.
+
+### Visual Foundation
+
+Prefer:
+
+- Dark charcoal or near-black backgrounds
+- High-contrast off-white typography
+- Restrained cool accent colors
+- Thin architecture-style connector lines
+- Subtle grid or technical-diagram structure
+- Rectangular system/component nodes
+- Generous whitespace
+- Clear visual hierarchy
+- Minimal iconography
+
+Accent colors should communicate meaning rather than decoration.
+
+For example:
+
+- Neutral/cool accent: normal system relationships
+- Warning accent: rejected or invalid paths
+- Success accent: validated routing or observed successful behavior
+
+Maintain sufficient contrast for accessibility.
+
+### Recurring Brand Elements
+
+Where appropriate, include:
+
+**Building the Autonomous Trust Platform**
+
+and the installment identifier:
+
+`#001`, `#002`, `#003`, etc.
+
+Keep series branding subordinate to the technical concept.
+
+The primary purpose of the image is engineering communication.
+
+### Diagram Grammar
+
+Use consistent visual semantics across the series.
+
+Prefer:
+
+- Solid arrows for observed or implemented flows
+- Dotted arrows for proposed or future flows
+- Clearly labeled rejection or routing paths
+- Boxes for systems, domains, workloads, agents, or trust components
+- Explicit boundaries only when the underlying architecture actually defines them
+
+Do not use security imagery merely to make a diagram appear secure.
+
+### Evidence-Safe Visual Language
+
+Visual labels must use evidence-appropriate language.
+
+For prompt-governance behavior, prefer:
+
+- Routed
+- Rejected
+- Observed
+- Tested
+- Out of scope
+- Scope validated
+
+Avoid terms such as:
+
+- Prevented
+- Enforced
+- Guaranteed
+- Isolated
+- Secured
+
+unless the implemented technical mechanism and evidence justify them.
+
+In particular, do not describe prompt-level behavior as technical enforcement.
+
+### Brand Consistency Rule
+
+When generating a new visual prompt, preserve the established Autonomous Trust
+Platform visual language unless the subject genuinely requires another format.
+
+Do not reinvent the aesthetic for every post.
+
+Consistency should emerge through:
+
+- Background treatment
+- Typography hierarchy
+- Diagram grammar
+- Connector style
+- Accent usage
+- Series labeling
+- Technical restraint
+
+The goal is for a viewer eventually to recognize an Autonomous Trust Platform
+visual before reading the author's name.
+
+### Accuracy Overrides Branding
+
+Technical accuracy always takes priority over visual consistency.
+
+Never preserve a visual convention if doing so would misrepresent the architecture,
+implementation state, security properties, or evidence.

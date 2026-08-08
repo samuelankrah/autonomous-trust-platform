@@ -149,3 +149,95 @@ Planned future validation should include:
 - Control Plane receiving raw troubleshooting logs
 - Attempts to override routing instructions explicitly
 - Ambiguous multi-domain requests
+
+
+---
+
+## TEST-004
+
+### Name
+
+DevRel Editorial Policy Regression
+
+### Source Project
+
+Trust Platform - DevRel
+
+### Objective
+
+Determine whether an updated editorial policy improves public technical
+communication without providing post-specific rewriting instructions.
+
+### Initial Observation
+
+The initial LinkedIn draft was technically responsible but contained
+documentation-like feature-list language and duplicated some information that
+could be communicated more effectively by the accompanying visual.
+
+### Policy Change
+
+The DevRel prompt was updated with an Editorial Quality Gate covering:
+
+- Narrative structure
+- Single-idea focus
+- Post/visual separation
+- Compression
+- Evidence-appropriate language
+- Visual accuracy
+- Hook quality
+- Ending quality
+- Final self-review
+
+### Regression Method
+
+The same underlying engineering evidence was submitted again.
+
+DevRel was instructed to regenerate the post independently using the updated
+policy rather than reproduce a manually corrected version.
+
+### Expected Behavior
+
+The regenerated output should demonstrate:
+
+- Stronger narrative structure
+- Reduced documentation-style language
+- Better separation between prose and visual information
+- More precise evidence language
+- Clear distinction between governance behavior and security enforcement
+
+### Result
+
+PASS
+
+### Observation
+
+The regenerated output showed improved narrative compression and clearer
+evidence language.
+
+It explicitly distinguished tested prompt-governance behavior from technical
+security enforcement and produced stronger accuracy constraints for the
+accompanying visual.
+
+### Residual Finding
+
+Terms such as "fail closed" and visual language implying that requests are
+"stopped" may still suggest stronger enforcement than the current evidence
+supports.
+
+Future DevRel outputs should prefer evidence-specific language such as:
+
+- Rejected
+- Routed
+- Tested
+- Observed
+
+unless technical enforcement has actually been implemented.
+
+### Engineering Lesson
+
+AI behavior changes should be treated similarly to other policy changes:
+
+Define behavior → test → observe → revise policy → regression test.
+
+Prompt changes should not be considered successful merely because one manually
+edited output looks better.
