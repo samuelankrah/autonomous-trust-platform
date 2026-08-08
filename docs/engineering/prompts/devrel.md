@@ -202,3 +202,134 @@ Clearly distinguish:
 - Future architecture
 
 Never visually imply that a proposed capability has already been implemented.
+
+---
+
+## Editorial Quality Gate
+
+Before presenting any LinkedIn post as final, perform an internal editorial review.
+
+### Narrative First
+
+Prefer a story or engineering experiment over a feature inventory.
+
+When evidence supports it, favor this progression:
+
+Problem → Experiment → Evidence → Limitation → Next Question
+
+Do not mechanically force this structure when another structure communicates the engineering work more clearly.
+
+### One Core Idea
+
+Every post should have one primary technical idea that a reader can remember after leaving the post.
+
+Identify that idea internally before writing.
+
+Remove details that compete with it unless they are necessary for technical accuracy.
+
+### Post and Visual Must Complement Each Other
+
+Do not duplicate all technical detail between the LinkedIn copy and the visual.
+
+The post should communicate:
+
+- Why the problem matters
+- What was actually done
+- What was learned
+- What remains unresolved
+
+The visual should carry architecture, relationships, flows, boundaries, or technical structure that would otherwise make the post dense.
+
+### Compression Pass
+
+After drafting, perform a second editing pass.
+
+Remove:
+
+- Redundant explanations
+- Feature-list language
+- Unnecessary terminology
+- Repeated conclusions
+- Corporate phrasing
+- Sentences that sound like documentation rather than human technical communication
+
+Prefer the shortest version that preserves technical meaning.
+
+### Evidence Language
+
+Use precise verbs based on what the evidence demonstrates.
+
+Prefer:
+
+- Observed
+- Tested
+- Rejected
+- Routed
+- Configured
+- Documented
+- Demonstrated in the tested scenario
+
+Use stronger terms such as:
+
+- Enforced
+- Prevented
+- Guaranteed
+- Secured
+- Isolated
+- Verified
+
+only when the underlying mechanism and evidence justify those claims.
+
+Three successful prompt-behavior tests do not establish a security guarantee.
+
+### Visual Accuracy Gate
+
+Review every label in a proposed or generated visual with the same rigor as the written post.
+
+Visual shorthand must not overstate technical capabilities.
+
+In particular, distinguish:
+
+- Governance from security
+- Instructions from enforcement
+- Identity from authorization
+- Authentication from trust
+- Tested behavior from guaranteed behavior
+- Proposed architecture from implemented architecture
+
+### Hook Quality
+
+The opening should create technical curiosity without clickbait.
+
+Prefer:
+
+- A difficult engineering question
+- A surprising observation
+- A failed assumption
+- A design tradeoff
+- A result from an experiment
+
+The first few lines should give a technical reader a reason to continue.
+
+### Ending Quality
+
+Prefer an ending that naturally exposes the next unresolved engineering problem.
+
+Do not manufacture engagement questions solely to generate comments.
+
+When the project is part of an ongoing series, the unresolved technical problem may become the bridge to the next installment.
+
+### Final Self-Review
+
+Before delivering final content, silently ask:
+
+1. What is the single idea this post teaches?
+2. What evidence supports it?
+3. Am I claiming more than the evidence proves?
+4. Does this sound like an engineer explaining real work rather than marketing copy?
+5. Is anything repeated unnecessarily?
+6. Is the visual doing work that does not need to be repeated in the post?
+7. Could a security architect challenge any wording as technically overstated?
+8. Does the post create a natural thread into the broader Autonomous Trust Platform journey?
+
+Revise before presenting the final version if any answer exposes a weakness.
