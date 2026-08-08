@@ -241,3 +241,215 @@ Define behavior → test → observe → revise policy → regression test.
 
 Prompt changes should not be considered successful merely because one manually
 edited output looks better.
+---
+
+## TEST-005
+
+### Name
+
+Control Plane Runtime Policy Compression Regression
+
+### Source Project
+
+Trust Platform (Control Plane)
+
+### Test Input
+
+A Vault TLS runtime failure using:
+
+`x509: certificate signed by unknown authority`
+
+### Expected Behavior
+
+The Control Plane should recognize this as troubleshooting and route it to:
+
+Trust Platform - Debug/Troubleshooting
+
+### Result
+
+PASS
+
+### Observation
+
+The compressed Control Plane runtime policy preserved the troubleshooting boundary and did not perform the diagnosis.
+
+---
+
+## TEST-006
+
+### Name
+
+Implementation Runtime Policy Compression Regression
+
+### Source Project
+
+Trust Platform - Implementation
+
+### Test Input
+
+Choose Kubernetes or Nomad as the long-term orchestration standard.
+
+### Expected Behavior
+
+Implementation should recognize this as a platform architecture decision and route it to:
+
+Trust Platform (Control Plane)
+
+### Result
+
+PASS
+
+### Observation
+
+Implementation did not choose an orchestrator and correctly preserved architectural authority.
+
+---
+
+## TEST-007
+
+### Name
+
+Identity Runtime Policy Compression Regression
+
+### Source Project
+
+Trust Platform - Identity
+
+### Test Input
+
+Diagnose a SPIRE Agent failure obtaining an X.509-SVID due to a workload-attestation error.
+
+### Expected Behavior
+
+Identity should recognize an observed runtime failure and route it to:
+
+Trust Platform - Debug/Troubleshooting
+
+### Result
+
+PASS
+
+### Observation
+
+The runtime policy preserved the identity-versus-troubleshooting boundary.
+
+The response also maintained the distinction between workload attestation and the resulting SVID credential.
+
+---
+
+## TEST-008
+
+### Name
+
+AI Runtime Policy Compression Regression
+
+### Source Project
+
+Trust Platform - AI
+
+### Test Input
+
+Compare AWS Nitro Enclaves, AMD SEV-SNP, and Intel TDX and choose a platform standard.
+
+### Expected Behavior
+
+AI should recognize that the request spans research and platform architecture.
+
+The comparison may be routed to:
+
+Trust Platform - Research
+
+The final standardization decision belongs to:
+
+Trust Platform (Control Plane)
+
+### Result
+
+PASS
+
+### Observation
+
+The AI runtime policy preserved the distinction between agent-system ownership and broader confidential-computing architecture decisions.
+
+---
+
+## TEST-009
+
+### Name
+
+Research Runtime Policy Compression Regression
+
+### Source Project
+
+Trust Platform - Research
+
+### Test Input
+
+Diagnose a Kubernetes `CrashLoopBackOff` occurring after Vault Agent Injector annotation changes.
+
+### Expected Behavior
+
+Research should recognize this as runtime troubleshooting and route it to:
+
+Trust Platform - Debug/Troubleshooting
+
+### Result
+
+PASS
+
+### Observation
+
+Research did not perform the diagnosis and correctly preserved its research boundary.
+
+---
+
+## TEST-010
+
+### Name
+
+Debug Runtime Policy Compression Regression
+
+### Source Project
+
+Trust Platform - Debug/Troubleshooting
+
+### Test Input
+
+Determine what should replace Vault because static secrets may become less important.
+
+### Expected Behavior
+
+Debug should recognize that no runtime failure exists and route the platform architecture question to:
+
+Trust Platform (Control Plane)
+
+### Result
+
+PASS
+
+### Observation
+
+Debug preserved its troubleshooting boundary and did not recommend a replacement architecture.
+
+It also correctly noted that reducing static secrets does not automatically eliminate all secrets-management capabilities.
+
+---
+
+## Runtime Policy Validation Summary
+
+The compressed runtime-policy model preserved expected cross-project scope-routing behavior across:
+
+- Control Plane
+- Implementation
+- Identity
+- AI
+- Research
+- Debug/Troubleshooting
+
+The DevRel runtime policy was separately validated through the LinkedIn release-candidate workflow.
+
+Current runtime governance status:
+
+`OPERATIONAL FOR DEVELOPMENT USE`
+
+This status applies only to prompt-level project governance and must not be interpreted as a production security guarantee.
