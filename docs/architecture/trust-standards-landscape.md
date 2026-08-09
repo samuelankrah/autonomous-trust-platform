@@ -63,7 +63,7 @@ environment state and enable that evidence to be appraised.
 
 Attestation is not equivalent to identity or authorization.
 
-### 3. Workload and Agent Identity
+### 3. Workload Identity and Logical Actor Binding
 
 Relevant standards and technologies:
 
@@ -73,11 +73,18 @@ Relevant standards and technologies:
 
 Primary concern:
 
-Establish stable workload identifiers, trust domains, and
-cryptographically verifiable workload credentials.
+Establish workload identifiers, trust-domain-scoped identity semantics,
+and cryptographically verifiable workload credentials.
 
-SPIFFE and WIMSE have overlapping concerns but are not currently
-treated as competing architecture selections.
+Workload identity does not automatically establish the identity of
+every logical actor executing inside the workload.
+
+The relationship between a logical actor, including an AI agent, and
+its hosting workload is a separate architecture concern governed by
+the Principal Model and ADR-0002.
+
+No listed workload-identity standard is assumed by this document to
+provide a complete logical AI-agent identity architecture.
 
 ### 4. Authentication and Proof of Possession
 
@@ -144,60 +151,140 @@ it does not establish that the statement itself is true.
 
 ## Current Standards Tracking
 
-| Standard / Area | Architectural Role | Current Status |
-|---|---|---|
-| SPIFFE / SPIRE | Workload identity and credentialing | Existing study area |
-| WIMSE | Workload identity interoperability, authentication, context, and delegation | Emerging standard under evaluation |
-| RATS | Attestation architecture and trust appraisal | Under architectural evaluation |
-| EAT | Attestation-oriented claims representation | Under architectural evaluation |
-| OAuth workload identity | Authorization and federation bridge | Under architectural evaluation |
-| SPICE | Verifiable credentials and claim presentation | Emerging standard under evaluation |
-| SCITT | Transparency, provenance, and accountability | Under architectural evaluation |
-| Attestation mechanisms | Generation of platform/workload trust evidence | Architecture area under evaluation |
+Standards maturity and Autonomous Trust Platform adoption status are
+tracked independently.
+
+| Standard / Area                              | External Maturity / Status                                                                     | Architectural Role                                                                                   | ATP Adoption Status                                       |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| SPIFFE                                       | Published open workload-identity specification                                                 | Workload identity, trust domains, verifiable identity documents                                      | Existing study area; no platform standardization decision |
+| SPIRE                                        | Production implementation of SPIFFE APIs                                                       | SPIFFE workload-identity issuance, attestation, and distribution implementation                      | Existing study area; no platform standardization decision |
+| WIMSE                                        | Active IETF work; architecture currently an Internet-Draft                                     | Workload identity interoperability, authentication, security context, and related workload protocols | Under architectural evaluation                            |
+| RATS                                         | RFC 9334, Informational                                                                        | Remote-attestation architecture, evidence appraisal, verifier and relying-party roles                | Under architectural evaluation                            |
+| EAT                                          | RFC 9711, Proposed Standard                                                                    | Attestation-oriented claims representation                                                           | Under architectural evaluation                            |
+| OAuth workload identity / authorization work | Multiple standards and active specifications rather than one single workload-identity standard | Authorization, delegation, transaction context, and protocol integration where applicable            | Under architectural evaluation                            |
+| SPICE                                        | Active IETF working group with Internet-Drafts                                                 | Digital credential and presentation patterns                                                         | Under architectural evaluation                            |
+| SCITT                                        | RFC 9943, Proposed Standard                                                                    | Transparency and verifiable registration/auditing of signed supply-chain statements                  | Under architectural evaluation                            |
+| Attestation mechanisms                       | Technology-dependent architecture area                                                         | Generation and protection of platform/workload evidence                                              | Under architectural evaluation                            |
+
+External maturity does not imply platform adoption.
+
+Likewise, a technology remaining under Autonomous Trust Platform
+evaluation does not imply that the external specification itself is
+immature.
+
 
 ## Dependency Model
 
-The conceptual trust flow is:
+Trust dependencies are not assumed to form one universal linear chain.
 
-Execution root of trust
+Different security decisions may consume different combinations of
+identity, attestation, provenance, delegation, policy, and contextual
+evidence.
 
-→ Attestation evidence
+Conceptually:
 
-→ Evidence appraisal
+```text
+                         Principal
+                             |
+                             v
+                    Identity / Credential
+                             |
+                             v
+                       Authentication
+                             |
+                             |
+        +--------------------+--------------------+
+        |                    |                    |
+        v                    v                    v
+ Attestation /          Provenance /         Environmental
+ Runtime Evidence       Supply-Chain         Context
+                        Evidence
+        |                    |                    |
+        +--------------------+--------------------+
+                             |
+                             v
+                      Trust Evaluation
+                             |
+               +-------------+-------------+
+               |                           |
+               v                           v
+      Delegated Authority             Policy / Context
+               |                           |
+               +-------------+-------------+
+                             |
+                             v
+                   Authorization Decision
+                             |
+                             v
+                         Enforcement
+                             |
+                             v
+                       Resource Action
+                             |
+                             v
+                  Audit / Transparency Evidence
+```
 
-→ Workload identity bootstrap or validation
+This model is conceptual.
 
-→ Authentication / proof of possession
+It does not require every interaction to use every evidence source or
+architecture layer.
 
-→ Authorization / policy evaluation
+Attestation does not inherently create identity.
 
-→ Resource action
+Identity does not inherently create authority.
 
-→ Auditable and potentially transparent evidence
+Trust evaluation does not itself constitute authorization.
 
-This flow is conceptual. It does not imply that every implementation
-must use every layer or listed standard.
+Delegated authority must not be inferred solely from authenticated
+identity or attestation evidence.
+
+Authorization becomes meaningful only when an enforcement mechanism
+applies the resulting decision.
 
 ## Trust-Anchor Principle
 
-Replacing long-lived shared secrets does not eliminate trust anchors.
+Replacing long-lived shared secrets does not eliminate trust anchors
+or trust dependencies.
 
-Future architectures may still depend on:
+Different trust functions may depend on different authorities and
+anchors.
 
-- Private keys
-- Credential issuers
-- Trust bundles
+Examples include:
+
+- Identity issuing authorities
+- SPIFFE trust bundles
+- Public-key infrastructure roots
 - Attestation roots
-- Reference values
-- Endorsements
+- Endorsement authorities
+- Reference-value authorities
 - Verification keys
+- Hardware roots of trust
+- Software provenance signing authorities
+- SCITT transparency-service verification material
+- Delegation authorities
 - Policy authorities
-- Key rotation
-- Revocation
-- Compromise recovery
+- Administrative registration systems
 
-These dependencies must be made explicit in future architecture
-decisions.
+The architecture must not assume that one universal root of trust
+governs all of these functions.
+
+For every material trust anchor or authority, future architecture must
+identify:
+
+1. What assertion or function it anchors
+2. Who controls it
+3. Which trust domain accepts it
+4. How it is initially provisioned
+5. How it is authenticated or verified
+6. How it is rotated
+7. How it is revoked
+8. What happens when it is unavailable
+9. What happens when it is compromised
+10. Which downstream trust relationships are affected by its failure
+
+Trust-anchor ownership is therefore part of the trust architecture,
+not merely a cryptographic implementation detail.
 
 ## Adoption Status
 
