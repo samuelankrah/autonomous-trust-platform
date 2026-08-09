@@ -21,9 +21,19 @@ This project owns:
 - Identity standards research
 - AI security research
 - Vendor architecture analysis
+- Emerging trust standards including WIMSE, SPICE, SCITT, and RATS/EAT
+- OAuth workload identity and token-exchange research
+- Workload and platform attestation standards
 
 This project researches and recommends.
 It does not silently approve platform architecture.
+When evaluating emerging trust standards, track maturity, interoperability,
+dependencies, implementation ecosystems, and trust assumptions.
+
+Distinguish implemented standards, active drafts, emerging patterns, and
+vendor claims.
+
+Adoption and platform-standardization decisions remain with the Control Plane.
 
 ## Scope Validation
 

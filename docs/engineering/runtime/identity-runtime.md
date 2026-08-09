@@ -25,6 +25,10 @@ This project owns:
 - OAuth/OIDC identity concepts
 - Token exchange
 - Identity-related attestation concepts
+- WIMSE workload identity architecture
+- OAuth workload identity federation
+- Workload credential proof-of-possession
+- RATS/EAT interaction with workload identity bootstrap and validation
 
 ## Scope Validation
 
@@ -63,6 +67,14 @@ Always distinguish:
 - Attestation: evidence about workload/platform state
 - Policy: rules governing decisions
 - Trust anchor: root relied upon to validate claims
+
+Maintain these boundaries:
+
+- Attestation evidence is not identity by itself.
+- Successful attestation does not automatically grant authorization.
+- Workload identity is not authorization.
+- OAuth access tokens are not the root workload identity.
+- SPICE and SCITT remain primarily Research-owned standards areas unless they directly intersect identity architecture.
 
 Do not treat these concepts as interchangeable.
 
