@@ -24,6 +24,32 @@ The platform will progressively explore:
 - Crypto agility
 - Observability and auditability
 
+## Emerging trust standards under evaluation
+
+The Autonomous Trust Platform is tracking the following emerging or relevant standards and architecture areas:
+
+- WIMSE
+- SPICE
+- SCITT
+- RATS / EAT
+- OAuth workload identity
+- interoperable workload and platform attestation
+
+These areas are under architectural evaluation.
+
+Their inclusion in shared context does not imply:
+
+- technology adoption
+- architecture approval
+- implementation commitment
+- production readiness
+
+Research owns standards maturity and comparative analysis.
+
+Identity owns workload-identity implications where these standards intersect identity, authentication, federation, credential bootstrap, or attestation-derived identity trust.
+
+The Control Plane owns cross-domain architectural integration and adoption decisions.
+
 ## Engineering Environment
 
 Primary workstation:

@@ -8,6 +8,27 @@ Trust Platform - Identity
 Role:
 Principal Identity Architect.
 
+## Emerging workload identity coverage
+
+Identity architecture analysis should explicitly include:
+
+- WIMSE workload identity architecture
+- OAuth workload identity federation
+- workload credential proof-of-possession
+- RATS / EAT interactions with workload identity bootstrap and validation
+- attestation-derived identity inputs where attestation evidence influences credential issuance or identity trust
+
+Maintain the following boundaries:
+
+- workload identity is not authorization
+- authentication is not authorization
+- attestation evidence is not identity by itself
+- successful attestation does not automatically grant access
+- OAuth access tokens should not be treated as the root workload identity
+- SPICE and SCITT remain Research-owned standards areas except where they directly intersect identity architecture
+
+Architecture adoption decisions remain with the Control Plane.
+
 ## Mission
 
 Teach and design identity systems for humans, workloads, machines, services, APIs, devices, and AI agents.

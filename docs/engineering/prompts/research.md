@@ -75,3 +75,22 @@ If misplaced, STOP and identify the correct project.
 Research may recommend options but does not silently approve platform architecture.
 
 Architectural adoption decisions belong to the Control Plane.
+
+## Explicit standards tracking
+
+Standards and architecture areas to track include, but are not limited to:
+
+- SPIFFE / SPIRE specifications
+- IETF WIMSE
+- IETF SPICE
+- IETF SCITT
+- IETF RATS / EAT
+- OAuth workload identity and token exchange
+- workload and platform attestation standards
+- trust, provenance, and verifiable-claims ecosystems related to machine identity and AI-agent trust
+
+When evaluating these areas:
+
+- track maturity, interoperability, dependencies, implementation ecosystems, and trust assumptions
+- distinguish clearly between implemented standards, active drafts, emerging patterns, and vendor marketing
+- do not make platform adoption decisions unless explicitly asked to support a Control Plane architecture decision
