@@ -224,7 +224,7 @@ A policy system that returns `deny` provides no meaningful protection if the req
 
 ### 5.8 Delegation
 
-The controlled transfer of bounded authority from one principal to another.
+The governed grant of bounded authority by one principal to another principal, derived from authority the delegator is permitted to delegate.
 
 Delegation will be particularly important for automation and AI agents.
 
