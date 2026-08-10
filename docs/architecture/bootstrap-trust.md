@@ -1526,7 +1526,7 @@ This demonstrates why registration governance is part of bootstrap trust.
 
 ## 57. Bootstrap Invariants
 
-The following are proposed Sprint 1 invariants.
+The following model-specific invariants are incorporated into the accepted Sprint 1 Security Invariants architecture.
 
 ### BT-01
 
@@ -1576,7 +1576,7 @@ Silent downgrade to weaker bootstrap evidence is prohibited unless explicitly pe
 
 Bootstrap and re-bootstrap events must be auditable where they alter security-relevant trust state.
 
-These remain proposed until incorporated into the Sprint 1 Security Invariants artifact.
+These model-specific invariants are incorporated into `docs/architecture/security-invariants.md`.
 
 ---
 

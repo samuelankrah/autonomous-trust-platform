@@ -1537,7 +1537,7 @@ No implicit union of authority is assumed.
 
 ## 74. Delegation Invariants
 
-The following are proposed Task 5 invariants.
+The following model-specific invariants are incorporated into the accepted Sprint 1 Security Invariants architecture.
 
 ### DA-01
 
@@ -1619,7 +1619,7 @@ The system that issues or represents a delegation artifact must not be assumed t
 
 Derived authority must be re-evaluated when the authority basis from which it was derived becomes invalid.
 
-These invariants remain proposed until accepted through Sprint 1 governance.
+These model-specific invariants are incorporated into `docs/architecture/security-invariants.md`.
 ---
 
 ## 75. Candidate Architecture Decision

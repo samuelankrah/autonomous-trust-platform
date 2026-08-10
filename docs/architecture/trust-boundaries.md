@@ -1288,7 +1288,7 @@ Strong cryptography cannot compensate for a compromised trusted issuer.
 
 ## 40. Trust-Boundary Invariants
 
-The following are proposed Sprint 1 invariants.
+The following model-specific invariants are incorporated into the accepted Sprint 1 Security Invariants architecture.
 
 ### TB-01
 
@@ -1330,7 +1330,7 @@ A credential valid under one trust domain must not automatically be accepted by 
 
 Compromise and availability propagation must be analyzed for material trust authorities.
 
-These remain proposed until incorporated into the Sprint 1 Security Invariants artifact.
+These model-specific invariants are incorporated into `docs/architecture/security-invariants.md`.
 
 ---
 

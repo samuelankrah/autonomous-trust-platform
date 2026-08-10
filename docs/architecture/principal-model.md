@@ -1189,7 +1189,7 @@ Where the logical agent persists across runtime boundaries, workload identity ca
 
 ## 19. Security Invariants Emerging From This Model
 
-The following are proposed Sprint 1 invariants:
+The following model-specific invariants are incorporated into the accepted Sprint 1 Security Invariants architecture:
 
 ### PI-01
 
@@ -1219,7 +1219,7 @@ Audit evidence for autonomous actions must preserve sufficient principal context
 
 Identity validity must remain conceptually independent of authority validity.
 
-These remain proposed until incorporated into the Sprint 1 security-invariants artifact.
+These model-specific invariants are incorporated into `docs/architecture/security-invariants.md`.
 
 ---
 

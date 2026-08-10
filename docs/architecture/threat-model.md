@@ -1615,7 +1615,7 @@ Attestation may contribute evidence but does not inherently establish authorizat
 
 ## 86. Threat Invariants
 
-The following are proposed threat-model invariants.
+The following are accepted architecture-level threat-model invariants.
 
 ### TM-01
 
@@ -1824,7 +1824,7 @@ The Threat Model is ready for acceptance when it:
 * Identifies residual risk
 * Identifies future architecture gaps
 * Includes representative attack scenarios
-* Produces proposed threat-model invariants
+* Produces threat-model invariants
 
 No ADR is required merely because a threat exists.
 
