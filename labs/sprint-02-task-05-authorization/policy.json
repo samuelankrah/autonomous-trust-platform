@@ -1,0 +1,9 @@
+{
+  "policy_id": "payments-report-read",
+  "version": "2026-08-16.cycle-1",
+  "workload": "workload://atp-lab/payments-reporter",
+  "principal": "principal://atp-lab/reporting-job",
+  "resource": "/payments/report",
+  "action": "READ",
+  "authority_source": "finance-control"
+}
