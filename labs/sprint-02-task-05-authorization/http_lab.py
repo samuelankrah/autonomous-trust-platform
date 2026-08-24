@@ -8,18 +8,25 @@ from authorization_lab import (
     RESOURCE,
     Authority,
     AuthorizationDecisionFunction,
+    Decision,
     EnforcementPoint,
     EvidenceLedger,
+    IDENTITY_KEY,
     PaymentsReportResource,
     Request,
     WorkloadIdentity,
+    verify,
 )
+
+
+def encode_artifact(artifact):
+    payload = json.dumps(asdict(artifact), sort_keys=True, separators=(",", ":"))
+    return base64.urlsafe_b64encode(payload.encode()).decode().rstrip("=")
 
 
 def decode_artifact(header_value, artifact_type):
     padded = header_value + "=" * (-len(header_value) % 4)
-    decoded = base64.urlsafe_b64decode(padded.encode("ascii"))
-    claims = json.loads(decoded.decode("utf-8"))
+    claims = json.loads(base64.urlsafe_b64decode(padded).decode())
     if not isinstance(claims, dict):
         raise ValueError("artifact must be a JSON object")
     return artifact_type(**claims)
@@ -27,7 +34,7 @@ def decode_artifact(header_value, artifact_type):
 
 class PaymentsHandler(BaseHTTPRequestHandler):
     def send_json(self, status_code, payload):
-        body = json.dumps(payload).encode("utf-8")
+        body = json.dumps(payload).encode()
         self.send_response(status_code)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(body)))
@@ -35,31 +42,56 @@ class PaymentsHandler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
+        request_id = self.headers.get("X-Request-ID")
+
+        if self.path == "/internal/payments/report":
+            self.send_json(
+                403,
+                {
+                    "request_id": request_id,
+                    "enforcement": "BYPASS_BLOCKED",
+                    "evidence": [{
+                        "event_type": "enforcement.bypass_attempt",
+                        "request_id": request_id,
+                        "outcome": "BLOCKED",
+                    }],
+                },
+            )
+            return
+
         if self.path != "/payments/report":
             self.send_json(404, {"error": "not found"})
             return
 
-        request_id = self.headers.get("X-Request-ID")
         identity_header = self.headers.get("X-Workload-Identity")
         authority_header = self.headers.get("X-Authority")
+        decision_header = self.headers.get("X-Authorization-Decision")
 
-        if not request_id:
-            self.send_json(400, {"error": "X-Request-ID is required"})
-            return
-
-        if not identity_header:
-            self.send_json(400, {"error": "X-Workload-Identity is required"})
+        if not request_id or not identity_header:
+            self.send_json(400, {"error": "request ID and workload identity are required"})
             return
 
         try:
             identity = decode_artifact(identity_header, WorkloadIdentity)
-            authority = (
-                decode_artifact(authority_header, Authority)
-                if authority_header
-                else None
-            )
+            authority = decode_artifact(authority_header, Authority) if authority_header else None
         except (ValueError, TypeError, UnicodeDecodeError, json.JSONDecodeError):
             self.send_json(400, {"error": "invalid authorization artifact"})
+            return
+
+        if not verify(identity.claims(), identity.signature, IDENTITY_KEY):
+            self.send_json(
+                401,
+                {
+                    "request_id": request_id,
+                    "authentication": "FAILED",
+                    "reason": "workload identity cannot be verified",
+                    "evidence": [{
+                        "event_type": "authentication.failure",
+                        "request_id": request_id,
+                        "outcome": "FAILED",
+                    }],
+                },
+            )
             return
 
         request = Request(
@@ -71,43 +103,46 @@ class PaymentsHandler(BaseHTTPRequestHandler):
             identity=identity,
             authority=authority,
         )
-
         ledger = EvidenceLedger()
-        decision = AuthorizationDecisionFunction(ledger).evaluate(request)
-        response = EnforcementPoint(
-            ledger,
-            PaymentsReportResource(ledger),
-        ).enforce(request, decision)
 
+        if decision_header:
+            try:
+                decision = decode_artifact(decision_header, Decision)
+            except (ValueError, TypeError, UnicodeDecodeError, json.JSONDecodeError):
+                self.send_json(400, {"error": "invalid authorization decision"})
+                return
+            ledger.record(
+                "authorization.decision.presented",
+                request_id=request_id,
+                decision_id=decision.decision_id,
+                original_request_id=decision.request_id,
+            )
+        else:
+            available = self.headers.get("X-Lab-Authorization-Dependency") != "unavailable"
+            decision = AuthorizationDecisionFunction(ledger, available=available).evaluate(request)
+
+        response = EnforcementPoint(ledger, PaymentsReportResource(ledger)).enforce(request, decision)
         evidence = ledger.for_request(request_id)
 
         if response is not None:
-            self.send_json(
-                200,
-                {
-                    "report": response["report"],
-                    "request_id": request_id,
-                    "decision": {
-                        "id": decision.decision_id,
-                        "state": decision.state,
-                        "policy_version": decision.policy_version,
-                    },
-                    "enforcement": "ALLOWED",
-                    "evidence": evidence,
-                },
-            )
+            self.send_json(200, {
+                "report": response["report"],
+                "request_id": request_id,
+                "decision": {"id": decision.decision_id, "state": decision.state,
+                             "policy_version": decision.policy_version},
+                "decision_artifact": encode_artifact(decision),
+                "enforcement": "ALLOWED",
+                "evidence": evidence,
+            })
             return
 
         self.send_json(
-            403 if decision.state == "DENY" else 503,
+            503 if decision.state == "INDETERMINATE" else 403,
             {
                 "request_id": request_id,
-                "decision": {
-                    "id": decision.decision_id,
-                    "state": decision.state,
-                    "policy_version": decision.policy_version,
-                    "reason": decision.reason,
-                },
+                "decision": {"id": decision.decision_id, "state": decision.state,
+                             "policy_version": decision.policy_version,
+                             "reason": decision.reason},
                 "enforcement": "DENIED",
                 "evidence": evidence,
             },

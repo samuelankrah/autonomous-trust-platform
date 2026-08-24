@@ -41,28 +41,41 @@ class HttpAuthorizationEnforcementTests(unittest.TestCase):
         cls.server.server_close()
         cls.thread.join()
 
-    def get_report(self, request_id, identity, authority=None):
-        headers = {
-            "X-Request-ID": request_id,
-            "X-Workload-Identity": encode_artifact(identity),
-        }
+    def request(
+        self,
+        request_id,
+        identity=None,
+        authority=None,
+        decision_artifact=None,
+        dependency_unavailable=False,
+        path="/payments/report",
+    ):
+        headers = {"X-Request-ID": request_id}
+        if identity is not None:
+            headers["X-Workload-Identity"] = encode_artifact(identity)
         if authority is not None:
             headers["X-Authority"] = encode_artifact(authority)
+        if decision_artifact is not None:
+            headers["X-Authorization-Decision"] = decision_artifact
+        if dependency_unavailable:
+            headers["X-Lab-Authorization-Dependency"] = "unavailable"
 
-        connection = http.client.HTTPConnection(
-            self.host,
-            self.port,
-            timeout=2,
-        )
-        connection.request("GET", "/payments/report", headers=headers)
+        connection = http.client.HTTPConnection(self.host, self.port, timeout=2)
+        connection.request("GET", path, headers=headers)
         response = connection.getresponse()
         body = json.loads(response.read().decode("utf-8"))
         connection.close()
         return response.status, body
 
-    def test_permit_reaches_protected_resource(self):
-        status, body = self.get_report(
-            "http-artifact-permit-001",
+    def assert_resource_not_reached(self, body):
+        self.assertNotIn(
+            "resource.operation",
+            [event["event_type"] for event in body["evidence"]],
+        )
+
+    def test_01_permit_reaches_protected_resource(self):
+        status, body = self.request(
+            "permit-001",
             issue_workload_identity(),
             issue_authority(),
         )
@@ -70,46 +83,97 @@ class HttpAuthorizationEnforcementTests(unittest.TestCase):
         self.assertEqual(200, status)
         self.assertEqual("PERMIT", body["decision"]["state"])
         self.assertEqual("ALLOWED", body["enforcement"])
-        self.assertEqual(
-            [
-                "authorization.decision",
-                "enforcement.outcome",
-                "resource.operation",
-            ],
+        self.assertIn("decision_artifact", body)
+        self.assertIn(
+            "resource.operation",
             [event["event_type"] for event in body["evidence"]],
         )
 
-    def test_missing_authority_is_denied_before_resource_operation(self):
-        status, body = self.get_report(
-            "http-artifact-deny-001",
+    def test_02_missing_authority_is_denied(self):
+        status, body = self.request(
+            "deny-001",
             issue_workload_identity(),
         )
 
         self.assertEqual(403, status)
         self.assertEqual("DENY", body["decision"]["state"])
         self.assertEqual("DENIED", body["enforcement"])
-        self.assertNotIn(
-            "resource.operation",
-            [event["event_type"] for event in body["evidence"]],
+        self.assert_resource_not_reached(body)
+
+    def test_03_wrong_workload_is_denied(self):
+        identity = issue_workload_identity(
+            workload="workload://atp-lab/unrecognized"
+        )
+        authority = issue_authority(workload=identity.workload)
+
+        status, body = self.request("wrong-workload-001", identity, authority)
+
+        self.assertEqual(403, status)
+        self.assertEqual("DENY", body["decision"]["state"])
+        self.assert_resource_not_reached(body)
+
+    def test_04_invalid_identity_is_authentication_failure(self):
+        invalid_identity = replace(
+            issue_workload_identity(),
+            workload="workload://atp-lab/tampered",
         )
 
-    def test_tampered_authority_is_indeterminate(self):
-        tampered_authority = replace(
-            issue_authority(),
-            resource="/payments/other",
-        )
-        status, body = self.get_report(
-            "http-artifact-tamper-001",
+        status, body = self.request("invalid-identity-001", invalid_identity)
+
+        self.assertEqual(401, status)
+        self.assertEqual("FAILED", body["authentication"])
+        self.assertEqual("authentication.failure", body["evidence"][0]["event_type"])
+
+    def test_05_dependency_failure_is_indeterminate(self):
+        status, body = self.request(
+            "dependency-failure-001",
             issue_workload_identity(),
-            tampered_authority,
+            issue_authority(),
+            dependency_unavailable=True,
         )
 
         self.assertEqual(503, status)
         self.assertEqual("INDETERMINATE", body["decision"]["state"])
-        self.assertEqual("DENIED", body["enforcement"])
-        self.assertNotIn(
-            "resource.operation",
-            [event["event_type"] for event in body["evidence"]],
+        self.assert_resource_not_reached(body)
+
+    def test_06_replayed_decision_is_rejected_by_enforcement(self):
+        identity = issue_workload_identity()
+        authority = issue_authority()
+
+        status, original = self.request("original-001", identity, authority)
+        self.assertEqual(200, status)
+
+        status, replay = self.request(
+            "replay-002",
+            identity,
+            authority,
+            decision_artifact=original["decision_artifact"],
+        )
+
+        self.assertEqual(403, status)
+        self.assertEqual("PERMIT", replay["decision"]["state"])
+        self.assertEqual("DENIED", replay["enforcement"])
+        self.assert_resource_not_reached(replay)
+        self.assertEqual(
+            "authorization.decision.presented",
+            replay["evidence"][0]["event_type"],
+        )
+        self.assertEqual(
+            "decision does not bind to this request",
+            replay["evidence"][1]["reason"],
+        )
+
+    def test_07_bypass_attempt_is_blocked(self):
+        status, body = self.request(
+            "bypass-001",
+            path="/internal/payments/report",
+        )
+
+        self.assertEqual(403, status)
+        self.assertEqual("BYPASS_BLOCKED", body["enforcement"])
+        self.assertEqual(
+            "enforcement.bypass_attempt",
+            body["evidence"][0]["event_type"],
         )
 
 

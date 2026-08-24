@@ -2,7 +2,7 @@ import argparse
 import base64
 import http.client
 import json
-from dataclasses import asdict
+from dataclasses import asdict, replace
 
 from authorization_lab import issue_authority, issue_workload_identity
 
@@ -20,24 +20,62 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--scenario",
-        choices=("permit", "deny-no-authority"),
+        choices=(
+            "permit",
+            "deny-no-authority",
+            "wrong-workload",
+            "invalid-identity",
+            "dependency-unavailable",
+            "bypass",
+        ),
         required=True,
     )
     parser.add_argument("--request-id", required=True)
+    parser.add_argument("--decision-artifact")
     args = parser.parse_args()
+
+    identity = issue_workload_identity()
+    if args.scenario == "wrong-workload":
+        identity = issue_workload_identity(
+            workload="workload://atp-lab/unrecognized"
+        )
+    elif args.scenario == "invalid-identity":
+        identity = replace(
+            identity,
+            workload="workload://atp-lab/tampered",
+        )
 
     headers = {
         "X-Request-ID": args.request_id,
-        "X-Workload-Identity": encode_artifact(
-            issue_workload_identity()
-        ),
+        "X-Workload-Identity": encode_artifact(identity),
     }
 
-    if args.scenario == "permit":
-        headers["X-Authority"] = encode_artifact(issue_authority())
+    if args.scenario in (
+        "permit",
+        "wrong-workload",
+        "invalid-identity",
+        "dependency-unavailable",
+    ):
+        headers["X-Authority"] = encode_artifact(
+            issue_authority(
+                workload=identity.workload,
+            )
+        )
+
+    if args.scenario == "dependency-unavailable":
+        headers["X-Lab-Authorization-Dependency"] = "unavailable"
+
+    if args.decision_artifact:
+        headers["X-Authorization-Decision"] = args.decision_artifact
+
+    path = (
+        "/internal/payments/report"
+        if args.scenario == "bypass"
+        else "/payments/report"
+    )
 
     connection = http.client.HTTPConnection("127.0.0.1", 8080, timeout=5)
-    connection.request("GET", "/payments/report", headers=headers)
+    connection.request("GET", path, headers=headers)
     response = connection.getresponse()
     body = json.loads(response.read().decode("utf-8"))
     connection.close()

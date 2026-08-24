@@ -42,6 +42,14 @@ def verify(value: dict[str, Any], signature: str, key: bytes) -> bool:
     return hmac.compare_digest(sign(value, key), signature)
 
 
+def artifact_fingerprint(artifact: Any | None) -> str:
+    if artifact is None:
+        value = {"artifact": "absent"}
+    else:
+        value = asdict(artifact)
+    return hashlib.sha256(canonical(value)).hexdigest()
+
+
 def now() -> datetime:
     return datetime.now(UTC)
 
@@ -104,6 +112,8 @@ class Decision:
     principal: str
     resource: str
     action: str
+    identity_fingerprint: str
+    authority_fingerprint: str
     policy_id: str
     policy_version: str
     reason: str
@@ -272,6 +282,8 @@ class AuthorizationDecisionFunction:
             "principal": request.principal,
             "resource": request.resource,
             "action": request.action,
+            "identity_fingerprint": artifact_fingerprint(request.identity),
+            "authority_fingerprint": artifact_fingerprint(request.authority),
             "policy_id": policy["policy_id"],
             "policy_version": policy["version"],
             "reason": reason,
@@ -346,6 +358,12 @@ class EnforcementPoint:
             request.action,
         ):
             reason = "decision does not bind to this request"
+        elif decision.identity_fingerprint != artifact_fingerprint(request.identity):
+            reason = "decision does not bind to this identity context"
+        elif decision.authority_fingerprint != artifact_fingerprint(request.authority):
+            reason = "decision does not bind to this authority context"
+        elif decision.policy_version != load_policy()["version"]:
+            reason = "decision policy version is no longer current"
         elif decision.state != "PERMIT":
             reason = f"decision state is {decision.state}"
 
