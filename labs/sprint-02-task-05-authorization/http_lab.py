@@ -1,19 +1,33 @@
+import base64
 import json
+from dataclasses import asdict
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 from authorization_lab import (
+    ACTION,
+    RESOURCE,
+    Authority,
     AuthorizationDecisionFunction,
     EnforcementPoint,
     EvidenceLedger,
     PaymentsReportResource,
-    make_request,
+    Request,
+    WorkloadIdentity,
 )
+
+
+def decode_artifact(header_value, artifact_type):
+    padded = header_value + "=" * (-len(header_value) % 4)
+    decoded = base64.urlsafe_b64decode(padded.encode("ascii"))
+    claims = json.loads(decoded.decode("utf-8"))
+    if not isinstance(claims, dict):
+        raise ValueError("artifact must be a JSON object")
+    return artifact_type(**claims)
 
 
 class PaymentsHandler(BaseHTTPRequestHandler):
     def send_json(self, status_code, payload):
         body = json.dumps(payload).encode("utf-8")
-
         self.send_response(status_code)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(body)))
@@ -26,33 +40,45 @@ class PaymentsHandler(BaseHTTPRequestHandler):
             return
 
         request_id = self.headers.get("X-Request-ID")
+        identity_header = self.headers.get("X-Workload-Identity")
+        authority_header = self.headers.get("X-Authority")
+
         if not request_id:
             self.send_json(400, {"error": "X-Request-ID is required"})
             return
 
-        scenario = self.headers.get("X-Lab-Scenario")
-        if scenario == "permit":
-            request = make_request(request_id=request_id)
-        elif scenario == "deny-no-authority":
-            request = make_request(request_id=request_id, authority=None)
-        else:
-            self.send_json(
-                400,
-                {
-                    "error": (
-                        "X-Lab-Scenario must be permit or deny-no-authority"
-                    )
-                },
-            )
+        if not identity_header:
+            self.send_json(400, {"error": "X-Workload-Identity is required"})
             return
 
-        ledger = EvidenceLedger()
-        decision_function = AuthorizationDecisionFunction(ledger)
-        resource = PaymentsReportResource(ledger)
-        enforcement_point = EnforcementPoint(ledger, resource)
+        try:
+            identity = decode_artifact(identity_header, WorkloadIdentity)
+            authority = (
+                decode_artifact(authority_header, Authority)
+                if authority_header
+                else None
+            )
+        except (ValueError, TypeError, UnicodeDecodeError, json.JSONDecodeError):
+            self.send_json(400, {"error": "invalid authorization artifact"})
+            return
 
-        decision = decision_function.evaluate(request)
-        response = enforcement_point.enforce(request, decision)
+        request = Request(
+            request_id=request_id,
+            workload=identity.workload,
+            principal=identity.principal,
+            resource=RESOURCE,
+            action=ACTION,
+            identity=identity,
+            authority=authority,
+        )
+
+        ledger = EvidenceLedger()
+        decision = AuthorizationDecisionFunction(ledger).evaluate(request)
+        response = EnforcementPoint(
+            ledger,
+            PaymentsReportResource(ledger),
+        ).enforce(request, decision)
+
         evidence = ledger.for_request(request_id)
 
         if response is not None:
@@ -72,9 +98,8 @@ class PaymentsHandler(BaseHTTPRequestHandler):
             )
             return
 
-        status_code = 403 if decision.state == "DENY" else 503
         self.send_json(
-            status_code,
+            403 if decision.state == "DENY" else 503,
             {
                 "request_id": request_id,
                 "decision": {
