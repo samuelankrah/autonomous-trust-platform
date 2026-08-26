@@ -247,6 +247,8 @@ Trust is the scoped confidence or reliance placed in a principal, component, iss
 
 Trust does not itself grant permission to perform an action.
 
+The platform does not represent trust as a universal scalar score for a principal. Decision-relevant evidence must remain sufficiently distinct for local policy to evaluate its purpose, validity, freshness, provenance, and required security semantics. A favorable signal in one dimension must not compensate for a failed mandatory authority or policy requirement.
+
 For this project, trust relationships must eventually identify:
 
 - What entity or assertion is being relied upon
