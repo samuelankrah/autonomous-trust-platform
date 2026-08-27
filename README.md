@@ -6,7 +6,7 @@ Build a production-inspired reference architecture demonstrating modern trust sy
 
 ## Mission
 
-Design and implement an end-to-end platform centered on cryptographically verifiable identity, policy-driven authorization, confidential computing, and post-quantum cryptography.
+Design and validate an end-to-end trust platform centered on cryptographically verifiable identity, policy-driven authorization, confidential-computing considerations, and post-quantum cryptography.
 
 ## Core Domains
 
@@ -21,61 +21,79 @@ Design and implement an end-to-end platform centered on cryptographically verifi
 - Post-Quantum Cryptography
 - Observability
 
-## Current Phase
+## Current Status
 
-Phase 1 — Foundations of Trust
+**Phase 1 - Foundations of Trust**
+
+The repository currently contains:
+
+- Foundational architecture, trust boundaries, principal modeling, delegated-authority constraints, security invariants, and threat-model artifacts.
+- A bounded, synthetic Sprint 2 authorization and enforcement vertical slice with reviewable contract, source code, and automated tests.
+- A non-normative CISSP assurance-and-learning map that identifies existing evidence, partial evidence, design-only areas, and gaps.
+
+This repository does not claim production readiness, operational effectiveness, or CISSP compliance/certification.
 
 ## Guiding Principles
 
-- Identity before secrets
-- Trust through cryptographic verification
-- Policy over hard-coded authorization
-- Vendor-neutral architecture
-- Zero Trust by default
-- Ephemeral credentials whenever possible
-- Crypto agility over algorithm dependence
-- Everything observable
-- Everything auditable
-- Security as code
+- Identity does not imply trust or authority.
+- Authentication and authorization are separate concerns.
+- Attestation evidence is not identity by itself.
+- Delegated authority must not amplify.
+- Policy is evaluated separately from enforcement.
+- Failure or uncertainty must not silently increase authority.
+- Vendor-neutral architecture.
+- Short-lived credentials where appropriate.
+- Crypto agility over algorithm dependence.
+- Trust decisions must be observable and auditable.
 
-## Platform Capabilities
+## Documentation and Evidence
 
-The platform will eventually provide:
+### Architecture
 
-- Human authentication
-- Machine authentication
-- Workload identity
-- AI agent identity
-- Dynamic credential issuance
-- Certificate lifecycle management
-- Authorization as Code
-- Hardware attestation
-- Confidential Computing
-- Secure software supply chain
-- Post-Quantum Cryptography
-- End-to-end observability
+- [Platform Charter](docs/architecture/platform-charter.md)
+- [Principal Model](docs/architecture/principal-model.md)
+- [Trust Boundaries](docs/architecture/trust-boundaries.md)
+- [Delegated Authority](docs/architecture/delegated-authority.md)
+- [Security Invariants](docs/architecture/security-invariants.md)
+- [Threat Model](docs/architecture/threat-model.md)
+
+### Bounded Implementation Evidence
+
+- [Sprint 2 Authorization and Enforcement Contract](docs/sprints/sprint-02-task-05-authorization-and-enforcement-contract.md)
+- [Authorization and Enforcement Lab](labs/sprint-02-task-05-authorization/)
+
+### Assurance and Learning
+
+- [CISSP Alignment and Evidence Map](docs/assurance/cissp-alignment-and-evidence-map.md)
+
+The CISSP map is an evaluation lens for learning, assurance reasoning, portfolio explanation, and gap identification. It does not redefine platform architecture or establish a compliance claim.
+
+## Platform Capability Targets
+
+The platform is intended to demonstrate, through bounded and verifiable increments:
+
+- Human, machine, workload, and AI-agent identity concepts
+- Dynamic credential and certificate-lifecycle concepts
+- Policy-driven authorization and explicit enforcement
+- Delegated authority with provenance, scope, lifetime, and accountability
+- Attestation as input to bootstrap or validation decisions
+- Confidential-computing and post-quantum-cryptography considerations
+- Observable and auditable trust decisions
 
 ## Architecture
 
-> Architecture diagrams will evolve throughout the project.
+> Architecture diagrams and implementation evidence will evolve through validated project increments.
 
-Current Status
-
-Foundational design
-
-Planned Architecture
-
-Coming in Phase 1.
+The authoritative architecture is maintained in the [Platform Charter](docs/architecture/platform-charter.md) and its linked architecture artifacts.
 
 ## Success Criteria
 
-The project is considered successful when it demonstrates:
+The project is successful when it demonstrates verifiable, evidence-backed trust behavior across appropriately bounded increments, including:
 
-- Cryptographically verifiable machine identities
-- End-to-end workload authentication
-- Policy-driven authorization
-- AI agents operating under delegated trust
-- Hardware-backed attestation
-- Crypto-agile PKI
+- Cryptographically verifiable machine and workload identity
+- Policy-driven authorization with explicit enforcement
+- AI agents operating under constrained delegated authority
+- Attestation-informed validation or bootstrap decisions
+- Crypto-agile PKI considerations
 - Observable and auditable trust decisions
-- A production-inspired reference architecture
+- A production-inspired reference architecture with documented limitations
