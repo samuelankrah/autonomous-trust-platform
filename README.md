@@ -53,9 +53,13 @@ This repository does not claim production readiness, operational effectiveness, 
 - [Platform Charter](docs/architecture/platform-charter.md)
 - [Principal Model](docs/architecture/principal-model.md)
 - [Trust Boundaries](docs/architecture/trust-boundaries.md)
+- [Trust Standards Landscape](docs/architecture/trust-standards-landscape.md)
+- [Bootstrap Trust](docs/architecture/bootstrap-trust.md)
 - [Delegated Authority](docs/architecture/delegated-authority.md)
 - [Security Invariants](docs/architecture/security-invariants.md)
 - [Threat Model](docs/architecture/threat-model.md)
+- [Failure Model](docs/architecture/failure-model.md)
+- [System Context Architecture](docs/architecture/system-context-architecture.md)
 
 ### Bounded Implementation Evidence
 

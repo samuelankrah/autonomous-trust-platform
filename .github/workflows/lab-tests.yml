@@ -1,0 +1,17 @@
+name: Lab tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  authorization-lab:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run authorization vertical-slice tests
+        run: python3 -m unittest discover -s tests -v
+        working-directory: labs/sprint-02-task-05-authorization

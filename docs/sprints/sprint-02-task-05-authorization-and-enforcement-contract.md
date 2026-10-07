@@ -3,8 +3,10 @@
 **Project:** Autonomous Trust Platform
 **Sprint:** Sprint 2 — Trust Control Contracts & Technology Evaluation Gate
 **Task:** Task 5 — Authorization and Enforcement Contract
-**Status:** Proposed
+**Status:** Accepted
 **Task Date:** 2026-08-16
+**Accepted Date:** 2026-10-06
+**Semantic Review:** PASS
 **Owner:** Trust Platform — Control Plane
 **Repository Baseline:** `6adddd6b2d1565166543a0aa81b54223b02c04e7`
 **Roadmap Authority:** `docs/sprints/sprint-02-plan.md`
@@ -1738,29 +1740,29 @@ Task 5 fails if:
 
 Task 5 content is ready for acceptance when:
 
-* [ ] `AZ-001` through `AZ-022` are defined.
-* [ ] `ENF-001` through `ENF-012` are defined.
-* [ ] `CTL-001` through `CTL-012` are defined.
-* [ ] Authorization context contract is defined.
-* [ ] Authority composition is defined.
-* [ ] Delegation consumption semantics are defined.
-* [ ] Attestation-in-authorization semantics are defined.
-* [ ] Freshness and caching semantics are defined.
-* [ ] Transaction binding semantics are defined.
-* [ ] Decision states are defined.
-* [ ] Effective enforcement semantics are defined.
-* [ ] Complete mediation requirement is defined.
-* [ ] Alternate-path and bypass requirements are defined.
-* [ ] Enforcement outcome evidence is defined.
-* [ ] Local authorization sovereignty is defined.
-* [ ] Co-location rules are defined.
-* [ ] Verification preparation is defined.
-* [ ] Invariant traceability is defined.
-* [ ] Task 6 dependencies are defined.
-* [ ] Task 7 verification dependencies are defined.
-* [ ] Technology-evaluation implications are defined.
-* [ ] Mechanical document validation passes.
-* [ ] Semantic architecture review passes.
+* [x] `AZ-001` through `AZ-022` are defined.
+* [x] `ENF-001` through `ENF-012` are defined.
+* [x] `CTL-001` through `CTL-012` are defined.
+* [x] Authorization context contract is defined.
+* [x] Authority composition is defined.
+* [x] Delegation consumption semantics are defined.
+* [x] Attestation-in-authorization semantics are defined.
+* [x] Freshness and caching semantics are defined.
+* [x] Transaction binding semantics are defined.
+* [x] Decision states are defined.
+* [x] Effective enforcement semantics are defined.
+* [x] Complete mediation requirement is defined.
+* [x] Alternate-path and bypass requirements are defined.
+* [x] Enforcement outcome evidence is defined.
+* [x] Local authorization sovereignty is defined.
+* [x] Co-location rules are defined.
+* [x] Verification preparation is defined.
+* [x] Invariant traceability is defined.
+* [x] Task 6 dependencies are defined.
+* [x] Task 7 verification dependencies are defined.
+* [x] Technology-evaluation implications are defined.
+* [x] Mechanical document validation passes.
+* [x] Semantic architecture review passes.
 
 ### Repository Closure Gate
 
