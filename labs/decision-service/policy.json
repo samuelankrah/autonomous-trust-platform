@@ -1,0 +1,1 @@
+{"note":"Deliberately small, versioned local policy for the demo. Version is recorded on every decision (AZ-016).","policy_id":"atp-demo-policy","policy_version":"2026-10-07.demo-1","requires_attestation":true,"resources":{"/reports/quarterly":{"actions":["READ"],"requires_attestation":true}}}

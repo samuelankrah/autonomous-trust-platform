@@ -23,12 +23,14 @@ Design and validate an end-to-end trust platform centered on cryptographically v
 
 ## Current Status
 
-**Phase 1 - Foundations of Trust**
+**v1.0 - Evaluated and Demonstrated**
 
 The repository currently contains:
 
 - Foundational architecture, trust boundaries, principal modeling, delegated-authority constraints, security invariants, and threat-model artifacts.
-- A bounded, synthetic Sprint 2 authorization and enforcement vertical slice with reviewable contract, source code, and automated tests.
+- Complete Sprint 2 trust control contracts: authorization and enforcement, failure and degraded-mode behavior, invariant-to-control verification, specialist work packages, a technology evaluation framework, and a component mapping gate.
+- Accepted specialist research returns (identity, attestation and standards, AI agents, implementation feasibility), each labeled Research Finding.
+- Two bounded, synthetic demonstration labs with reviewable contracts, source code, and automated tests: the Sprint 2 authorization and enforcement vertical slice, and the decision-service demonstration (injectable clock, SPIFFE-ID-shaped workload identities, bounded delegation, signed policy decisions, enforcement stub, append-only evidence ledger, deterministic reruns).
 - A non-normative CISSP assurance-and-learning map that identifies existing evidence, partial evidence, design-only areas, and gaps.
 
 This repository does not claim production readiness, operational effectiveness, or CISSP compliance/certification.
@@ -65,6 +67,8 @@ This repository does not claim production readiness, operational effectiveness, 
 
 - [Sprint 2 Authorization and Enforcement Contract](docs/sprints/sprint-02-task-05-authorization-and-enforcement-contract.md)
 - [Authorization and Enforcement Lab](labs/sprint-02-task-05-authorization/)
+- [Decision-Service Demonstration](labs/decision-service/)
+- [Specialist Research Returns](docs/research/)
 
 ### Assurance and Learning
 

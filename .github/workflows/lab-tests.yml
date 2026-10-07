@@ -15,3 +15,6 @@ jobs:
       - name: Run authorization vertical-slice tests
         run: python3 -m unittest discover -s tests -v
         working-directory: labs/sprint-02-task-05-authorization
+      - name: Run decision-service tests
+        run: python3 -m unittest discover -s tests -v
+        working-directory: labs/decision-service

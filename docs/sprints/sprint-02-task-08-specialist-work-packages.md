@@ -925,10 +925,10 @@ Trust Platform: Implementation must not:
 
 | Package ID | Work Package | Owner | Status | Dependencies | Acceptance State |
 |---|---|---|---|---|---|
-| WP-001 | Identity | Trust Platform: Identity | Not Started | Tasks 2, 3, 4 accepted | Pending |
-| WP-002 | Attestation / Standards | Trust Platform: Research (identity integration: Trust Platform: Identity) | Not Started | Tasks 2, 3 accepted; IN-010 | Pending |
-| WP-003 | AI | Trust Platform: AI | Not Started | Tasks 2, 3, 5 accepted | Pending |
-| WP-004 | Implementation Feasibility | Trust Platform: Implementation | Not Started (gated) | Tasks 2 through 7 accepted | Pending |
+| WP-001 | Identity | Trust Platform: Identity | Accepted | Tasks 2, 3, 4 accepted | Accepted |
+| WP-002 | Attestation / Standards | Trust Platform: Research (identity integration: Trust Platform: Identity) | Accepted | Tasks 2, 3 accepted; IN-010 | Accepted |
+| WP-003 | AI | Trust Platform: AI | Accepted | Tasks 2, 3, 5 accepted | Accepted |
+| WP-004 | Implementation Feasibility | Trust Platform: Implementation | Accepted | Tasks 2 through 7 accepted | Accepted |
 
 Status values are limited to: Not Started, In Progress, Returned, Under Review, Accepted, Escalated.
 
@@ -943,6 +943,11 @@ A package moves from Returned to Under Review only after submission in the `WR-0
 The tracking table is maintained by Control Plane.
 
 A specialist project must not change its own acceptance state.
+
+Returns accepted 2026-10-07 per Control Plane review (`docs/research/control-plane-decisions-2026-10-07.md`).
+All four returns carry the five WR-004 sections, trace requirements to accepted inputs, and are labeled
+Research Finding. WP-002 raised one Class C escalation (SI-35 vs selective disclosure); recorded as
+reserved ADR-0009, required before any credential profile selection. No technology selected.
 
 State transitions require Control Plane review evidence.
 
