@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-13
 **Prepared by:** Dex (Muse), Phase 0 coordinator, for Samuel Agyapong Ankrah
-**Status:** Phase 0 technical work complete. Phase 1 is NOT authorized by this report; it waits on the owner stop/go record at the end of this document.
+**Status:** Phase 0 technical work complete. Phase 1 AUTHORIZED as scoped by the owner record at the end of this document (Samuel, 2026-10-13).
 **Scope honored:** validation and design only. No JavaScript, no UI code, no deployment, no accounts, no changes to accepted contracts, sprint docs, or ADRs. Nothing Avallo was referenced, reused, or touched. Supabase was not touched.
 
 **Tracked-copy revision note (2026-10-13):** This copy lives in docs/workshop/ as the tracked audit artifact. It is the Phase 0 report with the peer-review revisions applied: parity wording aligned to the normative projection in the scenario contract, the manual test evidence retained under docs/workshop/evidence/ with a reproducibility manifest, the Study Lab data lifecycle decisions recorded, and the owner decision record appended. The Phase 0 findings and numbers are unchanged.
@@ -93,14 +93,12 @@ Data lifecycle decisions (recorded in full in docs/workshop/study-lab-extension-
 
 ## Owner decision record
 
-**Phase 1: NOT AUTHORIZED pending owner record.**
-
-Complete this block to record the Phase 1 decision. Until it is completed, Phase 1 remains unauthorized.
+**Phase 1: AUTHORIZED as scoped (owner record below, 2026-10-13).**
 
 - Decision (mark one):
-  - [ ] Approve Phase 1 as scoped
+  - [x] Approve Phase 1 as scoped
   - [ ] Approve with changes
   - [ ] Stop
-- Owner decision:
-- Date:
-- Scope changes (if any):
+- Owner decision: Approve Phase 1 as scoped (Samuel Agyapong Ankrah, given in chat)
+- Date: 2026-10-13
+- Scope changes (if any): None
