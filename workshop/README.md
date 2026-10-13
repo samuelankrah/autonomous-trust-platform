@@ -27,7 +27,7 @@ Every screen carries one of these labels in words:
 
 ## Honest limits
 
-- This workshop is not deployed.
+- This workshop is published on GitHub Pages for the owner's study (see docs/workshop/deployment-note.md). Publication is not production deployment.
 - It makes no production claims. Nothing here is a production system, and no screen claims real enforcement, real identity issuance, or real policy enforcement.
 - The 300 second freshness threshold is a synthetic lab constant, not a rule for real systems.
 - The browser does not independently verify the cryptographic integrity of the ledger. Evidence views display event shape, order, and correlation only.
