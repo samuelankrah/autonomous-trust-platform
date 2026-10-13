@@ -1,0 +1,371 @@
+{
+  "checks": [
+    {
+      "check_id": "decision-state-deny",
+      "detail": "state=DENY",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-019",
+        "AZ-015"
+      ]
+    },
+    {
+      "check_id": "revocation-recorded",
+      "detail": "revocation check evidenced",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-015",
+        "CTL-009"
+      ]
+    },
+    {
+      "check_id": "deny-reason-names-revocation",
+      "detail": "reason=delegated authority not recognized: grant revoked",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-015"
+      ]
+    },
+    {
+      "check_id": "op-not-invoked",
+      "detail": "no protected operation",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-015"
+      ]
+    }
+  ],
+  "contract_version": "scenario-contract-v1",
+  "decision": {
+    "action": "READ",
+    "authority_provenance": null,
+    "decision_id": "dec-89e7d15f17362f25",
+    "freshness": {
+      "attestation_age_seconds": null,
+      "authority_age_seconds": 0,
+      "identity_age_seconds": 0
+    },
+    "key_id": "decision-key-run-11",
+    "policy_id": "atp-demo-policy",
+    "policy_version": "2026-10-07.demo-1",
+    "principal": "principal://atp-demo/reporting-job",
+    "reason": "delegated authority not recognized: grant revoked",
+    "request_id": "req-db5b5fab8f4d3e27",
+    "resource": "/reports/quarterly",
+    "signature_present": true,
+    "state": "DENY",
+    "transaction_binding": {
+      "nonce": "73ab48767734d7c1c7fde805ec99108d",
+      "request_id": "req-db5b5fab8f4d3e27"
+    },
+    "validity_not_after": "2026-10-07T12:02:00Z",
+    "validity_not_before": "2026-10-07T12:00:00Z",
+    "workload": "spiffe://atp-demo/payments-reporter"
+  },
+  "decisions": [
+    {
+      "action": "READ",
+      "authority_provenance": null,
+      "decision_id": "dec-89e7d15f17362f25",
+      "freshness": {
+        "attestation_age_seconds": null,
+        "authority_age_seconds": 0,
+        "identity_age_seconds": 0
+      },
+      "key_id": "decision-key-run-11",
+      "policy_id": "atp-demo-policy",
+      "policy_version": "2026-10-07.demo-1",
+      "principal": "principal://atp-demo/reporting-job",
+      "reason": "delegated authority not recognized: grant revoked",
+      "request_id": "req-db5b5fab8f4d3e27",
+      "resource": "/reports/quarterly",
+      "signature_present": true,
+      "state": "DENY",
+      "transaction_binding": {
+        "nonce": "73ab48767734d7c1c7fde805ec99108d",
+        "request_id": "req-db5b5fab8f4d3e27"
+      },
+      "validity_not_after": "2026-10-07T12:02:00Z",
+      "validity_not_before": "2026-10-07T12:00:00Z",
+      "workload": "spiffe://atp-demo/payments-reporter"
+    }
+  ],
+  "enforcement": {
+    "decision_id": "dec-89e7d15f17362f25",
+    "enforced_at": "2026-10-07T12:00:00Z",
+    "outcome_id": "enf-a26b7f62b1852f27",
+    "reason": "deny decision applied; protected operation not invoked (AZ-021)",
+    "request_id": "req-db5b5fab8f4d3e27",
+    "result": "DENY"
+  },
+  "enforcements": [
+    {
+      "nonce": "73ab48767734d7c1c7fde805ec99108d",
+      "operation_result": null,
+      "outcome": {
+        "decision_id": "dec-89e7d15f17362f25",
+        "enforced_at": "2026-10-07T12:00:00Z",
+        "outcome_id": "enf-a26b7f62b1852f27",
+        "reason": "deny decision applied; protected operation not invoked (AZ-021)",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "result": "DENY"
+      },
+      "presented_decision": {
+        "action": "READ",
+        "authority_provenance": null,
+        "decision_id": "dec-89e7d15f17362f25",
+        "freshness": {
+          "attestation_age_seconds": null,
+          "authority_age_seconds": 0,
+          "identity_age_seconds": 0
+        },
+        "key_id": "decision-key-run-11",
+        "policy_id": "atp-demo-policy",
+        "policy_version": "2026-10-07.demo-1",
+        "principal": "principal://atp-demo/reporting-job",
+        "reason": "delegated authority not recognized: grant revoked",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "resource": "/reports/quarterly",
+        "signature_present": true,
+        "state": "DENY",
+        "transaction_binding": {
+          "nonce": "73ab48767734d7c1c7fde805ec99108d",
+          "request_id": "req-db5b5fab8f4d3e27"
+        },
+        "validity_not_after": "2026-10-07T12:02:00Z",
+        "validity_not_before": "2026-10-07T12:00:00Z",
+        "workload": "spiffe://atp-demo/payments-reporter"
+      },
+      "request_id": "req-db5b5fab8f4d3e27",
+      "via": "enforce"
+    }
+  ],
+  "evidence": {
+    "event_types": [
+      "identity.issued",
+      "delegation.granted",
+      "delegation.revocation_check",
+      "identity.validation",
+      "delegation.revocation_check",
+      "delegation.validation",
+      "authorization.decision",
+      "enforcement.outcome"
+    ],
+    "events": [
+      {
+        "fields": [
+          "event_id",
+          "expires_at",
+          "key_id",
+          "placeholder",
+          "prev_hash",
+          "principal",
+          "record_hash",
+          "request_id",
+          "seq",
+          "spiffe_id",
+          "trust_domain",
+          "ts",
+          "type"
+        ],
+        "type": "identity.issued"
+      },
+      {
+        "fields": [
+          "delegate",
+          "delegator",
+          "event_id",
+          "grant_id",
+          "issuer",
+          "key_id",
+          "prev_hash",
+          "record_hash",
+          "request_id",
+          "scope",
+          "seq",
+          "source",
+          "ts",
+          "type"
+        ],
+        "type": "delegation.granted"
+      },
+      {
+        "fields": [
+          "basis",
+          "event_id",
+          "grant_id",
+          "prev_hash",
+          "record_hash",
+          "request_id",
+          "revoked",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "delegation.revocation_check"
+      },
+      {
+        "fields": [
+          "event_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "seq",
+          "spiffe_id",
+          "ts",
+          "type",
+          "valid"
+        ],
+        "type": "identity.validation"
+      },
+      {
+        "fields": [
+          "basis",
+          "event_id",
+          "grant_id",
+          "prev_hash",
+          "record_hash",
+          "request_id",
+          "revoked",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "delegation.revocation_check"
+      },
+      {
+        "fields": [
+          "event_id",
+          "grant_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "seq",
+          "ts",
+          "type",
+          "valid"
+        ],
+        "type": "delegation.validation"
+      },
+      {
+        "fields": [
+          "action",
+          "decision_id",
+          "event_id",
+          "key_id",
+          "policy_version",
+          "prev_hash",
+          "principal",
+          "reason",
+          "record_hash",
+          "request_id",
+          "resource",
+          "seq",
+          "state",
+          "ts",
+          "type",
+          "workload"
+        ],
+        "type": "authorization.decision"
+      },
+      {
+        "fields": [
+          "decision_id",
+          "event_id",
+          "outcome_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "result",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "enforcement.outcome"
+      }
+    ]
+  },
+  "inputs": {
+    "action": "READ",
+    "attestation": {
+      "claims": {
+        "config": "baseline",
+        "runtime_class": "lab-synthetic"
+      },
+      "evidence_id": "att-309d6b79965eda32",
+      "expires_at": "2026-10-07T12:10:00Z",
+      "issued_at": "2026-10-07T12:00:00Z",
+      "key_id": "attestation-key-run-11",
+      "signature_present": true,
+      "workload": "spiffe://atp-demo/payments-reporter"
+    },
+    "clock_advances_seconds": [],
+    "direct_access": null,
+    "grant": {
+      "action": "READ",
+      "constraints": {
+        "purpose": "quarterly-reporting"
+      },
+      "delegate": "principal://atp-demo/reporting-job",
+      "delegator": "finance-control",
+      "expires_at": "2026-10-07T12:10:00Z",
+      "grant_id": "grant-cdcc69292f45e678",
+      "issued_at": "2026-10-07T12:00:00Z",
+      "issuer": "delegation-issuer/atp-demo",
+      "key_id": "authority-key-run-11",
+      "provenance": {
+        "constraints": {
+          "purpose": "quarterly-reporting"
+        },
+        "delegator": "finance-control",
+        "grant_id": "grant-cdcc69292f45e678",
+        "issuer": "delegation-issuer/atp-demo",
+        "revocation_basis": "revocation-list/atp-demo/11",
+        "scope": {
+          "action": "READ",
+          "resource": "/reports/quarterly"
+        },
+        "source": "finance-control"
+      },
+      "resource": "/reports/quarterly",
+      "revocation_basis": "revocation-list/atp-demo/11",
+      "signature_present": true,
+      "source": "finance-control",
+      "workload": "spiffe://atp-demo/payments-reporter"
+    },
+    "identity": {
+      "expires_at": "2026-10-07T12:05:00Z",
+      "issued_at": "2026-10-07T12:00:00Z",
+      "key_id": "identity-key-run-11",
+      "principal": "principal://atp-demo/reporting-job",
+      "signature_present": true,
+      "spiffe_id": "spiffe://atp-demo/payments-reporter",
+      "trust_domain": "atp-demo"
+    },
+    "principal": "principal://atp-demo/reporting-job",
+    "requests": [
+      {
+        "nonce": "73ab48767734d7c1c7fde805ec99108d",
+        "request_id": "req-db5b5fab8f4d3e27"
+      }
+    ],
+    "resource": "/reports/quarterly",
+    "revoked_grant_ids": [
+      "grant-cdcc69292f45e678"
+    ],
+    "workload_path": "payments-reporter"
+  },
+  "requirement_ids": [
+    "AZ-015",
+    "AZ-019",
+    "CTL-009",
+    "FR-011",
+    "FR-012"
+  ],
+  "scenario": "revoked-delegation",
+  "seed": 11,
+  "verdict": "PASS"
+}

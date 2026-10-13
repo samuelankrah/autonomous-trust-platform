@@ -1,0 +1,408 @@
+{
+  "checks": [
+    {
+      "check_id": "decision-state-indeterminate",
+      "detail": "state=INDETERMINATE",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-019",
+        "AZ-022"
+      ]
+    },
+    {
+      "check_id": "indeterminate-not-permit",
+      "detail": "unknown never becomes permit",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-022"
+      ]
+    },
+    {
+      "check_id": "indeterminate-distinct-from-deny",
+      "detail": "enforcement=DENY_INDETERMINATE",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-019"
+      ]
+    },
+    {
+      "check_id": "attestation-appraised-stale",
+      "detail": "stale appraisal evidenced with threshold",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-011",
+        "AZ-012",
+        "FR-007"
+      ]
+    },
+    {
+      "check_id": "unknown-preserved",
+      "detail": "unknown state named in reason",
+      "passed": true,
+      "requirement_ids": [
+        "CTL-011"
+      ]
+    },
+    {
+      "check_id": "op-not-invoked",
+      "detail": "no protected operation on indeterminate",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-022"
+      ]
+    }
+  ],
+  "contract_version": "scenario-contract-v1",
+  "decision": {
+    "action": "READ",
+    "authority_provenance": null,
+    "decision_id": "dec-e3eff9c0cf44dd3f",
+    "freshness": {
+      "attestation_age_seconds": 301,
+      "authority_age_seconds": 0,
+      "identity_age_seconds": 0
+    },
+    "key_id": "decision-key-run-11",
+    "policy_id": "atp-demo-policy",
+    "policy_version": "2026-10-07.demo-1",
+    "principal": "principal://atp-demo/reporting-job",
+    "reason": "required attestation evidence is STALE: attestation evidence is 301s old, beyond the declared synthetic threshold of 300s (LAB-CONFIG, non-normative) (AZ-022, never permit on unknown)",
+    "request_id": "req-db5b5fab8f4d3e27",
+    "resource": "/reports/quarterly",
+    "signature_present": true,
+    "state": "INDETERMINATE",
+    "transaction_binding": {
+      "nonce": "73ab48767734d7c1c7fde805ec99108d",
+      "request_id": "req-db5b5fab8f4d3e27"
+    },
+    "validity_not_after": "2026-10-07T12:07:01Z",
+    "validity_not_before": "2026-10-07T12:05:01Z",
+    "workload": "spiffe://atp-demo/payments-reporter"
+  },
+  "decisions": [
+    {
+      "action": "READ",
+      "authority_provenance": null,
+      "decision_id": "dec-e3eff9c0cf44dd3f",
+      "freshness": {
+        "attestation_age_seconds": 301,
+        "authority_age_seconds": 0,
+        "identity_age_seconds": 0
+      },
+      "key_id": "decision-key-run-11",
+      "policy_id": "atp-demo-policy",
+      "policy_version": "2026-10-07.demo-1",
+      "principal": "principal://atp-demo/reporting-job",
+      "reason": "required attestation evidence is STALE: attestation evidence is 301s old, beyond the declared synthetic threshold of 300s (LAB-CONFIG, non-normative) (AZ-022, never permit on unknown)",
+      "request_id": "req-db5b5fab8f4d3e27",
+      "resource": "/reports/quarterly",
+      "signature_present": true,
+      "state": "INDETERMINATE",
+      "transaction_binding": {
+        "nonce": "73ab48767734d7c1c7fde805ec99108d",
+        "request_id": "req-db5b5fab8f4d3e27"
+      },
+      "validity_not_after": "2026-10-07T12:07:01Z",
+      "validity_not_before": "2026-10-07T12:05:01Z",
+      "workload": "spiffe://atp-demo/payments-reporter"
+    }
+  ],
+  "enforcement": {
+    "decision_id": "dec-e3eff9c0cf44dd3f",
+    "enforced_at": "2026-10-07T12:05:01Z",
+    "outcome_id": "enf-986e86cb0ab8ab67",
+    "reason": "indeterminate decision; operation not invoked, never permit on unknown (AZ-022)",
+    "request_id": "req-db5b5fab8f4d3e27",
+    "result": "DENY_INDETERMINATE"
+  },
+  "enforcements": [
+    {
+      "nonce": "73ab48767734d7c1c7fde805ec99108d",
+      "operation_result": null,
+      "outcome": {
+        "decision_id": "dec-e3eff9c0cf44dd3f",
+        "enforced_at": "2026-10-07T12:05:01Z",
+        "outcome_id": "enf-986e86cb0ab8ab67",
+        "reason": "indeterminate decision; operation not invoked, never permit on unknown (AZ-022)",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "result": "DENY_INDETERMINATE"
+      },
+      "presented_decision": {
+        "action": "READ",
+        "authority_provenance": null,
+        "decision_id": "dec-e3eff9c0cf44dd3f",
+        "freshness": {
+          "attestation_age_seconds": 301,
+          "authority_age_seconds": 0,
+          "identity_age_seconds": 0
+        },
+        "key_id": "decision-key-run-11",
+        "policy_id": "atp-demo-policy",
+        "policy_version": "2026-10-07.demo-1",
+        "principal": "principal://atp-demo/reporting-job",
+        "reason": "required attestation evidence is STALE: attestation evidence is 301s old, beyond the declared synthetic threshold of 300s (LAB-CONFIG, non-normative) (AZ-022, never permit on unknown)",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "resource": "/reports/quarterly",
+        "signature_present": true,
+        "state": "INDETERMINATE",
+        "transaction_binding": {
+          "nonce": "73ab48767734d7c1c7fde805ec99108d",
+          "request_id": "req-db5b5fab8f4d3e27"
+        },
+        "validity_not_after": "2026-10-07T12:07:01Z",
+        "validity_not_before": "2026-10-07T12:05:01Z",
+        "workload": "spiffe://atp-demo/payments-reporter"
+      },
+      "request_id": "req-db5b5fab8f4d3e27",
+      "via": "enforce"
+    }
+  ],
+  "evidence": {
+    "event_types": [
+      "lab.clock_fault",
+      "identity.issued",
+      "delegation.granted",
+      "identity.validation",
+      "delegation.revocation_check",
+      "delegation.validation",
+      "attestation.appraisal",
+      "authorization.decision",
+      "enforcement.outcome"
+    ],
+    "events": [
+      {
+        "fields": [
+          "detail",
+          "event_id",
+          "fault",
+          "prev_hash",
+          "record_hash",
+          "request_id",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "lab.clock_fault"
+      },
+      {
+        "fields": [
+          "event_id",
+          "expires_at",
+          "key_id",
+          "placeholder",
+          "prev_hash",
+          "principal",
+          "record_hash",
+          "request_id",
+          "seq",
+          "spiffe_id",
+          "trust_domain",
+          "ts",
+          "type"
+        ],
+        "type": "identity.issued"
+      },
+      {
+        "fields": [
+          "delegate",
+          "delegator",
+          "event_id",
+          "grant_id",
+          "issuer",
+          "key_id",
+          "prev_hash",
+          "record_hash",
+          "request_id",
+          "scope",
+          "seq",
+          "source",
+          "ts",
+          "type"
+        ],
+        "type": "delegation.granted"
+      },
+      {
+        "fields": [
+          "event_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "seq",
+          "spiffe_id",
+          "ts",
+          "type",
+          "valid"
+        ],
+        "type": "identity.validation"
+      },
+      {
+        "fields": [
+          "basis",
+          "event_id",
+          "grant_id",
+          "prev_hash",
+          "record_hash",
+          "request_id",
+          "revoked",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "delegation.revocation_check"
+      },
+      {
+        "fields": [
+          "event_id",
+          "grant_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "seq",
+          "ts",
+          "type",
+          "valid"
+        ],
+        "type": "delegation.validation"
+      },
+      {
+        "fields": [
+          "event_id",
+          "evidence_id",
+          "freshness_seconds",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "seq",
+          "threshold_seconds",
+          "ts",
+          "type",
+          "verdict",
+          "workload"
+        ],
+        "type": "attestation.appraisal"
+      },
+      {
+        "fields": [
+          "action",
+          "decision_id",
+          "event_id",
+          "key_id",
+          "policy_version",
+          "prev_hash",
+          "principal",
+          "reason",
+          "record_hash",
+          "request_id",
+          "resource",
+          "seq",
+          "state",
+          "ts",
+          "type",
+          "workload"
+        ],
+        "type": "authorization.decision"
+      },
+      {
+        "fields": [
+          "decision_id",
+          "event_id",
+          "outcome_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "result",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "enforcement.outcome"
+      }
+    ]
+  },
+  "inputs": {
+    "action": "READ",
+    "attestation": {
+      "claims": {
+        "config": "baseline",
+        "runtime_class": "lab-synthetic"
+      },
+      "evidence_id": "att-dae445508201e2bd",
+      "expires_at": "2026-10-07T12:10:00Z",
+      "issued_at": "2026-10-07T12:00:00Z",
+      "key_id": "attestation-key-run-11",
+      "signature_present": true,
+      "workload": "spiffe://atp-demo/payments-reporter"
+    },
+    "clock_advances_seconds": [
+      301
+    ],
+    "direct_access": null,
+    "grant": {
+      "action": "READ",
+      "constraints": {
+        "purpose": "quarterly-reporting"
+      },
+      "delegate": "principal://atp-demo/reporting-job",
+      "delegator": "finance-control",
+      "expires_at": "2026-10-07T12:15:01Z",
+      "grant_id": "grant-79cb9e86830c71c2",
+      "issued_at": "2026-10-07T12:05:01Z",
+      "issuer": "delegation-issuer/atp-demo",
+      "key_id": "authority-key-run-11",
+      "provenance": {
+        "constraints": {
+          "purpose": "quarterly-reporting"
+        },
+        "delegator": "finance-control",
+        "grant_id": "grant-79cb9e86830c71c2",
+        "issuer": "delegation-issuer/atp-demo",
+        "revocation_basis": "revocation-list/atp-demo/11",
+        "scope": {
+          "action": "READ",
+          "resource": "/reports/quarterly"
+        },
+        "source": "finance-control"
+      },
+      "resource": "/reports/quarterly",
+      "revocation_basis": "revocation-list/atp-demo/11",
+      "signature_present": true,
+      "source": "finance-control",
+      "workload": "spiffe://atp-demo/payments-reporter"
+    },
+    "identity": {
+      "expires_at": "2026-10-07T12:10:01Z",
+      "issued_at": "2026-10-07T12:05:01Z",
+      "key_id": "identity-key-run-11",
+      "principal": "principal://atp-demo/reporting-job",
+      "signature_present": true,
+      "spiffe_id": "spiffe://atp-demo/payments-reporter",
+      "trust_domain": "atp-demo"
+    },
+    "principal": "principal://atp-demo/reporting-job",
+    "requests": [
+      {
+        "nonce": "73ab48767734d7c1c7fde805ec99108d",
+        "request_id": "req-db5b5fab8f4d3e27"
+      }
+    ],
+    "resource": "/reports/quarterly",
+    "revoked_grant_ids": [],
+    "workload_path": "payments-reporter"
+  },
+  "requirement_ids": [
+    "AZ-011",
+    "AZ-012",
+    "AZ-019",
+    "AZ-022",
+    "ENF-010",
+    "FR-007",
+    "CTL-011"
+  ],
+  "scenario": "stale-attestation",
+  "seed": 11,
+  "verdict": "PASS"
+}

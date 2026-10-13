@@ -1,0 +1,268 @@
+{
+  "checks": [
+    {
+      "check_id": "decision-state-deny",
+      "detail": "state=DENY",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-019"
+      ]
+    },
+    {
+      "check_id": "identity-not-authority",
+      "detail": "no provenance without authority",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-002"
+      ]
+    },
+    {
+      "check_id": "deny-not-misreported",
+      "detail": "deny applied, op not invoked",
+      "passed": true,
+      "requirement_ids": [
+        "AZ-021"
+      ]
+    },
+    {
+      "check_id": "no-resource-operation",
+      "detail": "protected path untouched",
+      "passed": true,
+      "requirement_ids": [
+        "ENF-010"
+      ]
+    }
+  ],
+  "contract_version": "scenario-contract-v1",
+  "decision": {
+    "action": "READ",
+    "authority_provenance": null,
+    "decision_id": "dec-79cb9e86830c71c2",
+    "freshness": {
+      "attestation_age_seconds": null,
+      "authority_age_seconds": null,
+      "identity_age_seconds": 0
+    },
+    "key_id": "decision-key-run-11",
+    "policy_id": "atp-demo-policy",
+    "policy_version": "2026-10-07.demo-1",
+    "principal": "principal://atp-demo/reporting-job",
+    "reason": "valid identity presents no authority; identity is not authorization (AZ-002)",
+    "request_id": "req-db5b5fab8f4d3e27",
+    "resource": "/reports/quarterly",
+    "signature_present": true,
+    "state": "DENY",
+    "transaction_binding": {
+      "nonce": "73ab48767734d7c1c7fde805ec99108d",
+      "request_id": "req-db5b5fab8f4d3e27"
+    },
+    "validity_not_after": "2026-10-07T12:02:00Z",
+    "validity_not_before": "2026-10-07T12:00:00Z",
+    "workload": "spiffe://atp-demo/payments-reporter"
+  },
+  "decisions": [
+    {
+      "action": "READ",
+      "authority_provenance": null,
+      "decision_id": "dec-79cb9e86830c71c2",
+      "freshness": {
+        "attestation_age_seconds": null,
+        "authority_age_seconds": null,
+        "identity_age_seconds": 0
+      },
+      "key_id": "decision-key-run-11",
+      "policy_id": "atp-demo-policy",
+      "policy_version": "2026-10-07.demo-1",
+      "principal": "principal://atp-demo/reporting-job",
+      "reason": "valid identity presents no authority; identity is not authorization (AZ-002)",
+      "request_id": "req-db5b5fab8f4d3e27",
+      "resource": "/reports/quarterly",
+      "signature_present": true,
+      "state": "DENY",
+      "transaction_binding": {
+        "nonce": "73ab48767734d7c1c7fde805ec99108d",
+        "request_id": "req-db5b5fab8f4d3e27"
+      },
+      "validity_not_after": "2026-10-07T12:02:00Z",
+      "validity_not_before": "2026-10-07T12:00:00Z",
+      "workload": "spiffe://atp-demo/payments-reporter"
+    }
+  ],
+  "enforcement": {
+    "decision_id": "dec-79cb9e86830c71c2",
+    "enforced_at": "2026-10-07T12:00:00Z",
+    "outcome_id": "enf-2fa91425cb008853",
+    "reason": "deny decision applied; protected operation not invoked (AZ-021)",
+    "request_id": "req-db5b5fab8f4d3e27",
+    "result": "DENY"
+  },
+  "enforcements": [
+    {
+      "nonce": "73ab48767734d7c1c7fde805ec99108d",
+      "operation_result": null,
+      "outcome": {
+        "decision_id": "dec-79cb9e86830c71c2",
+        "enforced_at": "2026-10-07T12:00:00Z",
+        "outcome_id": "enf-2fa91425cb008853",
+        "reason": "deny decision applied; protected operation not invoked (AZ-021)",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "result": "DENY"
+      },
+      "presented_decision": {
+        "action": "READ",
+        "authority_provenance": null,
+        "decision_id": "dec-79cb9e86830c71c2",
+        "freshness": {
+          "attestation_age_seconds": null,
+          "authority_age_seconds": null,
+          "identity_age_seconds": 0
+        },
+        "key_id": "decision-key-run-11",
+        "policy_id": "atp-demo-policy",
+        "policy_version": "2026-10-07.demo-1",
+        "principal": "principal://atp-demo/reporting-job",
+        "reason": "valid identity presents no authority; identity is not authorization (AZ-002)",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "resource": "/reports/quarterly",
+        "signature_present": true,
+        "state": "DENY",
+        "transaction_binding": {
+          "nonce": "73ab48767734d7c1c7fde805ec99108d",
+          "request_id": "req-db5b5fab8f4d3e27"
+        },
+        "validity_not_after": "2026-10-07T12:02:00Z",
+        "validity_not_before": "2026-10-07T12:00:00Z",
+        "workload": "spiffe://atp-demo/payments-reporter"
+      },
+      "request_id": "req-db5b5fab8f4d3e27",
+      "via": "enforce"
+    }
+  ],
+  "evidence": {
+    "event_types": [
+      "identity.issued",
+      "identity.validation",
+      "authorization.decision",
+      "enforcement.outcome"
+    ],
+    "events": [
+      {
+        "fields": [
+          "event_id",
+          "expires_at",
+          "key_id",
+          "placeholder",
+          "prev_hash",
+          "principal",
+          "record_hash",
+          "request_id",
+          "seq",
+          "spiffe_id",
+          "trust_domain",
+          "ts",
+          "type"
+        ],
+        "type": "identity.issued"
+      },
+      {
+        "fields": [
+          "event_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "seq",
+          "spiffe_id",
+          "ts",
+          "type",
+          "valid"
+        ],
+        "type": "identity.validation"
+      },
+      {
+        "fields": [
+          "action",
+          "decision_id",
+          "event_id",
+          "key_id",
+          "policy_version",
+          "prev_hash",
+          "principal",
+          "reason",
+          "record_hash",
+          "request_id",
+          "resource",
+          "seq",
+          "state",
+          "ts",
+          "type",
+          "workload"
+        ],
+        "type": "authorization.decision"
+      },
+      {
+        "fields": [
+          "decision_id",
+          "event_id",
+          "outcome_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "result",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "enforcement.outcome"
+      }
+    ]
+  },
+  "inputs": {
+    "action": "READ",
+    "attestation": {
+      "claims": {
+        "config": "baseline",
+        "runtime_class": "lab-synthetic"
+      },
+      "evidence_id": "att-309d6b79965eda32",
+      "expires_at": "2026-10-07T12:10:00Z",
+      "issued_at": "2026-10-07T12:00:00Z",
+      "key_id": "attestation-key-run-11",
+      "signature_present": true,
+      "workload": "spiffe://atp-demo/payments-reporter"
+    },
+    "clock_advances_seconds": [],
+    "direct_access": null,
+    "grant": null,
+    "identity": {
+      "expires_at": "2026-10-07T12:05:00Z",
+      "issued_at": "2026-10-07T12:00:00Z",
+      "key_id": "identity-key-run-11",
+      "principal": "principal://atp-demo/reporting-job",
+      "signature_present": true,
+      "spiffe_id": "spiffe://atp-demo/payments-reporter",
+      "trust_domain": "atp-demo"
+    },
+    "principal": "principal://atp-demo/reporting-job",
+    "requests": [
+      {
+        "nonce": "73ab48767734d7c1c7fde805ec99108d",
+        "request_id": "req-db5b5fab8f4d3e27"
+      }
+    ],
+    "resource": "/reports/quarterly",
+    "revoked_grant_ids": [],
+    "workload_path": "payments-reporter"
+  },
+  "requirement_ids": [
+    "AZ-002",
+    "AZ-019",
+    "AZ-021",
+    "ENF-010",
+    "CTL-008"
+  ],
+  "scenario": "identity-no-authority",
+  "seed": 11,
+  "verdict": "PASS"
+}

@@ -1,0 +1,103 @@
+{
+  "contract_version": "scenario-contract-v1",
+  "fixtures": [
+    {
+      "file": "bypass-attempt-seed-7.json",
+      "scenario": "bypass-attempt",
+      "seed": 7,
+      "verdict": "PASS"
+    },
+    {
+      "file": "bypass-attempt-seed-11.json",
+      "scenario": "bypass-attempt",
+      "seed": 11,
+      "verdict": "PASS"
+    },
+    {
+      "file": "happy-path-seed-7.json",
+      "scenario": "happy-path",
+      "seed": 7,
+      "verdict": "PASS"
+    },
+    {
+      "file": "happy-path-seed-11.json",
+      "scenario": "happy-path",
+      "seed": 11,
+      "verdict": "PASS"
+    },
+    {
+      "file": "identity-no-authority-seed-7.json",
+      "scenario": "identity-no-authority",
+      "seed": 7,
+      "verdict": "PASS"
+    },
+    {
+      "file": "identity-no-authority-seed-11.json",
+      "scenario": "identity-no-authority",
+      "seed": 11,
+      "verdict": "PASS"
+    },
+    {
+      "file": "replayed-decision-seed-7.json",
+      "scenario": "replayed-decision",
+      "seed": 7,
+      "verdict": "PASS"
+    },
+    {
+      "file": "replayed-decision-seed-11.json",
+      "scenario": "replayed-decision",
+      "seed": 11,
+      "verdict": "PASS"
+    },
+    {
+      "file": "revoked-delegation-seed-7.json",
+      "scenario": "revoked-delegation",
+      "seed": 7,
+      "verdict": "PASS"
+    },
+    {
+      "file": "revoked-delegation-seed-11.json",
+      "scenario": "revoked-delegation",
+      "seed": 11,
+      "verdict": "PASS"
+    },
+    {
+      "file": "stale-attestation-seed-7.json",
+      "scenario": "stale-attestation",
+      "seed": 7,
+      "verdict": "PASS"
+    },
+    {
+      "file": "stale-attestation-seed-11.json",
+      "scenario": "stale-attestation",
+      "seed": 11,
+      "verdict": "PASS"
+    },
+    {
+      "file": "tampered-decision-seed-7.json",
+      "scenario": "tampered-decision",
+      "seed": 7,
+      "verdict": "PASS"
+    },
+    {
+      "file": "tampered-decision-seed-11.json",
+      "scenario": "tampered-decision",
+      "seed": 11,
+      "verdict": "PASS"
+    }
+  ],
+  "generated_by": "labs/decision-service/tools/export_fixtures.py",
+  "scenarios": [
+    "happy-path",
+    "identity-no-authority",
+    "revoked-delegation",
+    "stale-attestation",
+    "tampered-decision",
+    "replayed-decision",
+    "bypass-attempt"
+  ],
+  "seeds": [
+    7,
+    11
+  ]
+}

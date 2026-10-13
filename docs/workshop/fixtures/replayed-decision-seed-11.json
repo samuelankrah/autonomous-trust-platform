@@ -1,0 +1,494 @@
+{
+  "checks": [
+    {
+      "check_id": "original-use-allowed",
+      "detail": "legitimate first use succeeds",
+      "passed": true,
+      "requirement_ids": [
+        "ENF-001"
+      ]
+    },
+    {
+      "check_id": "replay-rejected",
+      "detail": "enforcement=REJECTED",
+      "passed": true,
+      "requirement_ids": [
+        "ENF-003",
+        "CTL-010"
+      ]
+    },
+    {
+      "check_id": "reason-names-binding",
+      "detail": "reason=decision not bound to this request/nonce (ENF-003)",
+      "passed": true,
+      "requirement_ids": [
+        "ENF-003"
+      ]
+    }
+  ],
+  "contract_version": "scenario-contract-v1",
+  "decision": {
+    "action": "READ",
+    "authority_provenance": {
+      "constraints": {
+        "purpose": "quarterly-reporting"
+      },
+      "delegator": "finance-control",
+      "grant_id": "grant-cdcc69292f45e678",
+      "issuer": "delegation-issuer/atp-demo",
+      "revocation_basis": "revocation-list/atp-demo/11",
+      "scope": {
+        "action": "READ",
+        "resource": "/reports/quarterly"
+      },
+      "source": "finance-control"
+    },
+    "decision_id": "dec-89e7d15f17362f25",
+    "freshness": {
+      "attestation_age_seconds": 0,
+      "authority_age_seconds": 0,
+      "identity_age_seconds": 0
+    },
+    "key_id": "decision-key-run-11",
+    "policy_id": "atp-demo-policy",
+    "policy_version": "2026-10-07.demo-1",
+    "principal": "principal://atp-demo/reporting-job",
+    "reason": "all required evidence valid within policy bounds",
+    "request_id": "req-db5b5fab8f4d3e27",
+    "resource": "/reports/quarterly",
+    "signature_present": true,
+    "state": "PERMIT",
+    "transaction_binding": {
+      "nonce": "73ab48767734d7c1c7fde805ec99108d",
+      "request_id": "req-db5b5fab8f4d3e27"
+    },
+    "validity_not_after": "2026-10-07T12:02:00Z",
+    "validity_not_before": "2026-10-07T12:00:00Z",
+    "workload": "spiffe://atp-demo/payments-reporter"
+  },
+  "decisions": [
+    {
+      "action": "READ",
+      "authority_provenance": {
+        "constraints": {
+          "purpose": "quarterly-reporting"
+        },
+        "delegator": "finance-control",
+        "grant_id": "grant-cdcc69292f45e678",
+        "issuer": "delegation-issuer/atp-demo",
+        "revocation_basis": "revocation-list/atp-demo/11",
+        "scope": {
+          "action": "READ",
+          "resource": "/reports/quarterly"
+        },
+        "source": "finance-control"
+      },
+      "decision_id": "dec-89e7d15f17362f25",
+      "freshness": {
+        "attestation_age_seconds": 0,
+        "authority_age_seconds": 0,
+        "identity_age_seconds": 0
+      },
+      "key_id": "decision-key-run-11",
+      "policy_id": "atp-demo-policy",
+      "policy_version": "2026-10-07.demo-1",
+      "principal": "principal://atp-demo/reporting-job",
+      "reason": "all required evidence valid within policy bounds",
+      "request_id": "req-db5b5fab8f4d3e27",
+      "resource": "/reports/quarterly",
+      "signature_present": true,
+      "state": "PERMIT",
+      "transaction_binding": {
+        "nonce": "73ab48767734d7c1c7fde805ec99108d",
+        "request_id": "req-db5b5fab8f4d3e27"
+      },
+      "validity_not_after": "2026-10-07T12:02:00Z",
+      "validity_not_before": "2026-10-07T12:00:00Z",
+      "workload": "spiffe://atp-demo/payments-reporter"
+    }
+  ],
+  "enforcement": {
+    "decision_id": "dec-89e7d15f17362f25",
+    "enforced_at": "2026-10-07T12:00:00Z",
+    "outcome_id": "enf-9f8558a628518867",
+    "reason": "decision not bound to this request/nonce (ENF-003)",
+    "request_id": "req-73f778aaf6fa5db8",
+    "result": "REJECTED"
+  },
+  "enforcements": [
+    {
+      "nonce": "73ab48767734d7c1c7fde805ec99108d",
+      "operation_result": {
+        "report": "quarterly-figures",
+        "rows": 42
+      },
+      "outcome": {
+        "decision_id": "dec-89e7d15f17362f25",
+        "enforced_at": "2026-10-07T12:00:00Z",
+        "outcome_id": "enf-986e86cb0ab8ab67",
+        "reason": "permit decision applied to bound request",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "result": "ALLOWED"
+      },
+      "presented_decision": {
+        "action": "READ",
+        "authority_provenance": {
+          "constraints": {
+            "purpose": "quarterly-reporting"
+          },
+          "delegator": "finance-control",
+          "grant_id": "grant-cdcc69292f45e678",
+          "issuer": "delegation-issuer/atp-demo",
+          "revocation_basis": "revocation-list/atp-demo/11",
+          "scope": {
+            "action": "READ",
+            "resource": "/reports/quarterly"
+          },
+          "source": "finance-control"
+        },
+        "decision_id": "dec-89e7d15f17362f25",
+        "freshness": {
+          "attestation_age_seconds": 0,
+          "authority_age_seconds": 0,
+          "identity_age_seconds": 0
+        },
+        "key_id": "decision-key-run-11",
+        "policy_id": "atp-demo-policy",
+        "policy_version": "2026-10-07.demo-1",
+        "principal": "principal://atp-demo/reporting-job",
+        "reason": "all required evidence valid within policy bounds",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "resource": "/reports/quarterly",
+        "signature_present": true,
+        "state": "PERMIT",
+        "transaction_binding": {
+          "nonce": "73ab48767734d7c1c7fde805ec99108d",
+          "request_id": "req-db5b5fab8f4d3e27"
+        },
+        "validity_not_after": "2026-10-07T12:02:00Z",
+        "validity_not_before": "2026-10-07T12:00:00Z",
+        "workload": "spiffe://atp-demo/payments-reporter"
+      },
+      "request_id": "req-db5b5fab8f4d3e27",
+      "via": "enforce"
+    },
+    {
+      "nonce": "a66b0d389d95847ebd299753a7677796",
+      "operation_result": null,
+      "outcome": {
+        "decision_id": "dec-89e7d15f17362f25",
+        "enforced_at": "2026-10-07T12:00:00Z",
+        "outcome_id": "enf-9f8558a628518867",
+        "reason": "decision not bound to this request/nonce (ENF-003)",
+        "request_id": "req-73f778aaf6fa5db8",
+        "result": "REJECTED"
+      },
+      "presented_decision": {
+        "action": "READ",
+        "authority_provenance": {
+          "constraints": {
+            "purpose": "quarterly-reporting"
+          },
+          "delegator": "finance-control",
+          "grant_id": "grant-cdcc69292f45e678",
+          "issuer": "delegation-issuer/atp-demo",
+          "revocation_basis": "revocation-list/atp-demo/11",
+          "scope": {
+            "action": "READ",
+            "resource": "/reports/quarterly"
+          },
+          "source": "finance-control"
+        },
+        "decision_id": "dec-89e7d15f17362f25",
+        "freshness": {
+          "attestation_age_seconds": 0,
+          "authority_age_seconds": 0,
+          "identity_age_seconds": 0
+        },
+        "key_id": "decision-key-run-11",
+        "policy_id": "atp-demo-policy",
+        "policy_version": "2026-10-07.demo-1",
+        "principal": "principal://atp-demo/reporting-job",
+        "reason": "all required evidence valid within policy bounds",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "resource": "/reports/quarterly",
+        "signature_present": true,
+        "state": "PERMIT",
+        "transaction_binding": {
+          "nonce": "73ab48767734d7c1c7fde805ec99108d",
+          "request_id": "req-db5b5fab8f4d3e27"
+        },
+        "validity_not_after": "2026-10-07T12:02:00Z",
+        "validity_not_before": "2026-10-07T12:00:00Z",
+        "workload": "spiffe://atp-demo/payments-reporter"
+      },
+      "request_id": "req-73f778aaf6fa5db8",
+      "via": "enforce"
+    }
+  ],
+  "evidence": {
+    "event_types": [
+      "identity.issued",
+      "delegation.granted",
+      "identity.validation",
+      "delegation.revocation_check",
+      "delegation.validation",
+      "attestation.appraisal",
+      "authorization.decision",
+      "resource.operation",
+      "enforcement.outcome",
+      "enforcement.outcome"
+    ],
+    "events": [
+      {
+        "fields": [
+          "event_id",
+          "expires_at",
+          "key_id",
+          "placeholder",
+          "prev_hash",
+          "principal",
+          "record_hash",
+          "request_id",
+          "seq",
+          "spiffe_id",
+          "trust_domain",
+          "ts",
+          "type"
+        ],
+        "type": "identity.issued"
+      },
+      {
+        "fields": [
+          "delegate",
+          "delegator",
+          "event_id",
+          "grant_id",
+          "issuer",
+          "key_id",
+          "prev_hash",
+          "record_hash",
+          "request_id",
+          "scope",
+          "seq",
+          "source",
+          "ts",
+          "type"
+        ],
+        "type": "delegation.granted"
+      },
+      {
+        "fields": [
+          "event_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "seq",
+          "spiffe_id",
+          "ts",
+          "type",
+          "valid"
+        ],
+        "type": "identity.validation"
+      },
+      {
+        "fields": [
+          "basis",
+          "event_id",
+          "grant_id",
+          "prev_hash",
+          "record_hash",
+          "request_id",
+          "revoked",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "delegation.revocation_check"
+      },
+      {
+        "fields": [
+          "event_id",
+          "grant_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "seq",
+          "ts",
+          "type",
+          "valid"
+        ],
+        "type": "delegation.validation"
+      },
+      {
+        "fields": [
+          "event_id",
+          "evidence_id",
+          "freshness_seconds",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "seq",
+          "threshold_seconds",
+          "ts",
+          "type",
+          "verdict",
+          "workload"
+        ],
+        "type": "attestation.appraisal"
+      },
+      {
+        "fields": [
+          "action",
+          "decision_id",
+          "event_id",
+          "key_id",
+          "policy_version",
+          "prev_hash",
+          "principal",
+          "reason",
+          "record_hash",
+          "request_id",
+          "resource",
+          "seq",
+          "state",
+          "ts",
+          "type",
+          "workload"
+        ],
+        "type": "authorization.decision"
+      },
+      {
+        "fields": [
+          "action",
+          "event_id",
+          "prev_hash",
+          "principal",
+          "record_hash",
+          "request_id",
+          "resource",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "resource.operation"
+      },
+      {
+        "fields": [
+          "decision_id",
+          "event_id",
+          "outcome_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "result",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "enforcement.outcome"
+      },
+      {
+        "fields": [
+          "decision_id",
+          "event_id",
+          "outcome_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "result",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "enforcement.outcome"
+      }
+    ]
+  },
+  "inputs": {
+    "action": "READ",
+    "attestation": {
+      "claims": {
+        "config": "baseline",
+        "runtime_class": "lab-synthetic"
+      },
+      "evidence_id": "att-309d6b79965eda32",
+      "expires_at": "2026-10-07T12:10:00Z",
+      "issued_at": "2026-10-07T12:00:00Z",
+      "key_id": "attestation-key-run-11",
+      "signature_present": true,
+      "workload": "spiffe://atp-demo/payments-reporter"
+    },
+    "clock_advances_seconds": [],
+    "direct_access": null,
+    "grant": {
+      "action": "READ",
+      "constraints": {
+        "purpose": "quarterly-reporting"
+      },
+      "delegate": "principal://atp-demo/reporting-job",
+      "delegator": "finance-control",
+      "expires_at": "2026-10-07T12:10:00Z",
+      "grant_id": "grant-cdcc69292f45e678",
+      "issued_at": "2026-10-07T12:00:00Z",
+      "issuer": "delegation-issuer/atp-demo",
+      "key_id": "authority-key-run-11",
+      "provenance": {
+        "constraints": {
+          "purpose": "quarterly-reporting"
+        },
+        "delegator": "finance-control",
+        "grant_id": "grant-cdcc69292f45e678",
+        "issuer": "delegation-issuer/atp-demo",
+        "revocation_basis": "revocation-list/atp-demo/11",
+        "scope": {
+          "action": "READ",
+          "resource": "/reports/quarterly"
+        },
+        "source": "finance-control"
+      },
+      "resource": "/reports/quarterly",
+      "revocation_basis": "revocation-list/atp-demo/11",
+      "signature_present": true,
+      "source": "finance-control",
+      "workload": "spiffe://atp-demo/payments-reporter"
+    },
+    "identity": {
+      "expires_at": "2026-10-07T12:05:00Z",
+      "issued_at": "2026-10-07T12:00:00Z",
+      "key_id": "identity-key-run-11",
+      "principal": "principal://atp-demo/reporting-job",
+      "signature_present": true,
+      "spiffe_id": "spiffe://atp-demo/payments-reporter",
+      "trust_domain": "atp-demo"
+    },
+    "principal": "principal://atp-demo/reporting-job",
+    "requests": [
+      {
+        "nonce": "73ab48767734d7c1c7fde805ec99108d",
+        "request_id": "req-db5b5fab8f4d3e27"
+      },
+      {
+        "nonce": "a66b0d389d95847ebd299753a7677796",
+        "request_id": "req-73f778aaf6fa5db8"
+      }
+    ],
+    "resource": "/reports/quarterly",
+    "revoked_grant_ids": [],
+    "workload_path": "payments-reporter"
+  },
+  "requirement_ids": [
+    "ENF-003",
+    "CTL-010",
+    "AZ-017",
+    "AZ-018"
+  ],
+  "scenario": "replayed-decision",
+  "seed": 11,
+  "verdict": "PASS"
+}

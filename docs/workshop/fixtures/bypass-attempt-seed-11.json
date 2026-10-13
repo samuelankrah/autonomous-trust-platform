@@ -1,0 +1,131 @@
+{
+  "checks": [
+    {
+      "check_id": "bypass-blocked",
+      "detail": "enforcement=BYPASS_BLOCKED",
+      "passed": true,
+      "requirement_ids": [
+        "ENF-002",
+        "ENF-006"
+      ]
+    },
+    {
+      "check_id": "bypass-evidenced",
+      "detail": "attempt recorded in ledger",
+      "passed": true,
+      "requirement_ids": [
+        "CTL-006",
+        "CTL-007",
+        "ENF-010"
+      ]
+    },
+    {
+      "check_id": "no-decision-no-operation",
+      "detail": "nothing to enforce without a decision",
+      "passed": true,
+      "requirement_ids": [
+        "ENF-001"
+      ]
+    }
+  ],
+  "contract_version": "scenario-contract-v1",
+  "decision": null,
+  "decisions": [],
+  "enforcement": {
+    "decision_id": null,
+    "enforced_at": "2026-10-07T12:00:00Z",
+    "outcome_id": "enf-73ab48767734d7c1",
+    "reason": "alternate path blocked; no decision, no operation (ENF-002, ENF-006)",
+    "request_id": "req-db5b5fab8f4d3e27",
+    "result": "BYPASS_BLOCKED"
+  },
+  "enforcements": [
+    {
+      "nonce": null,
+      "operation_result": null,
+      "outcome": {
+        "decision_id": null,
+        "enforced_at": "2026-10-07T12:00:00Z",
+        "outcome_id": "enf-73ab48767734d7c1",
+        "reason": "alternate path blocked; no decision, no operation (ENF-002, ENF-006)",
+        "request_id": "req-db5b5fab8f4d3e27",
+        "result": "BYPASS_BLOCKED"
+      },
+      "presented_decision": null,
+      "request_id": "req-db5b5fab8f4d3e27",
+      "via": "direct_access"
+    }
+  ],
+  "evidence": {
+    "event_types": [
+      "resource.bypass_attempt",
+      "enforcement.outcome"
+    ],
+    "events": [
+      {
+        "fields": [
+          "action",
+          "event_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "resource",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "resource.bypass_attempt"
+      },
+      {
+        "fields": [
+          "decision_id",
+          "event_id",
+          "outcome_id",
+          "prev_hash",
+          "reason",
+          "record_hash",
+          "request_id",
+          "result",
+          "seq",
+          "ts",
+          "type"
+        ],
+        "type": "enforcement.outcome"
+      }
+    ]
+  },
+  "inputs": {
+    "action": "READ",
+    "attestation": null,
+    "clock_advances_seconds": [],
+    "direct_access": {
+      "action": "READ",
+      "principal": "principal://atp-demo/reporting-job",
+      "resource": "/reports/quarterly"
+    },
+    "grant": null,
+    "identity": null,
+    "principal": "principal://atp-demo/reporting-job",
+    "requests": [
+      {
+        "nonce": null,
+        "request_id": "req-db5b5fab8f4d3e27"
+      }
+    ],
+    "resource": "/reports/quarterly",
+    "revoked_grant_ids": [],
+    "workload_path": "payments-reporter"
+  },
+  "requirement_ids": [
+    "ENF-001",
+    "ENF-002",
+    "ENF-006",
+    "ENF-007",
+    "CTL-006",
+    "CTL-007"
+  ],
+  "scenario": "bypass-attempt",
+  "seed": 11,
+  "verdict": "PASS"
+}
