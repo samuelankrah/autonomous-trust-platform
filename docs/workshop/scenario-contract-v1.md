@@ -36,6 +36,10 @@ One file per scenario per seed, plus an index:
 - `docs/workshop/fixtures/index.json`, listing every fixture with its
   scenario, seed, file name, verdict, and the contract version
 
+`index.json` also carries provenance fields: `exporter_version`,
+`source_engine_commit`, and `generation_command`, plus the seed list
+(`seeds`) the fixture set was generated with.
+
 That is 7 scenarios times 2 seeds: 14 fixture files plus the index.
 
 ## Fixture schema, field by field
@@ -198,35 +202,68 @@ Editorial changes to this document that alter no fixture and no parity
 rule do not require a version bump. Any change to the parity definition
 below does.
 
+Version-change procedure: when the contract version bumps, the
+superseded fixture set is retained (moved to
+`docs/workshop/fixtures/archive/<old-contract-version>/`, never
+deleted), and a new set is generated at the fixtures root. Every
+generation must carry the index provenance metadata
+(`source_engine_commit`, `exporter_version`, `generation_command`, and
+`seeds`). An implementation declares the contract version it supports
+in its parity report, and parity may only be claimed against a named
+version.
+
+## Revision note, 2026-10-13
+
+This revision makes the parity projection explicit field by field. The
+checks list (including `detail`) was already exported and described in
+this document as the stable parity target. This revision changes no
+fixture content and no scenario behavior, and the contract version
+therefore remains `scenario-contract-v1`. Future changes to the
+projection follow the version-change procedure above.
+
 ## Parity definition
 
 A future browser build reaches parity with this contract for a scenario
-when, run at the same seed with the same scenario setup, its rendered
-decision trace matches the fixture exactly on the compared surface:
+when, run at the same seed with the same scenario setup, its structured
+decision trace matches the fixture on the normative parity projection in
+the table below. The table is normative: it states, field by field, what
+is compared and how.
 
-- same decision state (`decision.state`), or no decision where the
-  fixture has none,
-- same decision reason string (`decision.reason`),
-- same authority provenance structure on the decision,
-- same enforcement result and reason, for every enforcement invocation,
-  in order (including the first, legitimate use in `replayed-decision`
-  and the altered presented decision in `tampered-decision`),
-- same ordered evidence event types (`evidence.event_types`), and the
-  same field names on each corresponding evidence event,
-- same asserted checks, by `check_id` and requirement IDs, all passing.
+| Surface | Comparison rule |
+| --- | --- |
+| `contract_version`, `scenario`, `seed` | Exact: each value must equal the fixture value exactly. |
+| `requirement_ids` | Same IDs, same order. |
+| `verdict` | Exact, and the value is `PASS`. |
+| `checks` | Same count and same order. Per row: `check_id` exact, `requirement_ids` same IDs and in the same order, `passed` boolean equal per row, and `detail` compared byte for byte. Justification: detail strings are deterministic functions of seed and scenario, regeneration at the same seed is byte-identical, and they contain no key material, signature values, or hash values. |
+| `inputs.principal`, `inputs.resource`, `inputs.action`, `inputs.workload_path` | Exact: each string must equal the fixture value exactly. |
+| `inputs.requests` | Same count and creation order. Per entry: `request_id` exact and `nonce` exact, with null equal only to null. |
+| `inputs.identity`, `inputs.grant`, `inputs.attestation` | Field for field exact for each object, including `issued_at` and `expires_at` timestamps, `key_id` values (seeded labels, for example `identity-key-run-7`), and `signature_present`, with null equal only to null when an object is absent. Grant `constraints` and `provenance` are compared as structured mappings, never flattened. |
+| `inputs.revoked_grant_ids`, `inputs.clock_advances_seconds` | Same lists: same values, same count, and same order. |
+| `inputs.direct_access` | Exact field for field when present, or null, with null equal only to null. |
+| `decision` and `decisions` | Same count and same order for `decisions`, and `decision` equal to the first entry of `decisions`, or null when no decision was evaluated. Field for field per decision: `decision_id`, `request_id`, `state`, `principal`, `workload`, `resource`, `action`, `authority_provenance` as a structure with null equal only to null, `policy_id`, `policy_version`, `freshness` ages `identity_age_seconds`, `authority_age_seconds`, and `attestation_age_seconds` exact including null, `validity_not_before` and `validity_not_after` exact, `transaction_binding` with `request_id` and `nonce` exact, `reason` as an exact string byte for byte, `key_id`, and `signature_present`. |
+| `enforcements` (and `enforcement`, the outcome of the last entry) | Same count and same order. Per entry: `via` exact; presented `request_id` and `nonce` exact, with null equal only to null; `presented_decision` compared field for field under the same rule as decisions above, null for `direct_access`, and for `tampered-decision` this is the altered decision as presented, which differs from the evaluated decision; `outcome` field for field (`outcome_id`, `decision_id` with null for bypass, `request_id`, `result`, `reason` as an exact string byte for byte, `enforced_at`); and `operation_result` exact, null when the operation was not invoked. `replayed-decision` therefore compares two enforcements, the first `ALLOWED` and the second `REJECTED`. |
+| `evidence.event_types` | Same list, same order. |
+| `evidence.events` | Same count and same order. Per event: `type` exact, and the set of field names per event exactly equal (the fixture `fields` list for that event). `seq`: the field name `seq` is present on every event, and the implementation's `seq` values are integers forming a contiguous sequence in event order, each exactly one greater than the previous. `prev_hash` and `record_hash`: the field names are present on every event, and their values are outside parity. |
 
-Compared surface, stated plainly: decision state, decision reason,
-provenance shape, enforcement outcomes, ordered evidence event types and
-their field names, and the check list. Identifier values, timestamps,
-and ages are compared against the fixture for the same seed, since the
-reference makes them a deterministic function of the seed. Signature
-values and hash values are outside the compared surface, for the
-determinism reason given above: they depend on per-run synthetic keys
-and were never part of the recorded behavior.
+Outside parity: signature values (never exported), key material,
+`prev_hash` and `record_hash` values, wall-clock durations, and all
+rendered or display text.
+
+Comparison rules: comparison runs on the structured trace in fixture
+shape before rendering. Display labels are a separate presentation
+layer. A documented display-string mapping may translate values for
+human display, but it must never alter the stored normative strings (in
+particular `decision.reason` and `outcome.reason`). Parity tooling
+compares structured data, never rendered text.
 
 A mismatch on any compared element is a parity failure. There is no
-partial parity per scenario: a scenario either matches its fixture or it
-does not.
+partial parity per scenario: a scenario either matches its fixture or
+it does not.
+
+Bounded-cryptography note: this contract tests deterministic behavior
+and trace shape only. It does not test cryptographic strength,
+public-key trust distribution, or production key management, and parity
+under it must never be cited as evidence of any of those.
 
 ## How to regenerate
 
@@ -237,12 +274,14 @@ python3 labs/decision-service/tools/export_fixtures.py
 ```
 
 This rewrites all 14 fixtures and `index.json` under
-`docs/workshop/fixtures/`. Options: `--seeds 7,11` selects the seed list,
-`--out-dir DIR` redirects the output directory. To verify regeneration
-is stable, copy the fixtures aside, run the command again, and diff the
-two sets: they must be byte-identical. The exporter exits nonzero if any
-scenario's checks fail, so a green run also confirms the reference engine
-still passes its own assertions.
+`docs/workshop/fixtures/`. The regenerated `index.json` records the
+provenance fields (`exporter_version`, `source_engine_commit`, and
+`generation_command`) plus the seed list. Options: `--seeds 7,11`
+selects the seed list, `--out-dir DIR` redirects the output directory.
+To verify regeneration is stable, copy the fixtures aside, run the
+command again, and diff the two sets: they must be byte-identical. The
+exporter exits nonzero if any scenario's checks fail, so a green run
+also confirms the reference engine still passes its own assertions.
 
 ## Manipulability table
 
