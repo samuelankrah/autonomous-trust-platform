@@ -44,6 +44,15 @@ button[aria-pressed="true"], button[aria-selected="true"] {
   color: #ffffff;
 }
 button:disabled { opacity: 0.55; cursor: not-allowed; }
+summary {
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0.6rem 0.25rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+}
 button:focus-visible, a:focus-visible, input:focus-visible,
 textarea:focus-visible, select:focus-visible, summary:focus-visible,
 [tabindex]:focus-visible {
