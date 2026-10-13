@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ATP Workshop: The payments report request</title>
+<title>The Gatehouse: The King's Ledger</title>
 <link rel="stylesheet" href="css/workshop.css">
 </head>
 <body>
 <header class="page-head">
-  <p class="brand">ATP Workshop</p>
+  <p class="brand">The Gatehouse</p>
+  <p>An ATP Workshop adventure</p>
   <span class="chip">Simulated</span>
 </header>
 
@@ -16,36 +17,37 @@
 <!-- Screen 1: Component view -->
 <section id="screen-1" class="screen" aria-labelledby="s1-title">
   <span class="chip">Simulated</span>
-  <h1 id="s1-title" tabindex="-1">The payments report request</h1>
-  <p>A program asks to read a protected report. The system checks who it is, what it is allowed to do, and whether its proof is fresh. Then it decides, and the decision is enforced.</p>
+  <h1 id="s1-title" tabindex="-1">The Gatehouse</h1>
+  <p>You are the gatehouse apprentice, learning the Steward's craft from Steward Maren. Pell, envoy of the Counting House, has come to fetch the King's Ledger from the Ledger Vault. Before any door opens, who he claims to be, what he is allowed to do, and how fresh his inspection is are all read and checked. Then Maren decides, and Captain Tam acts on her decision. Nothing opens on trust.</p>
 
   <div id="explore-panel">
     <h2>Explore: the story in plain words</h2>
     <p>Label: <span class="chip">Conceptual explanation</span></p>
-    <p>Think of a car arriving at a workshop:</p>
+    <p>The court, in plain words:</p>
     <ul class="plain-list">
-      <li><strong>The workload</strong> is the driver, arriving with a job to do.</li>
-      <li><strong>The identity</strong> is the driver proving who they are.</li>
-      <li><strong>The grant</strong> is the manager's written permission, naming what this driver may do.</li>
-      <li><strong>The check-up report</strong> (attestation evidence) is the car's own report about itself, with a time on it: what it is running and whether it has been messed with.</li>
-      <li><strong>The decision point</strong> is the service desk. It checks all three together and issues a signed work order.</li>
-      <li><strong>The enforcement point</strong> is the gate to the bay. It checks the work order before letting the car through.</li>
-      <li><strong>The protected resource</strong> is the bay, and the report inside it.</li>
-      <li><strong>The evidence ledger</strong> is the workshop logbook, where every check and outcome is written down in order.</li>
+      <li><strong>Pell, envoy of the Counting House (the workload)</strong>: he does the asking. He has come for the King's Ledger.</li>
+      <li><strong>His herald and house colors (the identity)</strong>: who he claims to serve.</li>
+      <li><strong>The Sealed Letter from Lord Aldric (the grant)</strong>: this envoy may collect this one ledger, nothing else.</li>
+      <li><strong>The Quartermaster's inspection (attestation)</strong>: a dated report on Pell's party: gear sound, nothing messed with.</li>
+      <li><strong>Steward Maren (the decision point)</strong>: she reads the claim, the letter, and the inspection together, and decides.</li>
+      <li><strong>Captain Tam of the gate (the enforcement point)</strong>: he opens the vault door only on Maren's signed order.</li>
+      <li><strong>The Ledger Vault (the protected resource)</strong>: where the King's Ledger is kept.</li>
+      <li><strong>The Chronicle, kept by Brother Anselm (the evidence ledger)</strong>: every arrival, check, decision, and outcome, written in order.</li>
     </ul>
     <details>
-      <summary>Where the car story stops working</summary>
-      <p>The story is a memory aid only, and it has limits. It does not capture signing, binding (a decision tied to one request), or checking whether permission was taken back.</p>
-      <p>In the real model, the grant is more than a note from a manager: it carries a bounded permission from an authority, for this report and this action only. And the gate does more than glance at the work order: it checks a signed decision that is protected against changes and tied to this one request.</p>
+      <summary>Where the kingdom story stops working</summary>
+      <p>The story is a memory aid only, and it has limits. Real systems have no single wall or gate: requests arrive from everywhere at once.</p>
+      <p>Identity in real systems is proven with cryptographic keys, not faces, voices, or colors. Many checkers and guards act at the same time, in different places, and no person is doing the judging: software decides in a blink, by rules.</p>
+      <p>And the Sealed Letter in the real model is data, not paper: a grant carrying a bounded permission from an authority, for this resource and this action only. Captain Tam's check is likewise more than a glance: he verifies a signed order that is protected against changes and tied to this one errand.</p>
     </details>
     <p>
-      <button type="button" id="start-happy">Start: the normal request, nothing broken</button>
-      <button type="button" id="start-no-authority">Start: identity, but no permission given</button>
-      <button type="button" id="open-learn">Meet the parts (the intro)</button>
+      <button type="button" id="start-happy">Start: Pell's normal errand, nothing amiss</button>
+      <button type="button" id="start-no-authority">Start: Pell arrives with no letter</button>
+      <button type="button" id="open-learn">Meet the court (the intro)</button>
     </p>
   </div>
 
-  <h2>Parts of the request</h2>
+  <h2>Who and what is at the gate</h2>
   <p id="run-info">No run started yet.</p>
   <div id="component-list" class="stack"></div>
 
@@ -85,8 +87,8 @@
 <!-- Screen 9: Learn, meet the parts -->
 <section id="screen-9" class="screen" hidden aria-labelledby="s9-title">
   <span class="chip">Conceptual explanation</span>
-  <h1 id="s9-title" tabindex="-1">Meet the parts</h1>
-  <p>Seven parts, one at a time. Each part has one job.</p>
+  <h1 id="s9-title" tabindex="-1">Meet the court</h1>
+  <p>Seven members of the court and the errand, one at a time. Each has one job.</p>
   <p id="learn-progress" class="fine"></p>
   <div class="card">
     <h2 id="learn-part-name"></h2>
@@ -103,8 +105,8 @@
 <!-- Screen 10: Learn, watch it flow -->
 <section id="screen-10" class="screen" hidden aria-labelledby="s10-title">
   <span class="chip">Conceptual explanation</span>
-  <h1 id="s10-title" tabindex="-1">Watch it flow</h1>
-  <p>The normal request, one beat at a time. Tap Next for each beat. Nothing moves on its own, and every beat is written out in words.</p>
+  <h1 id="s10-title" tabindex="-1">Watch the road to the gate</h1>
+  <p>Pell's normal errand, one beat at a time. Tap Next for each beat. Nothing moves on its own, and every beat is written out in words.</p>
   <ol id="flow-parts" class="flow-list"></ol>
   <p id="flow-progress" class="fine"></p>
   <p id="flow-beat" class="story" aria-live="polite"></p>
@@ -118,61 +120,61 @@
 <!-- Screen 3: Control panel -->
 <section id="screen-3" class="screen" hidden aria-labelledby="s3-title">
   <span class="chip">Simulated</span>
-  <h1 id="s3-title" tabindex="-1">Break one thing</h1>
-  <p>Pick one thing to break. Each pick starts a new run, and you will predict again before anything runs.</p>
-  <p>A good order for a first visit: take back the permission, then use an old check-up report, then change a signed decision, then reuse a decision, then try to skip the checker. Or pick any one of the five.</p>
+  <h1 id="s3-title" tabindex="-1">Choose one trial</h1>
+  <p>Each trial is a what-if test you run as the apprentice. Pick one, and you will advise the Steward again before anything happens.</p>
+  <p>A good order for a first visit: the Taken-Back Letter, then the Old Inspection, then the Broken Seal, then Yesterday's Pass, then Over the Wall. Or pick any one of the five.</p>
   <div class="stack" id="control-list">
     <div class="card">
-      <button type="button" data-manip="revoke-grant">Take back its permission</button>
-      <p>The permission slip still exists, but the checker is told it was taken back.</p>
+      <button type="button" data-manip="revoke-grant">The Taken-Back Letter</button>
+      <p>The Sealed Letter still exists, but the lord's proclamation has taken it back, and Maren checks the posted list.</p>
       <p class="fine">Fine print: the grant is added to the lab's list of taken-back grants.</p>
     </div>
     <div class="card">
-      <button type="button" data-manip="age-attestation">Use an old check-up report</button>
-      <p>Time moves forward, so the program's check-up report is older than the lab allows. Everything else stays fresh. Only the report is too old.</p>
+      <button type="button" data-manip="age-attestation">The Old Inspection</button>
+      <p>Time moves forward, so the Quartermaster's inspection is older than the lab allows. Everything else stays fresh. Only the inspection is too old.</p>
       <p class="fine">Fine print: the lab clock moves 301 seconds. The limit is 300 seconds, a made-up lab number, not a rule for real systems.</p>
     </div>
     <div class="card">
-      <button type="button" data-manip="tamper-decision">Change the decision after it is signed</button>
-      <p>One line in the signed decision is changed after signing: it now points at a different report. The signature is not redone.</p>
+      <button type="button" data-manip="tamper-decision">The Broken Seal</button>
+      <p>One line in Maren's signed order is changed after signing: it now points at a different ledger. The signature is not redone.</p>
     </div>
     <div class="card">
-      <button type="button" data-manip="replay-decision">Reuse a decision made for a different request</button>
-      <p>A real, correctly signed decision, made for one request, is shown again for a different request.</p>
+      <button type="button" data-manip="replay-decision">Yesterday's Pass</button>
+      <p>A real, correctly signed order, made for one errand, is shown again for a different errand.</p>
       <p class="fine">Fine print: the second request carries its own request number and one-time value, and they do not match the ones the decision was tied to.</p>
     </div>
     <div class="card">
-      <button type="button" data-manip="bypass-attempt">Try to skip the checker entirely</button>
-      <p>The program tries to open the report directly, without asking for a decision at all.</p>
+      <button type="button" data-manip="bypass-attempt">Over the Wall</button>
+      <p>Someone tries to reach the Ledger without the gate at all: no claim read, no letter, no order.</p>
     </div>
   </div>
-  <p><button type="button" id="clear-faults">Start clean, nothing broken</button></p>
-  <p>One break per run. Breaks cannot be combined.</p>
+  <p><button type="button" id="clear-faults">Start clean, no trial</button></p>
+  <p>One trial per run. Trials cannot be combined.</p>
   <p class="fine">Fine print: the reference engine and its contract define runs with a single break only.</p>
-  <p>Label: <span class="chip">Not modeled</span> Some breaks are not offered: swapping the program's proof of identity for a new one, rewriting the rules, or cutting a connection. The reference system does not do those things, so the workshop cannot either.</p>
+  <p>Label: <span class="chip">Not modeled</span> Some trials are not offered: swapping Pell's proof of who he is for a new one, rewriting the Steward's rules, or cutting the road to the gate. The reference system does not do those things, so the game cannot either.</p>
   <p><button type="button" data-goto="1">Back to component view</button></p>
 </section>
 
 <!-- Screen 4: Predict gate -->
 <section id="screen-4" class="screen" hidden aria-labelledby="s4-title">
   <span class="chip">Simulated</span>
-  <h1 id="s4-title" tabindex="-1">What will the system do?</h1>
+  <h1 id="s4-title" tabindex="-1">What will Steward Maren do?</h1>
   <p id="predict-run-summary" class="story">No run started yet. Start a run from the first screen or the control panel.</p>
   <fieldset>
-    <legend>First: what will the checker decide?</legend>
+    <legend>First: what will Maren decide?</legend>
     <div class="stack">
-      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">Let it read the report</button>
-      <button type="button" class="choice" data-decision="DENY" aria-pressed="false">Refuse it</button>
-      <button type="button" class="choice" data-decision="INDETERMINATE" aria-pressed="false">Say it cannot be sure</button>
+      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">Let Pell take the Ledger</button>
+      <button type="button" class="choice" data-decision="DENY" aria-pressed="false">Turn him away</button>
+      <button type="button" class="choice" data-decision="INDETERMINATE" aria-pressed="false">Say she cannot be sure</button>
     </div>
   </fieldset>
   <fieldset>
     <legend>Second: what will happen at the gate?</legend>
     <div class="stack">
-      <button type="button" class="choice" data-enforcement="ALLOWED" aria-pressed="false">The report opens</button>
-      <button type="button" class="choice" data-enforcement="DENY" aria-pressed="false">Nothing happens, it was refused</button>
-      <button type="button" class="choice" data-enforcement="DENY_INDETERMINATE" aria-pressed="false">Nothing happens, the system could not be sure</button>
-      <button type="button" class="choice" data-enforcement="REJECTED" aria-pressed="false">Nothing happens, the decision was thrown out</button>
+      <button type="button" class="choice" data-enforcement="ALLOWED" aria-pressed="false">The Ledger is handed over</button>
+      <button type="button" class="choice" data-enforcement="DENY" aria-pressed="false">Nothing happens, he was turned away</button>
+      <button type="button" class="choice" data-enforcement="DENY_INDETERMINATE" aria-pressed="false">Nothing happens, Maren could not be sure</button>
+      <button type="button" class="choice" data-enforcement="REJECTED" aria-pressed="false">Nothing happens, the order was thrown out</button>
       <button type="button" class="choice" data-enforcement="BYPASS_BLOCKED" aria-pressed="false">Nothing happens, the attempt was blocked</button>
     </div>
   </fieldset>
@@ -189,7 +191,7 @@
 <section id="screen-5" class="screen" hidden aria-labelledby="s5-title">
   <span class="chip">Reference-tested</span>
   <p class="binding" id="runner-binding"></p>
-  <h1 id="s5-title" tabindex="-1">Step runner</h1>
+  <h1 id="s5-title" tabindex="-1">The errand, step by step</h1>
   <p id="step-indicator">No steps yet. Record a prediction first.</p>
   <h2 id="step-title"></h2>
   <p id="step-detail"></p>
@@ -216,7 +218,7 @@
     <button type="button" id="next-step">Next step</button>
     <button type="button" id="pause-run">Pause</button>
     <button type="button" id="inspect-current">Inspect current component</button>
-    <button type="button" id="view-evidence">View evidence</button>
+    <button type="button" id="view-evidence">Read the Chronicle</button>
   </p>
   <p><button type="button" data-goto="1">Back to component view</button></p>
 </section>
@@ -225,42 +227,42 @@
 <section id="screen-6" class="screen" hidden aria-labelledby="s6-title">
   <span class="chip">Reference-tested</span>
   <p class="binding" id="evidence-binding"></p>
-  <h1 id="s6-title" tabindex="-1">Evidence viewer</h1>
+  <h1 id="s6-title" tabindex="-1">The Chronicle</h1>
   <p id="evidence-request"></p>
   <ol id="evidence-list"></ol>
-  <p>The browser does not independently verify the cryptographic integrity of the ledger. This screen displays event shape, order, and correlation only, and nothing on this screen implies that the browser verified the hash chain itself.</p>
+  <p>The browser does not independently verify the cryptographic integrity of the Chronicle. This screen displays event shape, order, and correlation only, and nothing on this screen implies that the browser verified the hash chain itself.</p>
   <p>
     <button type="button" data-goto="5">Back to step runner</button>
-    <button type="button" data-goto="7">Continue to repair</button>
+    <button type="button" data-goto="7">Continue to set it right</button>
   </p>
 </section>
 
 <!-- Screen 7: Repair and reset -->
 <section id="screen-7" class="screen" hidden aria-labelledby="s7-title">
   <span class="chip">Simulated</span>
-  <h1 id="s7-title" tabindex="-1">Repair and reset</h1>
+  <h1 id="s7-title" tabindex="-1">Set it right</h1>
   <h2>Diagnosis</h2>
-  <p>What broke, which stage caught it, and what will you change to repair it? All three answers are required before repair controls unlock.</p>
-  <label for="diag-fault">What broke (name the fault)</label>
+  <p>What went wrong, which stage caught it, and what will you change to set it right? All three answers are required before the repair controls unlock.</p>
+  <label for="diag-fault">What went wrong (name the trial)</label>
   <input id="diag-fault" type="text">
   <label for="diag-stage">Which stage caught it</label>
   <input id="diag-stage" type="text">
-  <label for="diag-text">Your repair plan</label>
+  <label for="diag-text">Your plan to set it right</label>
   <textarea id="diag-text" rows="3"></textarea>
   <h2>Repair</h2>
   <div id="repair-controls">
     <p id="repair-note"></p>
     <p><button type="button" id="repair-button" disabled>Repair</button></p>
   </div>
-  <p>Repair never broadens authority. A repair restores the happy path permissions exactly, it never adds a new permission, a wider resource, or a different action.</p>
-  <p id="replay-repair-note" hidden>For replay, the rerun is the normal path for a fresh second request: a fresh decision is obtained for the new request through the normal decision step and enforced for that request. The original decision stays bound to its own request, and the replay rejection remains recorded as evidence.</p>
+  <p>Setting it right never widens permission. It restores the normal errand exactly: it never adds a new permission, a different ledger, or a different action.</p>
+  <p id="replay-repair-note" hidden>For Yesterday's Pass, the rerun is the normal path for a fresh second errand: a fresh order is obtained for the new errand through the normal decision step and enforced for that errand. The original order stays bound to its own errand, and the rejection remains recorded in the Chronicle.</p>
   <p><button type="button" id="rerun-repair" disabled>Rerun after repair</button></p>
   <h2>Reset</h2>
-  <p><button type="button" id="reset-button">Reset scenario</button></p>
+  <p><button type="button" id="reset-button">Reset the errand</button></p>
   <div id="reset-confirm" hidden>
-    <p>Reset saves this run into Prior runs and clears the screen: the break you picked, your prediction, and the steps all go. You can still find the saved run under Prior runs. Do you want to reset?</p>
+    <p>Reset saves this run into Prior runs and clears the screen: the trial you picked, your prediction, and the steps all go. You can still find the saved run under Prior runs. Do you want to reset?</p>
     <p>
-      <button type="button" id="reset-confirm-yes">Yes, reset the scenario</button>
+      <button type="button" id="reset-confirm-yes">Yes, reset the errand</button>
       <button type="button" id="reset-confirm-no">Cancel reset</button>
     </p>
   </div>
@@ -272,9 +274,9 @@
   <span class="chip">Conceptual explanation</span>
   <h1 id="s8-title" tabindex="-1">Teach-back</h1>
   <p id="journey-status">Journey status: incomplete. Finishing requires a teach-back entry. Skipping teach-back leaves the journey marked incomplete.</p>
-  <label for="teach-1">Prompt 1: Explain this request in your own words. Start with the program that asked, end with the report it wanted, and say what each part in between did.</label>
+  <label for="teach-1">Prompt 1: Explain this request in your own words, in real system words, not story words. Start with the workload that asked, end with the protected resource it wanted, and say what the identity, the grant, the attestation, the decision point, the enforcement point, and the evidence ledger each did.</label>
   <textarea id="teach-1" rows="4"></textarea>
-  <label for="teach-2">Prompt 2: Explain one fault you broke and repaired: what you changed, what you predicted, what actually happened, and which stage caught it.</label>
+  <label for="teach-2">Prompt 2: Explain one trial you ran and set right, naming the fault in real words (revocation, stale attestation, tampering, replay, or bypass): what you changed, what you predicted, what actually happened, and which stage caught it.</label>
   <textarea id="teach-2" rows="4"></textarea>
   <h2>Prompt 3: Memory anchors</h2>
   <p>For each anchor: say what the cue captures and what it omits. Each card also has a recall check.</p>
@@ -296,7 +298,7 @@
 </div>
 
 <footer>
-  <p>ATP Workshop. Label: <span class="chip">Simulated</span> This workshop is a lab for learning, published on GitHub Pages for the owner's study. It makes no production claims.</p>
+  <p>The Gatehouse, an ATP Workshop adventure. Label: <span class="chip">Simulated</span> This game is a lab for learning, published on GitHub Pages for the owner's study. It makes no production claims.</p>
   <p><button type="button" class="export-session">Export session</button></p>
 </footer>
 

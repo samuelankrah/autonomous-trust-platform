@@ -1,11 +1,31 @@
 /* ATP Workshop styles. Mobile first, rem based, no fixed pixel heights
    that could clip scaled text. Touch targets are at least 44px. */
 :root {
-  --ink: #14213d;
-  --paper: #ffffff;
-  --wash: #eef2f7;
-  --accent: #1d4ed8;
-  --line: #5b6b82;
+  color-scheme: light dark;
+  --ink: #2a2019;
+  --paper: #f7efdb;
+  --card: #fffaf0;
+  --wash: #eee0c2;
+  --accent: #7f1d1d;
+  --accent-ink: #ffffff;
+  --gold: #9a7418;
+  --line: #6f5b3e;
+  --fine: #5a4632;
+  --focus: #9a3412;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #f2e8d5;
+    --paper: #1e1710;
+    --card: #2a2013;
+    --wash: #332818;
+    --accent: #e0653f;
+    --accent-ink: #221607;
+    --gold: #d9a441;
+    --line: #8a7350;
+    --fine: #cdb693;
+    --focus: #f0b64f;
+  }
 }
 * { box-sizing: border-box; }
 body {
@@ -24,6 +44,9 @@ main, footer, .page-head {
 h1 { font-size: 1.6rem; line-height: 1.25; }
 h2 { font-size: 1.25rem; margin-top: 1.5rem; }
 h3 { font-size: 1.05rem; }
+h1, h2, h3, legend, .brand { font-family: Georgia, "Times New Roman", serif; }
+.brand { letter-spacing: 0.04em; font-size: 1.15rem; }
+.page-head { border-bottom: 0.25rem double var(--gold); padding-bottom: 0.75rem; }
 button, select, input, textarea {
   font: inherit;
   color: inherit;
@@ -41,7 +64,7 @@ button {
 }
 button[aria-pressed="true"], button[aria-selected="true"] {
   background: var(--accent);
-  color: #ffffff;
+  color: var(--accent-ink);
 }
 button:disabled { opacity: 0.55; cursor: not-allowed; }
 summary {
@@ -56,7 +79,7 @@ summary {
 button:focus-visible, a:focus-visible, input:focus-visible,
 textarea:focus-visible, select:focus-visible, summary:focus-visible,
 [tabindex]:focus-visible {
-  outline: 0.2rem solid #f59e0b;
+  outline: 0.2rem solid var(--focus);
   outline-offset: 0.15rem;
 }
 textarea, input[type="text"], select {
@@ -72,7 +95,7 @@ textarea, input[type="text"], select {
 label { display: block; font-weight: 600; margin-top: 1rem; }
 fieldset { border: none; margin: 1.5rem 0; padding: 0; }
 legend { font-weight: 700; font-size: 1.1rem; padding: 0; margin-bottom: 0.5rem; }
-.fine { font-size: 0.9rem; color: #3d4f6a; }
+.fine { font-size: 0.9rem; color: var(--fine); }
 .story { font-size: 1.08rem; line-height: 1.55; }
 .plain-list { margin: 0.5rem 0 1rem; padding-left: 1.25rem; }
 .plain-list li { margin: 0.35rem 0; }
@@ -91,7 +114,7 @@ legend { font-weight: 700; font-size: 1.1rem; padding: 0; margin-bottom: 0.5rem;
   border: 0.125rem solid var(--line);
   border-radius: 0.5rem;
   padding: 1rem;
-  background: var(--paper);
+  background: var(--card);
 }
 .card p { margin: 0.5rem 0; }
 .card p:first-of-type { margin-top: 0.75rem; }
@@ -114,8 +137,8 @@ legend { font-weight: 700; font-size: 1.1rem; padding: 0; margin-bottom: 0.5rem;
   bottom: 0;
   max-height: 88vh;
   overflow-y: auto;
-  background: var(--paper);
-  border-top: 0.2rem solid var(--ink);
+  background: var(--card);
+  border-top: 0.2rem solid var(--accent);
   padding: 1rem;
   z-index: 10;
 }
@@ -134,7 +157,7 @@ legend { font-weight: 700; font-size: 1.1rem; padding: 0; margin-bottom: 0.5rem;
   align-items: center;
   transition: background 0.25s ease, border-color 0.25s ease;
 }
-.flow-list li.flow-active { background: var(--wash); border-color: var(--ink); font-weight: 700; }
+.flow-list li.flow-active { background: var(--wash); border-color: var(--accent); font-weight: 700; }
 .tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 footer { border-top: 0.125rem solid var(--line); }
 @media (prefers-reduced-motion: reduce) {

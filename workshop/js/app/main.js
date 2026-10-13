@@ -11,6 +11,7 @@ import {
   decisionDisplay,
   enforcementDisplay,
 } from "./steps.js";
+import { CAST } from "./cast.js";
 import { runScenario, SCENARIO_NAMES } from "../fixture.js";
 
 const LABELS = ["Simulated", "Reference-tested", "Conceptual explanation", "Not modeled"];
@@ -62,11 +63,11 @@ const ANCHORS = [
 ];
 
 const REPAIR_WORDING = {
-  "revoke-grant": "Restore the grant",
-  "age-attestation": "Issue a fresh attestation",
-  "tamper-decision": "Use the original untampered decision",
-  "replay-decision": "Obtain a fresh decision for the new request",
-  "bypass-attempt": "Stop the bypass",
+  "revoke-grant": "Take the letter off the taken-back list",
+  "age-attestation": "Bring a fresh inspection",
+  "tamper-decision": "Use " + CAST.stewardName + "'s original order, unchanged",
+  "replay-decision": "Get a fresh order for the new errand",
+  "bypass-attempt": "Come through the gate properly",
 };
 
 const SCENARIO_MANIPULATION = {
@@ -83,40 +84,40 @@ const SCENARIO_MANIPULATION = {
 // Shown on the Predict screen before the question. Setup only: a story
 // never names the outcome.
 const SCENARIO_STORY = {
-  "happy-path": "Payments Reporter, a program, wants to read the quarterly report. Its identity checks out. It has permission. It recently passed a check-up. Nothing is broken.",
-  "identity-no-authority": "Payments Reporter, a program, wants to read the quarterly report. Its identity checks out. But nobody gave it permission to read this report.",
-  "revoked-delegation": "Payments Reporter, a program, wants to read the quarterly report. It was given permission, but that permission has since been taken back.",
-  "stale-attestation": "Payments Reporter, a program, wants to read the quarterly report. It has permission. But its check-up report is old: it was written a while ago, not just now.",
-  "tampered-decision": "Payments Reporter asked, and a signed decision said yes. Then someone changed the decision after it was signed.",
-  "replayed-decision": "Payments Reporter asked, and a signed decision said yes, for that one request. Now the same decision is being shown for a different request.",
-  "bypass-attempt": "Payments Reporter does not ask at all. It skips the checker entirely and tries to open the report directly, with no decision.",
+  "happy-path": CAST.envoy + ", envoy of the Counting House, has come to fetch " + CAST.resourceName + ". His herald's claim checks out. He carries the Sealed Letter. His party's inspection is fresh. Nothing is amiss.",
+  "identity-no-authority": CAST.envoy + " has come to fetch " + CAST.resourceName + ". His herald's claim checks out. But he carries no Sealed Letter: nobody gave him permission to take this ledger.",
+  "revoked-delegation": CAST.envoy + " has come to fetch " + CAST.resourceName + ". He carries the Sealed Letter, but the lord's proclamation has since taken that letter back.",
+  "stale-attestation": CAST.envoy + " has come to fetch " + CAST.resourceName + ". He carries the Sealed Letter. But the Quartermaster's inspection of his party is old: it was written a while ago, not just now.",
+  "tampered-decision": CAST.envoy + " asked, and " + CAST.stewardName + "'s signed order said yes. Then someone changed the order after it was signed.",
+  "replayed-decision": CAST.envoy + " asked, and " + CAST.stewardName + "'s signed order said yes, for that one errand. Now the same order is being shown for a different errand.",
+  "bypass-attempt": "Someone does not come to the gate at all. They try to climb the wall and take the Ledger with no order, and the attempt is watched.",
 };
 
 // One short phrase per scenario for status lines and buttons.
 const SCENARIO_SITUATION = {
-  "happy-path": "the normal request, nothing broken",
-  "identity-no-authority": "identity, but no permission given",
-  "revoked-delegation": "permission taken back",
-  "stale-attestation": "check-up report too old",
-  "tampered-decision": "decision changed after it was signed",
-  "replayed-decision": "decision reused for a different request",
-  "bypass-attempt": "checker skipped entirely",
+  "happy-path": CAST.envoy + "'s normal errand, nothing amiss",
+  "identity-no-authority": CAST.envoy + " arrives with no letter",
+  "revoked-delegation": "the Taken-Back Letter",
+  "stale-attestation": "the Old Inspection",
+  "tampered-decision": "the Broken Seal",
+  "replayed-decision": "Yesterday's Pass",
+  "bypass-attempt": "Over the Wall",
 };
 
 // The exact words of the Predict screen options, keyed by the engine
 // values they record. Used to echo a prediction back in the same words
 // the learner picked.
 const DECISION_OPTION = {
-  PERMIT: "Let it read the report",
-  DENY: "Refuse it",
-  INDETERMINATE: "Say it cannot be sure",
+  PERMIT: "Let " + CAST.envoy + " take the Ledger",
+  DENY: "Turn him away",
+  INDETERMINATE: "Say she cannot be sure",
 };
 
 const ENFORCEMENT_OPTION = {
-  ALLOWED: "The report opens",
-  DENY: "Nothing happens, it was refused",
-  DENY_INDETERMINATE: "Nothing happens, the system could not be sure",
-  REJECTED: "Nothing happens, the decision was thrown out",
+  ALLOWED: "The Ledger is handed over",
+  DENY: "Nothing happens, he was turned away",
+  DENY_INDETERMINATE: "Nothing happens, " + CAST.stewardName + " could not be sure",
+  REJECTED: "Nothing happens, the order was thrown out",
   BYPASS_BLOCKED: "Nothing happens, the attempt was blocked",
 };
 
@@ -125,39 +126,39 @@ const ENFORCEMENT_OPTION = {
 // the system names live in the inspector and the Architect layer.
 const LEARN_PARTS = [
   {
-    name: "The program",
-    job: "Payments Reporter. It does the asking: it wants to read the quarterly report.",
-    picture: "Everyday picture: a courier sent to collect a package.",
+    name: CAST.envoyFull,
+    job: "He does the asking: he has come to fetch " + CAST.resourceName + " from " + CAST.vault + ".",
+    picture: "Real concept: the workload, the program that makes the request.",
   },
   {
-    name: "Its ID",
-    job: "Proof of who the program claims to be.",
-    picture: "Everyday picture: a driver's license. It says who you are. It says nothing about what you may do.",
+    name: "The herald and house colors",
+    job: "They announce who " + CAST.envoy + " claims to serve. A claim, nothing more: it says who he says he is, and nothing about what he may do.",
+    picture: "Real concept: identity.",
   },
   {
-    name: "Its permission slip",
-    job: "Says exactly what the program is allowed to do, and who allowed it.",
-    picture: "Everyday picture: a signed note from the manager: this courier may collect this one package.",
+    name: "The Sealed Letter",
+    job: CAST.lord + "'s sealed order: this envoy may collect this one ledger, nothing else.",
+    picture: "Real concept: the grant, delegated authority. Permission comes from this letter, never from who " + CAST.envoy + " is.",
   },
   {
-    name: "Its check-up report",
-    job: "The program's own report about itself: what it is running, whether it has been messed with, and when the report was written.",
-    picture: "Everyday picture: a recent health check. It only helps if it is fresh.",
+    name: "The Quartermaster's inspection",
+    job: "A dated report on " + CAST.envoy + "'s party: gear sound, nothing messed with. It only helps if it is fresh.",
+    picture: "Real concept: attestation, the workload's own report about itself.",
   },
   {
-    name: "The checker",
-    job: "Examines the ID, the permission slip, and the check-up report together, then decides: yes, no, or cannot be sure.",
-    picture: "Everyday picture: the service desk that reads everything before stamping the work order.",
+    name: CAST.steward,
+    job: "The checker. She reads the herald's claim, the Sealed Letter, and the inspection together, then decides: yes, no, or cannot be sure.",
+    picture: "Real concept: the decision point.",
   },
   {
-    name: "The door guard",
-    job: "Acts on the decision at the door. The report opens only on a yes. A decision that was changed after signing gets thrown out.",
-    picture: "Everyday picture: the guard at the bay door, checking the stamped work order before opening the door.",
+    name: CAST.guard + " of the gate",
+    job: "He opens the vault door only on " + CAST.stewardName + "'s signed order. An order changed after signing gets thrown out.",
+    picture: "Real concept: enforcement, the point that acts on the decision.",
   },
   {
-    name: "The notebook",
-    job: "Every step is written down here, in order: what was asked, what was checked, what was decided, what happened.",
-    picture: "Everyday picture: the workshop logbook. Pages are added, never torn out.",
+    name: "The Chronicle",
+    job: CAST.scribe + " writes every step in order: what was asked, what was checked, what was decided, what happened. Pages are never torn out.",
+    picture: "Real concept: the evidence ledger.",
   },
 ];
 
@@ -167,13 +168,13 @@ const LEARN_PARTS = [
 // beat is a full sentence in text, so the highlight is never the only
 // carrier of the meaning.
 const FLOW_BEATS = [
-  { part: 0, text: "Payments Reporter asks to read the quarterly report." },
-  { part: 1, text: "The checker examines its ID. The name checks out." },
-  { part: 2, text: "The checker reads the permission slip. Reading this report is allowed." },
-  { part: 3, text: "The checker reads the check-up report. It is fresh, and nothing has been messed with." },
-  { part: 4, text: "The checker decides: yes. The decision is signed and tied to this one request." },
-  { part: 5, text: "The door guard checks the decision and opens the report." },
-  { part: 6, text: "Every step is written in the notebook, in order." },
+  { part: 0, text: CAST.envoy + " arrives at the gatehouse and asks for " + CAST.resourceName + "." },
+  { part: 1, text: CAST.stewardName + " hears the herald's claim: " + CAST.envoy + " serves the Counting House. The claim checks out." },
+  { part: 2, text: CAST.stewardName + " reads the Sealed Letter. Collecting this one ledger is allowed, for this envoy." },
+  { part: 3, text: CAST.stewardName + " reads the Quartermaster's inspection. It is fresh, and nothing has been messed with." },
+  { part: 4, text: CAST.stewardName + " decides: yes. Her order is signed and tied to this one errand." },
+  { part: 5, text: CAST.guard + " checks the order and opens the vault door." },
+  { part: 6, text: CAST.scribe + " writes every step in the Chronicle, in order." },
 ];
 
 const journey = new Journey();
@@ -325,7 +326,7 @@ function renderRunInfo() {
   text(el("run-info"),
     "This run: " + (SCENARIO_SITUATION[run.scenario] || run.scenario) + ".");
   text(el("predict-run-summary"),
-    SCENARIO_STORY[run.scenario] || "Payments Reporter, a program, wants to read the quarterly report.");
+    SCENARIO_STORY[run.scenario] || (CAST.envoyFull + " has come to fetch " + CAST.resourceName + "."));
 }
 
 function appraisalRecord() {
@@ -338,13 +339,13 @@ function componentStates() {
   const inputs = runData ? runData.fixture.inputs : null;
   const appraisal = appraisalRecord();
   const states = {
-    workload: run ? "Asking to read the report" : "Ready",
+    workload: run ? "Asking for " + CAST.resourceName : "Ready at the gate",
     identity: "Not yet checked",
     grant: "Not yet checked",
     attestation: "Not yet checked",
-    decision: "Not yet run",
-    enforcement: "Waiting for a decision",
-    resource: "The quarterly report. Not opened yet",
+    decision: "Not decided yet",
+    enforcement: "Waiting for " + CAST.stewardName + "'s order",
+    resource: "The King's Ledger. Not handed over yet",
     ledger: "No entries yet",
   };
   if (run && inputs) {
@@ -357,7 +358,7 @@ function componentStates() {
       : appraisal && appraisal.verdict === "STALE"
         ? "Too old, made " + appraisal.freshness_seconds + " seconds ago"
         : "Fresh" + (appraisal ? ", made " + appraisal.freshness_seconds + " seconds ago" : "");
-    states.ledger = runData.records.length + " entries so far";
+    states.ledger = runData.records.length + " entries written so far";
   }
   return states;
 }
@@ -412,7 +413,7 @@ function openInspector(component, invoker) {
   if (component === "grant" && runData) {
     const check = runData.records.find((r) => r.type === "delegation.revocation_check");
     if (check) {
-      currentText += ". The checker has looked up whether this permission was taken back. Taken back: " +
+      currentText += ". " + CAST.stewardName + " has checked the posted list of taken-back letters. Taken back: " +
         (check.revoked ? "yes" : "no") + ".";
     }
   }
@@ -423,11 +424,11 @@ function openInspector(component, invoker) {
         ", made " + appraisal.freshness_seconds +
         " seconds before the check. The limit in this lab is 300 seconds, a synthetic lab constant (a lab constant, non-normative: not an official rule for real systems).";
     } else if (runData) {
-      currentText = "No check-up report was judged in this run. The limit in this lab is 300 seconds, a synthetic lab constant (a lab constant, non-normative).";
+      currentText = "No inspection was judged in this run. The limit in this lab is 300 seconds, a synthetic lab constant (a lab constant, non-normative).";
     }
   }
-  if (component === "decision") { currentText = "Not yet run"; }
-  if (component === "enforcement") { currentText = "Waiting for a decision"; }
+  if (component === "decision") { currentText = "Not decided yet"; }
+  if (component === "enforcement") { currentText = "Waiting for " + CAST.stewardName + "'s order"; }
   const sections = [
     ["Purpose", meta.purpose],
     ["Current state", { text: currentText, tag: currentTag }],
@@ -558,7 +559,7 @@ function buildEvidence() {
   if (!run || !runData) return;
   text(el("evidence-binding"), bindingLine(run));
   const first = runData.records[0];
-  text(el("evidence-request"), "Every entry from this run, in the order it happened. " +
+  text(el("evidence-request"), "Every entry in the Chronicle from this run, in the order it happened. " +
     "Fine print: this run's request number is " + (first ? first.request_id : "none") +
     ". Label: " + LABELS[1] + ".");
   const decisionIds = new Set();
@@ -578,8 +579,8 @@ function buildEvidence() {
     li.append(make("p", "", "Entry " + (r.seq !== undefined ? r.seq : i + 1) + ": " + step.title));
     li.append(make("p", "", step.detail));
     if (r.decision_id && decisionIds.has(r.decision_id)) li.append(make("p", "status-word", "Same decision"));
-    if (r.type === "resource.bypass_attempt") li.append(make("p", "status-word", "Fault entry: a bypass attempt, direct access with no decision"));
-    if (r.type === "lab.clock_fault") li.append(make("p", "status-word", "Fault entry: the lab clock was advanced"));
+    if (r.type === "resource.bypass_attempt") li.append(make("p", "status-word", "Trial entry: an attempt over the wall, direct access with no order"));
+    if (r.type === "lab.clock_fault") li.append(make("p", "status-word", "Trial entry: the lab clock was advanced"));
     list.append(li);
   });
 }
@@ -594,17 +595,17 @@ function prepareRepair() {
   const run = journey.activeRun();
   const btn = el("repair-button");
   if (!run) {
-    text(el("repair-note"), "No active run to repair.");
+    text(el("repair-note"), "No active run to set right.");
     btn.hidden = true;
     return;
   }
   const wording = REPAIR_WORDING[run.manipulation];
   el("replay-repair-note").hidden = run.manipulation !== "replay-decision";
   if (!wording) {
-    text(el("repair-note"), "This run has nothing broken to repair. It is already the normal request.");
+    text(el("repair-note"), "This run has no trial to set right. It is already the normal errand.");
     btn.hidden = true;
   } else {
-    text(el("repair-note"), "This repairs the one break in this run. It only prepares the repair; the rerun confirms it.");
+    text(el("repair-note"), "This sets right the one trial in this run. It only prepares the fix; the rerun confirms it.");
     btn.hidden = false;
     text(btn, wording);
   }
@@ -910,7 +911,7 @@ function buildStatic() {
   el("pause-run").addEventListener("click", () => {
     const announce = el("decision-announce");
     announce.replaceChildren();
-    announce.append(make("p", "", "Paused. The runner waits between steps. Use Next step to continue."));
+    announce.append(make("p", "", "Paused. Nothing moves until you tap Next step."));
   });
   el("inspect-current").addEventListener("click", (event) => {
     if (!runData) return;

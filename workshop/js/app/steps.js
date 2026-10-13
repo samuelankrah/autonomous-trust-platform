@@ -8,6 +8,8 @@
 // Where the engine has no such fact for a component, the section text is
 // "not applicable in this scenario" and the tag is "not modeled".
 
+import { CAST } from "./cast.js";
+
 function section(text, tag) {
   return { text: text, tag: tag };
 }
@@ -31,10 +33,10 @@ export function decisionDisplay(state) {
 
 export function enforcementWord(result) {
   switch (result) {
-    case "ALLOWED": return "The report opened";
-    case "DENY": return "Nothing happened, it was refused";
-    case "DENY_INDETERMINATE": return "Nothing happened, the system could not be sure";
-    case "REJECTED": return "Nothing happened, the decision was thrown out";
+    case "ALLOWED": return "The Ledger was handed over";
+    case "DENY": return "Nothing happened, he was turned away";
+    case "DENY_INDETERMINATE": return "Nothing happened, " + CAST.stewardName + " could not be sure";
+    case "REJECTED": return "Nothing happened, the order was thrown out";
     case "BYPASS_BLOCKED": return "Nothing happened, the attempt was blocked";
     default: return "Nothing happened";
   }
@@ -47,14 +49,14 @@ export function enforcementDisplay(result) {
 
 export const COMPONENT_META = {
   workload: {
-    label: "Workload",
-    icon: "W",
+    label: CAST.envoyFull,
+    icon: "P",
     purpose: section(
-      "The workload is payments-reporter. It asks to read the protected report at /reports/quarterly, action READ.",
+      CAST.envoy + " is the envoy (the workload, payments-reporter in the engine). He asks to read " + CAST.resourceName + ", the protected report held in " + CAST.vault + " at /reports/quarterly, action READ.",
       "engine-observed"
     ),
     inputs: section(
-      "The job it was given to do: read the quarterly report.",
+      "The errand he was given: fetch " + CAST.resourceName + ".",
       "workshop explanation"
     ),
     outputs: section(
@@ -62,20 +64,20 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     authority: section(
-      "The workload has no authority to grant itself access. It can only ask.",
+      CAST.envoy + " has no authority to give himself the Ledger. He can only ask.",
       "workshop explanation"
     ),
     failure: section("not applicable in this scenario", "not modeled"),
   },
   identity: {
-    label: "Identity",
-    icon: "I",
+    label: "Herald and house colors (identity)",
+    icon: "H",
     purpose: section(
-      "The identity proves who the workload is. It carries the name the workload runs under and when that proof runs out.",
+      "The herald and house colors (identity) say who " + CAST.envoy + " claims to serve. The identity carries the name the workload runs under and when that proof runs out.",
       "engine-observed"
     ),
     inputs: section(
-      "The workload name and the job it acts for, given when the identity was issued.",
+      "The workload name and the house it acts for, given when the identity was issued.",
       "engine-observed"
     ),
     outputs: section(
@@ -83,19 +85,19 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     authority: section(
-      "The identity proves who the workload is. It grants no permission by itself.",
+      "The identity says who " + CAST.envoy + " claims to be. It grants no permission by itself.",
       "workshop explanation"
     ),
     failure: section(
-      "A valid identity with no grant still leads to a refusal (a DENY decision), in the run with identity but no permission.",
+      "A valid identity with no Sealed Letter still leads to a refusal (a DENY decision), in the run where " + CAST.envoy + " arrives with no letter.",
       "engine-observed"
     ),
   },
   grant: {
-    label: "Grant",
-    icon: "G",
+    label: "The Sealed Letter (the grant)",
+    icon: "S",
     purpose: section(
-      "The grant carries permission from the authority source, finance-control in this lab. It names the resource and the action the permission covers.",
+      "The Sealed Letter (the grant) carries " + CAST.lord + "'s permission, given through the authority source, finance-control in this lab. It names the one ledger and the one action the permission covers.",
       "engine-observed"
     ),
     inputs: section(
@@ -103,27 +105,27 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     outputs: section(
-      "A grant the decision point can check, plus a revocation check result that says whether the grant was withdrawn.",
+      "A Sealed Letter " + CAST.stewardName + " can check, plus a taken-back check result that says whether the letter was withdrawn.",
       "engine-observed"
     ),
     authority: section(
-      "The grant is the only part that carries permission. Its permission is bounded to the resource and action it names.",
+      "The Sealed Letter is the only part that carries permission. Its permission is bounded to the ledger and action it names.",
       "engine-observed"
     ),
     failure: section(
-      "A taken-back grant leads the checker to refuse (DENY), with a reason that names the take-back.",
+      "A taken-back letter leads " + CAST.stewardName + " to refuse (DENY), with a reason that names the take-back.",
       "engine-observed"
     ),
   },
   attestation: {
-    label: "Check-up report",
-    icon: "A",
+    label: "The Quartermaster's inspection (attestation)",
+    icon: "Q",
     purpose: section(
-      "The check-up report (attestation evidence) is the workload's own report about itself: what it is running and whether it has been messed with, with the time it was made, so the checker can judge whether it is fresh.",
+      "The Quartermaster's inspection (attestation evidence) is the report on " + CAST.envoy + "'s party: what it is running and whether it has been messed with, with the time it was made, so " + CAST.stewardName + " can judge whether it is fresh.",
       "engine-observed"
     ),
     inputs: section(
-      "The check-up report itself, with the time it was made.",
+      "The inspection itself, with the time it was made.",
       "engine-observed"
     ),
     outputs: section(
@@ -131,19 +133,19 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     authority: section(
-      "A check-up report describes the workload. It is not identity and it is not permission, so it grants no permission by itself.",
+      "An inspection describes " + CAST.envoy + "'s party. It is not identity and it is not permission, so it grants no permission by itself.",
       "workshop explanation"
     ),
     failure: section(
-      "A check-up report that is too old leads to 'could not be sure' (INDETERMINATE), never a silent yes (PERMIT), and the report does not open.",
+      "An inspection that is too old leads to 'could not be sure' (INDETERMINATE), never a silent yes (PERMIT), and the Ledger is not handed over.",
       "engine-observed"
     ),
   },
   decision: {
-    label: "Decision point",
-    icon: "D",
+    label: CAST.steward + " (the checker)",
+    icon: "M",
     purpose: section(
-      "The decision point looks at the identity, the grant, and the check-up report together and issues a signed decision with a reason. The decision is one of three answers: let it through, refuse it, or say it cannot be sure. In the system's own words: PERMIT, DENY, or INDETERMINATE.",
+      CAST.steward + " (the decision point) looks at the identity, the Sealed Letter, and the inspection together and issues a signed order with a reason. The answer is one of three: let him take the Ledger, turn him away, or say she cannot be sure. In the system's own words: PERMIT, DENY, or INDETERMINATE.",
       "engine-observed"
     ),
     inputs: section(
@@ -151,11 +153,11 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     outputs: section(
-      "A signed decision with a reason, tied to one request only. The answer is let it through (PERMIT), refuse it (DENY), or cannot be sure (INDETERMINATE).",
+      "A signed order with a reason, tied to one errand only. The answer is let him take the Ledger (PERMIT), turn him away (DENY), or cannot be sure (INDETERMINATE).",
       "engine-observed"
     ),
     authority: section(
-      "The decision point decides. It never invokes the protected resource itself.",
+      CAST.stewardName + " decides. She never opens " + CAST.vault + " herself.",
       "engine-observed"
     ),
     failure: section(
@@ -164,38 +166,38 @@ export const COMPONENT_META = {
     ),
   },
   enforcement: {
-    label: "Enforcement point",
-    icon: "E",
+    label: CAST.guard + " (enforcement at the gate)",
+    icon: "T",
     purpose: section(
-      "The enforcement point checks the decision, its signature and its binding to this request, and acts on it before the protected resource.",
+      CAST.guard + " (the enforcement point) checks " + CAST.stewardName + "'s order, its signature and its binding to this one errand, and acts on it before " + CAST.vault + ".",
       "engine-observed"
     ),
     inputs: section(
-      "A decision, the request it is presented for, and a one-time value for that request.",
+      "An order, the errand it is presented for, and a one-time value for that errand.",
       "engine-observed"
     ),
     outputs: section(
-      "A result in plain words: the report opens, nothing happens because it was refused, nothing happens because the system could not be sure, the decision is thrown out, or a direct attempt is blocked. In the system's own words: ALLOWED, DENY, DENY_INDETERMINATE, REJECTED, or BYPASS_BLOCKED.",
+      "A result in plain words: the Ledger is handed over, nothing happens because he was turned away, nothing happens because " + CAST.stewardName + " could not be sure, the order is thrown out, or a direct attempt over the wall is blocked. In the system's own words: ALLOWED, DENY, DENY_INDETERMINATE, REJECTED, or BYPASS_BLOCKED.",
       "engine-observed"
     ),
     authority: section(
-      "The enforcement point acts on a decision. It does not invent one.",
+      CAST.guard + " acts on an order. He does not invent one, and he does not bend one.",
       "workshop explanation"
     ),
     failure: section(
-      "A decision changed after signing is thrown out (REJECTED) when its signature check fails. A decision shown for the wrong request is thrown out (REJECTED) because it does not match that request. Trying to reach the report directly, with no decision, is blocked (BYPASS_BLOCKED) and written down.",
+      "An order changed after signing is thrown out (REJECTED) when its signature check fails. An order shown for the wrong errand is thrown out (REJECTED) because it does not match that errand. Trying to reach the Ledger directly, with no order, is blocked (BYPASS_BLOCKED) and written in the Chronicle.",
       "engine-observed"
     ),
   },
   resource: {
-    label: "Protected resource",
-    icon: "R",
+    label: "The Ledger Vault (the protected resource)",
+    icon: "V",
     purpose: section(
-      "The protected resource holds the report at /reports/quarterly.",
+      "The Ledger Vault (the protected resource) holds " + CAST.resourceName + ", the report at /reports/quarterly.",
       "engine-observed"
     ),
     inputs: section(
-      "A read request that reaches it only when the checker said yes (PERMIT) and the gate let it through (ALLOWED).",
+      "A read request that reaches it only when " + CAST.stewardName + " said yes (PERMIT) and the gate let it through (ALLOWED).",
       "workshop explanation"
     ),
     outputs: section(
@@ -206,10 +208,10 @@ export const COMPONENT_META = {
     failure: section("not applicable in this scenario", "not modeled"),
   },
   ledger: {
-    label: "Evidence ledger",
-    icon: "L",
+    label: "The Chronicle (the evidence ledger)",
+    icon: "C",
     purpose: section(
-      "The evidence ledger records each step in order, linked so a decision and its enforcement outcome can be matched to each other.",
+      "The Chronicle (the evidence ledger), kept by " + CAST.scribe + " the scribe, records each step in order, linked so an order and its outcome at the gate can be matched to each other.",
       "engine-observed"
     ),
     inputs: section(
@@ -222,7 +224,7 @@ export const COMPONENT_META = {
     ),
     authority: section("not applicable in this scenario", "not modeled"),
     failure: section(
-      "Entries are appended, not rewritten, in this lab model.",
+      "Entries are added, never torn out or rewritten, in this lab model.",
       "workshop explanation"
     ),
   },
@@ -259,8 +261,8 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "identity",
-        title: "Identity issued",
-        detail: "An identity was issued for the workload" +
+        title: CAST.envoy + "'s identity is issued",
+        detail: "An identity was issued for " + CAST.envoy +
           (record.spiffe_id ? ", running as " + record.spiffe_id : "") +
           (record.expires_at ? ". It runs out at " + record.expires_at : "") + ".",
       };
@@ -268,8 +270,8 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "grant",
-        title: "Grant given",
-        detail: "Permission was given" +
+        title: "The Sealed Letter is given",
+        detail: "The Sealed Letter was given" +
           (record.source ? " by " + record.source : "") +
           " for reading " + scopeText(record) + ".",
       };
@@ -277,30 +279,30 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "identity",
-        title: "Identity checked",
-        detail: "The identity was checked. Valid: " + boolWord(record.valid) + ".",
+        title: "The herald's claim checked",
+        detail: CAST.stewardName + " checked who " + CAST.envoy + " claims to be. Valid: " + boolWord(record.valid) + ".",
       };
     case "delegation.revocation_check":
       return {
         eventType: type,
         component: "grant",
-        title: "Take-back check",
-        detail: "The checker looked up whether this permission was taken back. Taken back: " +
+        title: "Taken-back list checked",
+        detail: CAST.stewardName + " checked the posted list of taken-back letters. Taken back: " +
           boolWord(record.revoked) + ".",
       };
     case "delegation.validation":
       return {
         eventType: type,
         component: "grant",
-        title: "Grant checked",
-        detail: "The grant was checked. Valid: " + boolWord(record.valid) + ".",
+        title: "The Sealed Letter checked",
+        detail: "The Sealed Letter was checked. Valid: " + boolWord(record.valid) + ".",
       };
     case "attestation.appraisal":
       return {
         eventType: type,
         component: "attestation",
-        title: "Check-up report checked",
-        detail: "The check-up report was checked. It was judged " +
+        title: "The inspection checked",
+        detail: "The Quartermaster's inspection was checked. It was judged " +
           (record.verdict === "STALE" ? "too old" : record.verdict === "FRESH" ? "fresh" : "not recorded") +
           (typeof record.freshness_seconds === "number"
             ? ". It was made " + record.freshness_seconds + " seconds before the check"
@@ -314,8 +316,8 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "decision",
-        title: "Decision made",
-        detail: "The decision: " + decisionDisplay(record.state) +
+        title: CAST.stewardName + " decides",
+        detail: CAST.stewardName + "'s decision: " + decisionDisplay(record.state) +
           ". It is about reading " +
           (record.resource || "/reports/quarterly") + ".",
       };
@@ -323,8 +325,8 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "resource",
-        title: "Protected report read",
-        detail: "The protected operation ran: " + (record.action || "READ") +
+        title: "The Ledger is read",
+        detail: "The vault door opened and the protected operation ran: " + (record.action || "READ") +
           " on " + (record.resource || "/reports/quarterly") + ".",
       };
     case "enforcement.outcome":
@@ -338,22 +340,22 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "resource",
-        title: "Tried to skip the checker",
+        title: "Over the wall",
         detail: "Someone tried to reach " + (record.resource || "/reports/quarterly") +
-          " directly, with no decision at all.",
+          " directly, with no order at all.",
       };
     case "lab.clock_fault":
       return {
         eventType: type,
         component: "attestation",
-        title: "Lab clock advanced",
-        detail: "The lab clock was moved forward as the break in this run, so the check-up report became too old.",
+        title: "Time passes",
+        detail: "The lab clock was moved forward as the trial in this run, so the inspection became too old.",
       };
     default:
       return {
         eventType: type,
         component: "ledger",
-        title: "Ledger entry recorded",
+        title: "Chronicle entry recorded",
         detail: "An entry of type " + type + " was recorded in order.",
       };
   }

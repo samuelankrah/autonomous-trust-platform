@@ -1,10 +1,12 @@
-# ATP Workshop
+# The Gatehouse (ATP Workshop)
 
-A phone-first learning workshop built around one request: a workload asks to read a protected report, and the system checks who it is, what it is allowed to do, and whether its proof is fresh, then decides and enforces the decision.
+The Gatehouse is a phone-first kingdom game built over one request: Pell, envoy of the Counting House, comes to the castle gate to take the King's Ledger, and the court checks who he is, what he is allowed to do, and whether his inspection is fresh, then decides and enforces the decision. The learner plays the gatehouse apprentice, learning the Steward's craft under Steward Maren.
 
-The learner walks the parts of the request, predicts an outcome before seeing it, steps through a run one stage at a time, inspects the recorded evidence, breaks and repairs one fault at a time, and teaches the journey back in their own words. Five approved memory anchors support recall checks inside the workshop.
+The apprentice first meets the court, then watches the road to the gate, then advises the Steward by predicting each decision before it is revealed. The apprentice steps through a run one stage at a time, runs trials (the five faults), reads the Chronicle kept by Brother Anselm, sets things right, and teaches the journey back in real system words. Five approved memory anchors support recall checks inside the workshop.
 
-On a first visit, the Explore path teaches before it tests. Meet the parts introduces the seven parts one at a time in plain words, and Watch it flow steps through the normal request beat by beat, tapped through at the learner's pace. Only after that does the first prediction appear. The intro can be skipped with a clear control, and the skip is remembered for the session, so repeat runs can go straight to predicting.
+On a first visit, the Learn phase reads as the prologue and teaches before it tests. Meet the court introduces the court one part at a time in plain words, and Watch the road to the gate steps through Pell's normal errand beat by beat, tapped through at the learner's pace. Only after that does the first prediction appear. The prologue can be skipped with a clear control, and the skip is remembered for the session, so repeat runs can go straight to predicting.
+
+The story is a frame over the unchanged reference engine: engine behavior, the scenario contract, fixtures, and recorded values are the same as before the reskin. The full concept-to-story mapping lives in docs/workshop/kingdom-mapping.md, and every scene names its real concept, so the kingdom words never hide the system words.
 
 ## How to open it
 
