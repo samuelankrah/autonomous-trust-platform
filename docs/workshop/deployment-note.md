@@ -11,14 +11,17 @@ Status: NOT LIVE. The Pages workflow is in place, but the site did not come up. 
 
 ## Verification, exactly as observed
 
-- The URL was polled with curl (direct egress and via the local proxy; both routes behave the same) repeatedly from about 13:46 UTC to 13:49 UTC on 2026-10-13, and in a parallel check 14 fetches between 09:54 and 09:56 America/New_York also all returned the same result.
-- Every fetch of / returned HTTP 404 with the GitHub Pages "Site not found" page.
-- Because / never returned 200, the asset checks (css/workshop.css and js/app/main.js under the site URL) could not be performed.
-- The Actions run, if any, cannot be inspected from this environment: git access is an SSH deploy key only, and there is no API token. Whether the workflow run failed at the configure-pages enablement step or never triggered is therefore not determinable here.
+- The URL was polled with curl every 30 to 32 seconds for 16 attempts, from 2026-10-13T13:45:22Z to about 13:53 UTC on 2026-10-13. Every attempt returned HTTP 404. A parallel check in the same window (14 fetches between 09:54 and 09:56 America/New_York) also returned the same result.
+- Both curl routes worked and behaved the same: direct HTTPS egress returned a real HTTP response on every attempt, and the proxy route (curl -x http://198.19.0.1:3128) returned the same codes. The successful route for the record is direct, with the proxy confirming it.
+- Every fetch of / returned HTTP 404 with the GitHub Pages "Site not found" page (title: "Site not found", 9115 bytes). The workshop index content (title "ATP Workshop: The payments report request") was never served.
+- Asset checks under the site URL, direct and proxy: css/workshop.css returned HTTP 404, and js/app/main.js returned HTTP 404. Relative assets therefore do not resolve, because the site itself is not published.
+- The Actions run was inspected without any API token, using the unauthenticated public GitHub API for this public repository (git access itself is an SSH deploy key only, and no token was used or invented). Run 38407558597, "Deploy workshop to GitHub Pages", head SHA 592c40a5ce7c556c4add67c3ed2fd821201e7fd4, created 2026-10-13T13:45:21Z, status completed, conclusion failure, updated 2026-10-13T13:45:33Z. Its single job, deploy (job 115331046436), concluded failure: Checkout succeeded, the Setup Pages step (actions/configure-pages@v5) failed, and Upload artifact and Deploy to GitHub Pages were skipped.
+- The exact Setup Pages log text could not be retrieved: downloading run logs without a token returned HTTP 403, "Must have admin rights to Repository."
+- The GitHub Pages API endpoint for this repository (GET /repos/samuelankrah/autonomous-trust-platform/pages, unauthenticated) returned HTTP 404, "Not Found", confirming no Pages site is configured.
 
 ## Best-supported explanation
 
-GitHub Pages has never been enabled on this repository. The push-triggered workflow token commonly cannot enable Pages by itself, so the configure-pages enablement attempt is the likely failure point. This is an explanation consistent with the observations, not a confirmed run log.
+GitHub Pages has never been enabled on this repository, and the configure-pages enablement attempt failed in the Setup Pages step: that is the step the public jobs API records as failed, with every later step skipped, and the Pages API still returns 404 for the repository. The exact log line behind that step failure is unavailable without admin access (see the 403 above), so the token-rights cause for the enablement failure is the best-supported explanation, not a quoted log.
 
 ## Fallback (owner, one time)
 
