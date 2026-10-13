@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATP Workshop: The payments report request</title>
+<link rel="stylesheet" href="css/workshop.css">
+</head>
+<body>
+<header class="page-head">
+  <p class="brand">ATP Workshop</p>
+  <span class="chip">Simulated</span>
+</header>
+
+<main>
+<!-- Screen 1: Component view -->
+<section id="screen-1" class="screen" aria-labelledby="s1-title">
+  <span class="chip">Simulated</span>
+  <h1 id="s1-title" tabindex="-1">The payments report request</h1>
+  <p>A workload asks to read a protected report. The system checks who it is, what it is allowed to do, and whether its proof is fresh, then decides and enforces the decision.</p>
+  <p class="tag-note">Label for the story and the parts list: <span class="chip">Conceptual explanation</span></p>
+
+  <div id="explore-panel">
+    <h2>Explore: the story in plain words</h2>
+    <p>Label: <span class="chip">Conceptual explanation</span></p>
+    <p>Think of a car arriving at a workshop. The workload is the driver arriving with a job to do. The identity is the driver proving who they are. The grant is the written authorization from the manager, naming what this driver may do. The attestation evidence is a recent inspection note for the vehicle, with a time on it. The decision point is the service desk that checks all three together and issues a signed work order. The enforcement point is the bay gate that checks the work order before letting the vehicle through. The protected resource is the bay and the report inside it. The evidence ledger is the workshop logbook where every check and outcome is written down in order.</p>
+    <p>Limits of this analogy: a car analogy does not capture signing, binding, or revocation checking, and the journey says so rather than stretching it.</p>
+    <p>Bridge note: the analogy is a memory aid only. In the actual model, the grant is not a simple note from a manager: it carries scoped delegated authority, a bounded permission from an authority source, for this resource and action. The enforcement point does not merely glance at a work order: it checks a cryptographically protected decision that is bound to this specific request.</p>
+    <p>
+      <button type="button" id="start-happy">Start the happy path run</button>
+      <button type="button" id="start-no-authority">Closing beat: run with identity but no grant</button>
+    </p>
+  </div>
+
+  <h2>Parts of the request</h2>
+  <p id="run-info">No run started yet.</p>
+  <div id="component-list" class="stack"></div>
+
+  <div id="architect-scenarios" hidden>
+    <h2>Architect: run any scenario</h2>
+    <p>All seven scenarios from the engine can be run here.</p>
+    <div id="scenario-buttons" class="stack"></div>
+    <label for="seed-select">Seed for the next run</label>
+    <select id="seed-select">
+      <option value="7" selected>7</option>
+      <option value="11">11</option>
+    </select>
+  </div>
+
+  <p>
+    <button type="button" id="open-control" hidden>Open control panel</button>
+    <button type="button" data-goto="8">Memory anchors and teach-back</button>
+    <button type="button" id="show-prior">Prior runs</button>
+  </p>
+
+  <div id="prior-view" hidden>
+    <h2>Prior runs</h2>
+    <div id="prior-list"></div>
+  </div>
+
+  <h2>Level</h2>
+  <div role="tablist" aria-label="Journey level" class="tabs">
+    <button type="button" role="tab" data-level="explore" aria-selected="true">Explore</button>
+    <button type="button" role="tab" data-level="operate" aria-selected="false">Operate</button>
+    <button type="button" role="tab" data-level="architect" aria-selected="false">Architect</button>
+  </div>
+
+  <h2>Memory anchors</h2>
+  <div id="anchors-strip" class="stack"></div>
+</section>
+
+<!-- Screen 3: Control panel -->
+<section id="screen-3" class="screen" hidden aria-labelledby="s3-title">
+  <span class="chip">Simulated</span>
+  <h1 id="s3-title" tabindex="-1">Control panel</h1>
+  <p>Change exactly one fault at a time. Choosing a control starts a new run with a fresh prediction gate.</p>
+  <p>Suggested order: revoke the grant, age the attestation, tamper with a decision, replay a decision, attempt a bypass. Free choice is allowed: pick any one of the five.</p>
+  <div class="stack" id="control-list">
+    <div class="card">
+      <button type="button" data-manip="revoke-grant">Revoke the grant</button>
+      <p>What it changes: Adds the current grant to the seeded revocation list. The grant document still exists.</p>
+    </div>
+    <div class="card">
+      <button type="button" data-manip="age-attestation">Age the attestation</button>
+      <p>What it changes: Advances the lab clock so the attestation age exceeds 300 seconds (the scenario uses 301 seconds), while identity and grant are issued fresh. Only the attestation becomes stale. The 300 second value is a synthetic lab constant, not a rule for real systems.</p>
+    </div>
+    <div class="card">
+      <button type="button" data-manip="tamper-decision">Tamper with a decision</button>
+      <p>What it changes: Alters one claim in the signed decision after signing (the resource field, as in the engine scenario). It changes the decision text, not the signature.</p>
+    </div>
+    <div class="card">
+      <button type="button" data-manip="replay-decision">Replay a decision</button>
+      <p>What it changes: Takes a genuine decision bound to a first request and presents it for a second, different request, with a new request identifier and a new one-time value.</p>
+    </div>
+    <div class="card">
+      <button type="button" data-manip="bypass-attempt">Attempt a bypass</button>
+      <p>What it changes: Tries to reach the protected resource directly, with no decision at all.</p>
+    </div>
+  </div>
+  <p><button type="button" id="clear-faults">Clear all faults</button></p>
+  <p>One fault per run in every mode, guided and free choice alike. Combinations are unavailable, because the engine and the scenario contract define isolated single-fault scenarios only.</p>
+  <p>Label: <span class="chip">Not modeled</span> There is no control for credential rotation, no control for editing policy, and no control for a dependency outage, because the engine does not perform them.</p>
+  <p><button type="button" data-goto="1">Back to component view</button></p>
+</section>
+
+<!-- Screen 4: Predict gate -->
+<section id="screen-4" class="screen" hidden aria-labelledby="s4-title">
+  <span class="chip">Simulated</span>
+  <h1 id="s4-title" tabindex="-1">Predict first</h1>
+  <p id="predict-run-summary">No run started yet. Start a run from the component view or the control panel.</p>
+  <h2>Before you run this, what do you predict?</h2>
+  <fieldset>
+    <legend>Decision you predict</legend>
+    <div class="stack">
+      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">PERMIT: allowed</button>
+      <button type="button" class="choice" data-decision="DENY" aria-pressed="false">DENY: not allowed</button>
+      <button type="button" class="choice" data-decision="INDETERMINATE" aria-pressed="false">INDETERMINATE: cannot be decided safely from the evidence available</button>
+    </div>
+  </fieldset>
+  <fieldset>
+    <legend>Enforcement result you predict</legend>
+    <div class="stack">
+      <button type="button" class="choice" data-enforcement="ALLOWED" aria-pressed="false">ALLOWED: the decision was PERMIT and the operation ran</button>
+      <button type="button" class="choice" data-enforcement="DENY" aria-pressed="false">DENY: a DENY decision was applied</button>
+      <button type="button" class="choice" data-enforcement="DENY_INDETERMINATE" aria-pressed="false">DENY_INDETERMINATE: the decision was INDETERMINATE, so nothing ran</button>
+      <button type="button" class="choice" data-enforcement="REJECTED" aria-pressed="false">REJECTED: the decision itself was thrown out at enforcement</button>
+      <button type="button" class="choice" data-enforcement="BYPASS_BLOCKED" aria-pressed="false">BYPASS_BLOCKED: direct access with no decision was blocked</button>
+    </div>
+  </fieldset>
+  <label for="pred-reason">Reason in your own words (required)</label>
+  <textarea id="pred-reason" rows="3"></textarea>
+  <p>Your prediction will be shown next to the actual outcome after the run, unchanged.</p>
+  <p>
+    <button type="button" id="record-prediction" disabled>Record prediction and continue</button>
+    <button type="button" data-goto="1">Back to component view</button>
+  </p>
+</section>
+
+<!-- Screen 5: Step runner -->
+<section id="screen-5" class="screen" hidden aria-labelledby="s5-title">
+  <span class="chip">Reference-tested</span>
+  <p class="binding" id="runner-binding"></p>
+  <h1 id="s5-title" tabindex="-1">Step runner</h1>
+  <p id="step-indicator">No steps yet. Record a prediction first.</p>
+  <h2 id="step-title"></h2>
+  <p id="step-detail"></p>
+  <div id="decision-announce" aria-live="polite" class="announce"></div>
+  <ol id="step-list"></ol>
+  <details id="pred-details">
+    <summary>Your prediction</summary>
+    <p id="pred-summary"></p>
+  </details>
+  <div id="final-outcome"></div>
+  <div id="architect-panel" hidden>
+    <h2>Architect detail</h2>
+    <p>Requirement IDs for this scenario: <span id="req-ids"></span></p>
+    <h3>Checks</h3>
+    <ul id="checks-list"></ul>
+    <h3>Exact engine reason for the current step</h3>
+    <p class="exact-label">Exact engine reason string:</p>
+    <p id="exact-reason" class="exact"></p>
+    <h3>Authority provenance, as structured data</h3>
+    <div id="provenance-view"></div>
+  </div>
+  <p>
+    <button type="button" id="prev-step">Previous step</button>
+    <button type="button" id="next-step">Next step</button>
+    <button type="button" id="pause-run">Pause</button>
+    <button type="button" id="inspect-current">Inspect current component</button>
+    <button type="button" id="view-evidence">View evidence</button>
+  </p>
+  <p><button type="button" data-goto="1">Back to component view</button></p>
+</section>
+
+<!-- Screen 6: Evidence viewer -->
+<section id="screen-6" class="screen" hidden aria-labelledby="s6-title">
+  <span class="chip">Reference-tested</span>
+  <p class="binding" id="evidence-binding"></p>
+  <h1 id="s6-title" tabindex="-1">Evidence viewer</h1>
+  <p id="evidence-request"></p>
+  <ol id="evidence-list"></ol>
+  <p>The browser does not independently verify the cryptographic integrity of the ledger. This screen displays event shape, order, and correlation only, and nothing on this screen implies that the browser verified the hash chain itself.</p>
+  <p>
+    <button type="button" data-goto="5">Back to step runner</button>
+    <button type="button" data-goto="7">Continue to repair</button>
+  </p>
+</section>
+
+<!-- Screen 7: Repair and reset -->
+<section id="screen-7" class="screen" hidden aria-labelledby="s7-title">
+  <span class="chip">Simulated</span>
+  <h1 id="s7-title" tabindex="-1">Repair and reset</h1>
+  <h2>Diagnosis</h2>
+  <p>What broke, which stage caught it, and what will you change to repair it? All three answers are required before repair controls unlock.</p>
+  <label for="diag-fault">What broke (name the fault)</label>
+  <input id="diag-fault" type="text">
+  <label for="diag-stage">Which stage caught it</label>
+  <input id="diag-stage" type="text">
+  <label for="diag-text">Your repair plan</label>
+  <textarea id="diag-text" rows="3"></textarea>
+  <h2>Repair</h2>
+  <div id="repair-controls">
+    <p id="repair-note"></p>
+    <p><button type="button" id="repair-button" disabled>Repair</button></p>
+  </div>
+  <p>Repair never broadens authority. A repair restores the happy path permissions exactly, it never adds a new permission, a wider resource, or a different action.</p>
+  <p id="replay-repair-note" hidden>For replay, the rerun is the normal path for a fresh second request: a fresh decision is obtained for the new request through the normal decision step and enforced for that request. The original decision stays bound to its own request, and the replay rejection remains recorded as evidence.</p>
+  <p><button type="button" id="rerun-repair" disabled>Rerun after repair</button></p>
+  <h2>Reset</h2>
+  <p><button type="button" id="reset-button">Reset scenario</button></p>
+  <div id="reset-confirm" hidden>
+    <p>Reset will archive the current run and clear the active run, including all faults, predictions, and trace for the active run. The archived run stays reachable only through the Prior run view. Do you want to reset?</p>
+    <p>
+      <button type="button" id="reset-confirm-yes">Yes, reset the scenario</button>
+      <button type="button" id="reset-confirm-no">Cancel reset</button>
+    </p>
+  </div>
+  <p><button type="button" data-goto="1">Back to component view</button></p>
+</section>
+
+<!-- Screen 8: Teach-back -->
+<section id="screen-8" class="screen" hidden aria-labelledby="s8-title">
+  <span class="chip">Conceptual explanation</span>
+  <h1 id="s8-title" tabindex="-1">Teach-back</h1>
+  <p id="journey-status">Journey status: incomplete. Finishing requires a teach-back entry. Skipping teach-back leaves the journey marked incomplete.</p>
+  <label for="teach-1">Prompt 1: Explain this request in your own words, from workload to protected resource, naming what each part contributed.</label>
+  <textarea id="teach-1" rows="4"></textarea>
+  <label for="teach-2">Prompt 2: Explain one fault you broke and repaired: what you changed, what you predicted, what actually happened, and which stage caught it.</label>
+  <textarea id="teach-2" rows="4"></textarea>
+  <h2>Prompt 3: Memory anchors</h2>
+  <p>For each anchor: say what the cue captures and what it omits. Each card also has a recall check.</p>
+  <div id="anchor-cards" class="stack"></div>
+  <p>
+    <button type="button" id="finish-journey" disabled>Finish journey</button>
+    <button type="button" class="export-session">Export session</button>
+    <button type="button" data-goto="1">Back to component view</button>
+  </p>
+</section>
+</main>
+
+<!-- Screen 2: Component inspector sheet -->
+<div id="inspector" class="sheet" hidden role="dialog" aria-modal="false" aria-labelledby="inspector-title">
+  <span class="chip">Conceptual explanation</span>
+  <h2 id="inspector-title" tabindex="-1">Component</h2>
+  <div id="inspector-sections"></div>
+  <p><button type="button" id="inspector-close">Close</button></p>
+</div>
+
+<footer>
+  <p>ATP Workshop. Label: <span class="chip">Simulated</span> This workshop is a lab for learning. It is not deployed and makes no production claims.</p>
+  <p><button type="button" class="export-session">Export session</button></p>
+</footer>
+
+<script type="module" src="js/app/main.js"></script>
+</body>
+</html>
