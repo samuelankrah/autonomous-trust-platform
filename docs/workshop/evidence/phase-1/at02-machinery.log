@@ -1,0 +1,20 @@
+$ grep viewport workshop/index.html
+5:<meta name="viewport" content="width=device-width, initial-scale=1">
+$ font-size declarations in px in workshop.css (expect none)
+none found
+$ target size rules in workshop.css
+32:  min-height: 2.75rem;
+33:  min-width: 2.75rem;
+48:  min-height: 2.75rem;
+49:  min-width: 2.75rem;
+65:  min-height: 2.75rem;
+$ summary rule present (D-01 fix, commit 4ffafb0)
+46-button:disabled { opacity: 0.55; cursor: not-allowed; }
+47:summary {
+48-  min-height: 2.75rem;
+49-  min-width: 2.75rem;
+50-  padding: 0.6rem 0.25rem;
+$ count of <button elements in index.html
+44, every one with type="button" (counted with the pattern '<button type="button"'; the earlier grep with a trailing '>' matched 0 because a class attribute follows the type attribute)
+$ onclick handlers or anchor tags in index.html (expect none)
+none found

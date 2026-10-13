@@ -1,0 +1,58 @@
+bypass-attempt-seed-11.json: verdict=PASS decision_state=None
+  decision_reason=None
+  enforcement=BYPASS_BLOCKED reason='alternate path blocked; no decision, no operation (ENF-002, ENF-006)' operation_result=None
+  event_types=['resource.bypass_attempt', 'enforcement.outcome']
+bypass-attempt-seed-7.json: verdict=PASS decision_state=None
+  decision_reason=None
+  enforcement=BYPASS_BLOCKED reason='alternate path blocked; no decision, no operation (ENF-002, ENF-006)' operation_result=None
+  event_types=['resource.bypass_attempt', 'enforcement.outcome']
+happy-path-seed-11.json: verdict=PASS decision_state=PERMIT
+  decision_reason='all required evidence valid within policy bounds'
+  enforcement=ALLOWED reason='permit decision applied to bound request' operation_result={'report': 'quarterly-figures', 'rows': 42}
+  event_types=['identity.issued', 'delegation.granted', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'attestation.appraisal', 'authorization.decision', 'resource.operation', 'enforcement.outcome']
+happy-path-seed-7.json: verdict=PASS decision_state=PERMIT
+  decision_reason='all required evidence valid within policy bounds'
+  enforcement=ALLOWED reason='permit decision applied to bound request' operation_result={'report': 'quarterly-figures', 'rows': 42}
+  event_types=['identity.issued', 'delegation.granted', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'attestation.appraisal', 'authorization.decision', 'resource.operation', 'enforcement.outcome']
+identity-no-authority-seed-11.json: verdict=PASS decision_state=DENY
+  decision_reason='valid identity presents no authority; identity is not authorization (AZ-002)'
+  enforcement=DENY reason='deny decision applied; protected operation not invoked (AZ-021)' operation_result=None
+  event_types=['identity.issued', 'identity.validation', 'authorization.decision', 'enforcement.outcome']
+identity-no-authority-seed-7.json: verdict=PASS decision_state=DENY
+  decision_reason='valid identity presents no authority; identity is not authorization (AZ-002)'
+  enforcement=DENY reason='deny decision applied; protected operation not invoked (AZ-021)' operation_result=None
+  event_types=['identity.issued', 'identity.validation', 'authorization.decision', 'enforcement.outcome']
+replayed-decision-seed-11.json: verdict=PASS decision_state=PERMIT
+  decision_reason='all required evidence valid within policy bounds'
+  enforcement=ALLOWED reason='permit decision applied to bound request' operation_result={'report': 'quarterly-figures', 'rows': 42}
+  enforcement=REJECTED reason='decision not bound to this request/nonce (ENF-003)' operation_result=None
+  event_types=['identity.issued', 'delegation.granted', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'attestation.appraisal', 'authorization.decision', 'resource.operation', 'enforcement.outcome', 'enforcement.outcome']
+replayed-decision-seed-7.json: verdict=PASS decision_state=PERMIT
+  decision_reason='all required evidence valid within policy bounds'
+  enforcement=ALLOWED reason='permit decision applied to bound request' operation_result={'report': 'quarterly-figures', 'rows': 42}
+  enforcement=REJECTED reason='decision not bound to this request/nonce (ENF-003)' operation_result=None
+  event_types=['identity.issued', 'delegation.granted', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'attestation.appraisal', 'authorization.decision', 'resource.operation', 'enforcement.outcome', 'enforcement.outcome']
+revoked-delegation-seed-11.json: verdict=PASS decision_state=DENY
+  decision_reason='delegated authority not recognized: grant revoked'
+  enforcement=DENY reason='deny decision applied; protected operation not invoked (AZ-021)' operation_result=None
+  event_types=['identity.issued', 'delegation.granted', 'delegation.revocation_check', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'authorization.decision', 'enforcement.outcome']
+revoked-delegation-seed-7.json: verdict=PASS decision_state=DENY
+  decision_reason='delegated authority not recognized: grant revoked'
+  enforcement=DENY reason='deny decision applied; protected operation not invoked (AZ-021)' operation_result=None
+  event_types=['identity.issued', 'delegation.granted', 'delegation.revocation_check', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'authorization.decision', 'enforcement.outcome']
+stale-attestation-seed-11.json: verdict=PASS decision_state=INDETERMINATE
+  decision_reason='required attestation evidence is STALE: attestation evidence is 301s old, beyond the declared synthetic threshold of 300s (LAB-CONFIG, non-normative) (AZ-022, never permit on unknown)'
+  enforcement=DENY_INDETERMINATE reason='indeterminate decision; operation not invoked, never permit on unknown (AZ-022)' operation_result=None
+  event_types=['lab.clock_fault', 'identity.issued', 'delegation.granted', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'attestation.appraisal', 'authorization.decision', 'enforcement.outcome']
+stale-attestation-seed-7.json: verdict=PASS decision_state=INDETERMINATE
+  decision_reason='required attestation evidence is STALE: attestation evidence is 301s old, beyond the declared synthetic threshold of 300s (LAB-CONFIG, non-normative) (AZ-022, never permit on unknown)'
+  enforcement=DENY_INDETERMINATE reason='indeterminate decision; operation not invoked, never permit on unknown (AZ-022)' operation_result=None
+  event_types=['lab.clock_fault', 'identity.issued', 'delegation.granted', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'attestation.appraisal', 'authorization.decision', 'enforcement.outcome']
+tampered-decision-seed-11.json: verdict=PASS decision_state=PERMIT
+  decision_reason='all required evidence valid within policy bounds'
+  enforcement=REJECTED reason='decision source signature does not verify (ENF-008)' operation_result=None
+  event_types=['identity.issued', 'delegation.granted', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'attestation.appraisal', 'authorization.decision', 'enforcement.outcome']
+tampered-decision-seed-7.json: verdict=PASS decision_state=PERMIT
+  decision_reason='all required evidence valid within policy bounds'
+  enforcement=REJECTED reason='decision source signature does not verify (ENF-008)' operation_result=None
+  event_types=['identity.issued', 'delegation.granted', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'attestation.appraisal', 'authorization.decision', 'enforcement.outcome']

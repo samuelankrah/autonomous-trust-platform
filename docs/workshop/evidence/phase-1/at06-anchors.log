@@ -1,0 +1,12 @@
+3:Status: Anchors A to E APPROVED by Samuel on 2026-10-13 (wording version v1-approved). Phase 0 design document, not an implementation authorization.
+58:- Status of each anchor below: APPROVED by Samuel on 2026-10-13, wording version v1-approved.
+71:- Anchor A, Authentication versus authorization: APPROVED by Samuel on 2026-10-13, wording version v1-approved.
+72:- Anchor B, Attestation freshness: APPROVED by Samuel on 2026-10-13, wording version v1-approved.
+73:- Anchor C, Revocation: APPROVED by Samuel on 2026-10-13, wording version v1-approved.
+74:- Anchor D, Decision integrity check: APPROVED by Samuel on 2026-10-13, wording version v1-approved.
+75:- Anchor E, Replay binding: APPROVED by Samuel on 2026-10-13, wording version v1-approved.
+79:Each anchor below is labeled APPROVED (Samuel, 2026-10-13, wording version v1-approved), is not a normative security definition, and is grounded in its matching engine scenario.
+83:Status: APPROVED by Samuel on 2026-10-13, wording version v1-approved. Not a normative security definition.
+99:Status: APPROVED by Samuel on 2026-10-13, wording version v1-approved. Not a normative security definition.
+113:Status: APPROVED by Samuel on 2026-10-13, wording version v1-approved. Not a normative security definition.
+127:Status: APPROVED by Samuel on 2026-10-13, wording version v1-approved. Not a normative security definition.

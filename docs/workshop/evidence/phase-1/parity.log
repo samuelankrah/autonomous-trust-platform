@@ -1,0 +1,25 @@
+AT-05 parity harness
+Contract source: docs/workshop/scenario-contract-v1.md, Parity definition
+Contract version: scenario-contract-v1 (from docs/workshop/fixtures/index.json)
+Scenarios from index: happy-path, identity-no-authority, revoked-delegation, stale-attestation, tampered-decision, replayed-decision, bypass-attempt
+Seeds from index: 7, 11
+Fixtures enumerated from index: 14
+
+PASS bypass-attempt seed 7 (bypass-attempt-seed-7.json)
+PASS bypass-attempt seed 11 (bypass-attempt-seed-11.json)
+PASS happy-path seed 7 (happy-path-seed-7.json)
+PASS happy-path seed 11 (happy-path-seed-11.json)
+PASS identity-no-authority seed 7 (identity-no-authority-seed-7.json)
+PASS identity-no-authority seed 11 (identity-no-authority-seed-11.json)
+PASS replayed-decision seed 7 (replayed-decision-seed-7.json)
+PASS replayed-decision seed 11 (replayed-decision-seed-11.json)
+PASS revoked-delegation seed 7 (revoked-delegation-seed-7.json)
+PASS revoked-delegation seed 11 (revoked-delegation-seed-11.json)
+PASS stale-attestation seed 7 (stale-attestation-seed-7.json)
+PASS stale-attestation seed 11 (stale-attestation-seed-11.json)
+PASS tampered-decision seed 7 (tampered-decision-seed-7.json)
+PASS tampered-decision seed 11 (tampered-decision-seed-11.json)
+
+Parity: 14/14 against scenario-contract-v1
+exit=0
+stored parity-report.txt identical to fresh run: yes

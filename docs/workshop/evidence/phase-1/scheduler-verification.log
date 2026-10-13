@@ -1,0 +1,55 @@
+== baseline: copy of real state ==
+cards: 450 digest 3081b44cd802f79d
+A before: step=0 due=2026-10-13 history=0
+
+== (a) fresh anchor A: in-session immediate pass recorded 2026-10-13 ==
+Workshop namespace already present.
+Appended 1 record(s) (recall_attempt: 1).
+Skipped 0 already-ingested record(s).
+A after: step=1 due=2026-10-15 history=1
+
+== (a2) anchor B: two in-session passes same day (immediate, later-in-session) ==
+Workshop namespace already present.
+Appended 2 record(s) (recall_attempt: 2).
+Skipped 0 already-ingested record(s).
+B after: step=2 due=2026-10-18 history=2
+
+== (b) anchor A: successive delayed passes on their due dates ==
+pass recorded 2026-10-15: step=2 due=2026-10-20 history=2
+pass recorded 2026-10-20: step=3 due=2026-11-01 history=3
+pass recorded 2026-11-01: step=4 due=2026-11-26 history=4
+pass recorded 2026-11-26: step=4 due=2026-12-21 history=5
+
+== (c) anchor A: fail (reason wrong) recorded 2026-12-21 ==
+Workshop namespace already present.
+Appended 1 record(s) (recall_attempt: 1).
+Skipped 0 already-ingested record(s).
+A after fail: step=0 due=2026-12-22 history=6
+
+== (c2) anchor A: delayed attempt with cue shown, recorded 2026-12-22 ==
+Workshop namespace already present.
+Appended 1 record(s) (recall_attempt: 1).
+Skipped 0 already-ingested record(s).
+A after invalid: step=0 due=2026-12-22 history=7 | last history result: invalid
+
+== (d1) re-ingest of e1.json (dedupe) ==
+Workshop namespace already present.
+Appended 0 record(s).
+Skipped 1 already-ingested record(s).
+state unchanged by re-ingest: True
+
+== (d2) prediction immutability ==
+first prediction ingest rc: 0 ['Appended 1 record(s) (prediction: 1).', 'Skipped 0 already-ingested record(s).']
+altered prediction ingest rc: 1 | stderr: ingest rejected: prediction for run_id 'run-x' already exists with different content; predictions are immutable, a changed mind is a new run
+state byte-identical after rejection: True
+
+== card regression on the same copy ==
+cards after all ingests: 450 digest 3081b44cd802f79d
+score() rc: 0 | stderr: 
+cards after score: 450
+card score() rc: 0 
+card 7 after FIRST correct: streak 1 interval 2 due 2026-10-15
+card 9 after FIRST wrong:   streak 0 interval 1 due 2026-10-14
+workshop lists: {'attempts': 1, 'predictions': 1, 'outcomes': 1, 'diagnoses': 0, 'teach_backs': 1, 'transfer_tests': 1}
+anchor A recall: {'step': 1, 'due': '2026-10-15', 'history': [{'type': 'recall_attempt', 'record_id': 'rec-4', 'anchor_id': 'A', 'anchor_wording_version': 'v1-approved', 'stage': 'immediate', 'hint_level': 'full', 'prediction_correct': True, 'reason_correct': True, 'result': 'pass', 'recorded_at': '2026-10-13T13:46:15.158Z'}]}
+cards: 450

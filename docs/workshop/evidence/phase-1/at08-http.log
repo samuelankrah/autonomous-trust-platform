@@ -1,0 +1,16 @@
+/workshop/ -> 200
+/workshop/index.html -> 200
+/workshop/css/workshop.css -> 200
+/workshop/js/app/main.js -> 200
+/workshop/js/app/state.js -> 200
+/workshop/js/app/steps.js -> 200
+/workshop/js/canonical.js -> 200
+/workshop/js/clock.js -> 200
+/workshop/js/components.js -> 200
+/workshop/js/crypto.js -> 200
+/workshop/js/fixture.js -> 200
+/workshop/js/ledger.js -> 200
+/workshop/js/models.js -> 200
+/workshop/js/prng.js -> 200
+/workshop/js/scenarios.js -> 200
+/workshop/js/service.js -> 200

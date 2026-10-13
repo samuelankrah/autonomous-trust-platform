@@ -1,0 +1,16 @@
+PASS 1 outcome() is null before a prediction, with no outcome data supplied
+PASS 2 outcome() is still null after outcome data is supplied, while no prediction exists
+PASS 3 setPrediction with a missing reason throws
+PASS 4 setPrediction with a missing decision throws
+PASS 5 setPrediction with a missing enforcement choice throws
+PASS 6 outcome() returns the outcome after a complete prediction is recorded
+PASS 7 a second setPrediction for the same run throws and the first prediction is unchanged
+PASS 8 recordOutcome emits exactly one outcome record for the run
+PASS 9 a new run has outcome() null before its own prediction (gate does not leak across runs)
+PASS 10 the completed prior run is archived and readable only through priorRuns()
+PASS 11 recall result derivation: pass only when prediction and reason are both correct
+export records: 8 (attempt, prediction, outcome, attempt, recall_attempt, recall_attempt, transfer_test, teach_back)
+PASS 12 session export shape matches the Study Lab ingest contract
+PASS 13 reset() archives the active run and clears it
+State tests: 13 passed, 0 failed
+exit=0

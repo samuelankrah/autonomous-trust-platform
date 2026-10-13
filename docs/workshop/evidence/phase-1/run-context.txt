@@ -1,0 +1,5 @@
+evidence tree: 592c40a5ce7c556c4add67c3ed2fd821201e7fd4
+commit 592c40a5ce7c556c4add67c3ed2fd821201e7fd4
+subject ci: publish workshop to GitHub Pages
+author samuelankrah <142953932+samuelankrah@users.noreply.github.com>
+v24.20.0

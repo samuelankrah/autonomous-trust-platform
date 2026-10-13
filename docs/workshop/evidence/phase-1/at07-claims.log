@@ -1,0 +1,13 @@
+term: production
+workshop/index.html:250:  <p>ATP Workshop. Label: <span class="chip">Simulated</span> This workshop is a lab for learning. It is not deployed and makes no production claims.</p>
+workshop/README.md:31:- It makes no production claims. Nothing here is a production system, and no screen claims real enforcement, real identity issuance, or real policy enforcement.
+term: real enforcement
+workshop/README.md:31:- It makes no production claims. Nothing here is a production system, and no screen claims real enforcement, real identity issuance, or real policy enforcement.
+term: real identity
+workshop/README.md:31:- It makes no production claims. Nothing here is a production system, and no screen claims real enforcement, real identity issuance, or real policy enforcement.
+term: real-world rule
+  no hits
+term: guarantee
+  no hits
+term: secure
+  no hits

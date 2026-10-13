@@ -1,0 +1,24 @@
+$ outcome words in workshop/index.html
+115:      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">PERMIT: allowed</button>
+116:      <button type="button" class="choice" data-decision="DENY" aria-pressed="false">DENY: not allowed</button>
+117:      <button type="button" class="choice" data-decision="INDETERMINATE" aria-pressed="false">INDETERMINATE: cannot be decided safely from the evidence available</button>
+123:      <button type="button" class="choice" data-enforcement="ALLOWED" aria-pressed="false">ALLOWED: the decision was PERMIT and the operation ran</button>
+124:      <button type="button" class="choice" data-enforcement="DENY" aria-pressed="false">DENY: a DENY decision was applied</button>
+125:      <button type="button" class="choice" data-enforcement="DENY_INDETERMINATE" aria-pressed="false">DENY_INDETERMINATE: the decision was INDETERMINATE, so nothing ran</button>
+126:      <button type="button" class="choice" data-enforcement="REJECTED" aria-pressed="false">REJECTED: the decision itself was thrown out at enforcement</button>
+127:      <button type="button" class="choice" data-enforcement="BYPASS_BLOCKED" aria-pressed="false">BYPASS_BLOCKED: direct access with no decision was blocked</button>
+$ outcome words in js/app/main.js
+29:    counterexample: "The cue breaks down if the learner treats freshness as a universal property of proof, rather than a policy setting applied to a type of evidence. It also breaks down if stale is treated as the same as false, or the same as denied for bad behavior: stale evidence yields INDETERMINATE, not DENY. It also breaks down if the synthetic 300 second value is treated as a real world rule. That value is a synthetic lab constant, not a rule for real systems.",
+30:    teachPrompt: "Explain why stale evidence produces INDETERMINATE rather than DENY, and explain why the system must never turn that uncertainty into a silent PERMIT.",
+37:    counterexample: "The cue breaks down if the learner pictures revocation as deleting or shredding the grant. In the engine, nothing is deleted: the grant is presented, a revocation check is performed and recorded in the evidence ledger, and the check result is what changes the decision to DENY. The cue also does not cover how a real system learns about revocations when disconnected.",
+45:    counterexample: "The cue breaks down if the learner thinks the integrity check makes the decision correct, or thinks a valid check proves who created the decision. A valid check shows only that the decision was not altered by a party without the key. Because the key is shared, it does not establish unique authorship among key holders, and it demonstrates no public-key verification and no key distribution. A decision that passes its integrity check can still be DENY.",
+$ outcome words in js/app/steps.js
+57:      "A valid identity with no grant still leads to a DENY decision, in the identity-no-authority run.",
+81:      "A revoked grant leads the decision point to DENY, with a reason that names revocation.",
+105:      "Stale attestation leads to INDETERMINATE, never a silent PERMIT, and the protected operation does not run.",
+113:      "The decision point evaluates identity, grant, and attestation evidence together and issues a signed decision: PERMIT, DENY, or INDETERMINATE, with a reason.",
+121:      "A signed decision of PERMIT, DENY, or INDETERMINATE, with a reason, bound to one request.",
+129:      "Missing or bad evidence leads to DENY or INDETERMINATE, never a silent PERMIT.",
+145:      "An enforcement result in words: ALLOWED, DENY, DENY_INDETERMINATE, REJECTED, or BYPASS_BLOCKED.",
+153:      "A tampered decision is REJECTED when its signature check fails. A decision presented for the wrong request is REJECTED for binding. Direct access with no decision is BYPASS_BLOCKED and recorded.",
+165:      "A read request that reaches it only when the decision is PERMIT and enforcement returns ALLOWED.",
