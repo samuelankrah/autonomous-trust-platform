@@ -14,7 +14,7 @@ Grounding note: Every behavior described in this document comes from the verifie
 
 Every anchor, without exception, has all seven fields below. An anchor missing any field is incomplete and cannot be approved.
 
-1. Plain-language meaning (one sentence): What the idea means, stated in ordinary words, in a single sentence, with no jargon doing the work.
+1. Plain-language meaning: What the idea means, stated in ordinary words, in one or two short sentences, with no jargon doing the work. Brevity and the owner one-read test govern, not a sentence count: the approved meanings for anchors A, B, and E run two short sentences.
 2. Mnemonic or retrieval cue (a memory prompt that helps recall): A short cue that is semantically accurate, meaning it points at the real cause and effect, not just at a rhyme or a catchy phrase.
 3. Visual or physical association: A workshop component the learner can see, tap, or picture, or an action the learner performs, that the cue is tied to. Example components: workload, identity, grant, attestation evidence (proof about the workload, checked for freshness), decision point, enforcement point, protected resource, evidence ledger (the append-only record of what happened).
 4. Counterexample: Where the analogy or cue breaks down. This field states the limit plainly, and gives a case where following the cue alone would lead the learner astray.
