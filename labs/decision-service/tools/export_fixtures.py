@@ -23,12 +23,17 @@ Usage, from the repository root:
 
 Options: --out-dir DIR (default docs/workshop/fixtures under the repo
 root), --seeds 7,11 (comma separated seed list).
+
+The index now records provenance: it carries the exporter version, the
+source engine commit, and the generation command alongside the seed
+list, so any fixture set can be traced to the code that produced it.
 """
 from __future__ import annotations
 
 import argparse
 import copy
 import json
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -37,6 +42,23 @@ LAB_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_OUT_DIR = REPO_ROOT / "docs" / "workshop" / "fixtures"
 CONTRACT_VERSION = "scenario-contract-v1"
+EXPORTER_VERSION = "1.1"
+
+
+def _source_engine_commit() -> str:
+    """Return the full git HEAD commit of the repository, or "unknown"."""
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(REPO_ROOT), "rev-parse", "HEAD"],
+            capture_output=True,
+            text=True,
+            check=True,
+            timeout=10,
+        )
+        commit = result.stdout.strip()
+        return commit if commit else "unknown"
+    except Exception:
+        return "unknown"
 
 if str(LAB_DIR) not in sys.path:
     sys.path.insert(0, str(LAB_DIR))
@@ -309,6 +331,12 @@ def main(argv: list[str] | None = None) -> int:
     entries.sort(key=lambda e: (e["scenario"], e["seed"]))
     index = {
         "contract_version": CONTRACT_VERSION,
+        "exporter_version": EXPORTER_VERSION,
+        "source_engine_commit": _source_engine_commit(),
+        "generation_command": (
+            "python3 labs/decision-service/tools/export_fixtures.py "
+            f"--seeds {args.seeds}"
+        ),
         "generated_by": "labs/decision-service/tools/export_fixtures.py",
         "seeds": seeds,
         "scenarios": list(scenarios_module.SCENARIOS),
