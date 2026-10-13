@@ -12,6 +12,39 @@ function section(text, tag) {
   return { text: text, tag: tag };
 }
 
+// Plain words first for decisions and gate results. The exact engine
+// word stays available in parentheses after the outcome is revealed,
+// because from that point on the code itself is teaching content.
+export function decisionWord(state) {
+  switch (state) {
+    case "PERMIT": return "Allowed";
+    case "DENY": return "Refused";
+    case "INDETERMINATE": return "Could not be sure";
+    default: return "No decision was made";
+  }
+}
+
+export function decisionDisplay(state) {
+  if (!state || state === "NONE") return "No decision was made";
+  return decisionWord(state) + " (" + state + ")";
+}
+
+export function enforcementWord(result) {
+  switch (result) {
+    case "ALLOWED": return "The report opened";
+    case "DENY": return "Nothing happened, it was refused";
+    case "DENY_INDETERMINATE": return "Nothing happened, the system could not be sure";
+    case "REJECTED": return "Nothing happened, the decision was thrown out";
+    case "BYPASS_BLOCKED": return "Nothing happened, the attempt was blocked";
+    default: return "Nothing happened";
+  }
+}
+
+export function enforcementDisplay(result) {
+  if (!result || result === "NONE") return "Nothing happened";
+  return enforcementWord(result) + " (" + result + ")";
+}
+
 export const COMPONENT_META = {
   workload: {
     label: "Workload",
@@ -54,7 +87,7 @@ export const COMPONENT_META = {
       "workshop explanation"
     ),
     failure: section(
-      "A valid identity with no grant still leads to a DENY decision, in the identity-no-authority run.",
+      "A valid identity with no grant still leads to a refusal (a DENY decision), in the run with identity but no permission.",
       "engine-observed"
     ),
   },
@@ -78,31 +111,31 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     failure: section(
-      "A revoked grant leads the decision point to DENY, with a reason that names revocation.",
+      "A taken-back grant leads the checker to refuse (DENY), with a reason that names the take-back.",
       "engine-observed"
     ),
   },
   attestation: {
-    label: "Attestation evidence",
+    label: "Check-up report",
     icon: "A",
     purpose: section(
-      "Attestation evidence carries recent proof about the workload, with the time it was issued, so the decision point can judge whether the proof is fresh.",
+      "The check-up report (attestation evidence) is the workload's own report about itself: what it is running and whether it has been messed with, with the time it was made, so the checker can judge whether it is fresh.",
       "engine-observed"
     ),
     inputs: section(
-      "Proof about the workload, with an issue time.",
+      "The check-up report itself, with the time it was made.",
       "engine-observed"
     ),
     outputs: section(
-      "A freshness verdict in words, FRESH or STALE, with the age in seconds and the threshold it was judged against.",
+      "A freshness verdict in words, fresh or too old, with the age in seconds and the limit it was judged against.",
       "engine-observed"
     ),
     authority: section(
-      "Attestation evidence is proof about the workload. It is not identity and it is not authorization, so it grants no permission by itself.",
+      "A check-up report describes the workload. It is not identity and it is not permission, so it grants no permission by itself.",
       "workshop explanation"
     ),
     failure: section(
-      "Stale attestation leads to INDETERMINATE, never a silent PERMIT, and the protected operation does not run.",
+      "A check-up report that is too old leads to 'could not be sure' (INDETERMINATE), never a silent yes (PERMIT), and the report does not open.",
       "engine-observed"
     ),
   },
@@ -110,7 +143,7 @@ export const COMPONENT_META = {
     label: "Decision point",
     icon: "D",
     purpose: section(
-      "The decision point evaluates identity, grant, and attestation evidence together and issues a signed decision: PERMIT, DENY, or INDETERMINATE, with a reason.",
+      "The decision point looks at the identity, the grant, and the check-up report together and issues a signed decision with a reason. The decision is one of three answers: let it through, refuse it, or say it cannot be sure. In the system's own words: PERMIT, DENY, or INDETERMINATE.",
       "engine-observed"
     ),
     inputs: section(
@@ -118,7 +151,7 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     outputs: section(
-      "A signed decision of PERMIT, DENY, or INDETERMINATE, with a reason, bound to one request.",
+      "A signed decision with a reason, tied to one request only. The answer is let it through (PERMIT), refuse it (DENY), or cannot be sure (INDETERMINATE).",
       "engine-observed"
     ),
     authority: section(
@@ -126,7 +159,7 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     failure: section(
-      "Missing or bad evidence leads to DENY or INDETERMINATE, never a silent PERMIT.",
+      "Missing or bad evidence leads to a refusal (DENY) or 'could not be sure' (INDETERMINATE), never a silent yes (PERMIT).",
       "engine-observed"
     ),
   },
@@ -142,7 +175,7 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     outputs: section(
-      "An enforcement result in words: ALLOWED, DENY, DENY_INDETERMINATE, REJECTED, or BYPASS_BLOCKED.",
+      "A result in plain words: the report opens, nothing happens because it was refused, nothing happens because the system could not be sure, the decision is thrown out, or a direct attempt is blocked. In the system's own words: ALLOWED, DENY, DENY_INDETERMINATE, REJECTED, or BYPASS_BLOCKED.",
       "engine-observed"
     ),
     authority: section(
@@ -150,7 +183,7 @@ export const COMPONENT_META = {
       "workshop explanation"
     ),
     failure: section(
-      "A tampered decision is REJECTED when its signature check fails. A decision presented for the wrong request is REJECTED for binding. Direct access with no decision is BYPASS_BLOCKED and recorded.",
+      "A decision changed after signing is thrown out (REJECTED) when its signature check fails. A decision shown for the wrong request is thrown out (REJECTED) because it does not match that request. Trying to reach the report directly, with no decision, is blocked (BYPASS_BLOCKED) and written down.",
       "engine-observed"
     ),
   },
@@ -162,7 +195,7 @@ export const COMPONENT_META = {
       "engine-observed"
     ),
     inputs: section(
-      "A read request that reaches it only when the decision is PERMIT and enforcement returns ALLOWED.",
+      "A read request that reaches it only when the checker said yes (PERMIT) and the gate let it through (ALLOWED).",
       "workshop explanation"
     ),
     outputs: section(
@@ -251,8 +284,8 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "grant",
-        title: "Revocation check",
-        detail: "The grant was checked against the revocation list. Revoked: " +
+        title: "Take-back check",
+        detail: "The checker looked up whether this permission was taken back. Taken back: " +
           boolWord(record.revoked) + ".",
       };
     case "delegation.validation":
@@ -266,14 +299,14 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "attestation",
-        title: "Attestation checked",
-        detail: "The proof about the workload was checked. Verdict: " +
-          (record.verdict || "not recorded") +
+        title: "Check-up report checked",
+        detail: "The check-up report was checked. It was judged " +
+          (record.verdict === "STALE" ? "too old" : record.verdict === "FRESH" ? "fresh" : "not recorded") +
           (typeof record.freshness_seconds === "number"
-            ? ". Age: " + record.freshness_seconds + " seconds"
+            ? ". It was made " + record.freshness_seconds + " seconds before the check"
             : "") +
           (typeof record.threshold_seconds === "number"
-            ? ". Threshold in this lab: " + record.threshold_seconds +
+            ? ". The limit in this lab is " + record.threshold_seconds +
               " seconds, a synthetic lab constant"
             : "") + ".",
       };
@@ -282,8 +315,8 @@ export function stepFor(record) {
         eventType: type,
         component: "decision",
         title: "Decision made",
-        detail: "Decision: " + (record.state || "not recorded") +
-          ". The decision covers " + (record.action || "READ") + " on " +
+        detail: "The decision: " + decisionDisplay(record.state) +
+          ". It is about reading " +
           (record.resource || "/reports/quarterly") + ".",
       };
     case "resource.operation":
@@ -298,14 +331,14 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "enforcement",
-        title: "Enforcement outcome",
-        detail: "Enforcement result: " + (record.result || "not recorded") + ".",
+        title: "At the gate",
+        detail: "At the gate: " + enforcementDisplay(record.result) + ".",
       };
     case "resource.bypass_attempt":
       return {
         eventType: type,
         component: "resource",
-        title: "Bypass attempt",
+        title: "Tried to skip the checker",
         detail: "Someone tried to reach " + (record.resource || "/reports/quarterly") +
           " directly, with no decision at all.",
       };
@@ -314,7 +347,7 @@ export function stepFor(record) {
         eventType: type,
         component: "attestation",
         title: "Lab clock advanced",
-        detail: "The lab clock was advanced as the fault in this run, so the attestation proof became old.",
+        detail: "The lab clock was moved forward as the break in this run, so the check-up report became too old.",
       };
     default:
       return {

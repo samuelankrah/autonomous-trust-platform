@@ -4,7 +4,13 @@
 // Journey class in state.js is the second line of defense.
 
 import { Journey, MANIPULATION_SCENARIO } from "./state.js";
-import { COMPONENT_META, COMPONENT_ORDER, stepFor } from "./steps.js";
+import {
+  COMPONENT_META,
+  COMPONENT_ORDER,
+  stepFor,
+  decisionDisplay,
+  enforcementDisplay,
+} from "./steps.js";
 import { runScenario, SCENARIO_NAMES } from "../fixture.js";
 
 const LABELS = ["Simulated", "Reference-tested", "Conceptual explanation", "Not modeled"];
@@ -73,6 +79,103 @@ const SCENARIO_MANIPULATION = {
   "bypass-attempt": "bypass-attempt",
 };
 
+// The setup of each scenario, told as a short story in plain words.
+// Shown on the Predict screen before the question. Setup only: a story
+// never names the outcome.
+const SCENARIO_STORY = {
+  "happy-path": "Payments Reporter, a program, wants to read the quarterly report. Its identity checks out. It has permission. It recently passed a check-up. Nothing is broken.",
+  "identity-no-authority": "Payments Reporter, a program, wants to read the quarterly report. Its identity checks out. But nobody gave it permission to read this report.",
+  "revoked-delegation": "Payments Reporter, a program, wants to read the quarterly report. It was given permission, but that permission has since been taken back.",
+  "stale-attestation": "Payments Reporter, a program, wants to read the quarterly report. It has permission. But its check-up report is old: it was written a while ago, not just now.",
+  "tampered-decision": "Payments Reporter asked, and a signed decision said yes. Then someone changed the decision after it was signed.",
+  "replayed-decision": "Payments Reporter asked, and a signed decision said yes, for that one request. Now the same decision is being shown for a different request.",
+  "bypass-attempt": "Payments Reporter does not ask at all. It skips the checker entirely and tries to open the report directly, with no decision.",
+};
+
+// One short phrase per scenario for status lines and buttons.
+const SCENARIO_SITUATION = {
+  "happy-path": "the normal request, nothing broken",
+  "identity-no-authority": "identity, but no permission given",
+  "revoked-delegation": "permission taken back",
+  "stale-attestation": "check-up report too old",
+  "tampered-decision": "decision changed after it was signed",
+  "replayed-decision": "decision reused for a different request",
+  "bypass-attempt": "checker skipped entirely",
+};
+
+// The exact words of the Predict screen options, keyed by the engine
+// values they record. Used to echo a prediction back in the same words
+// the learner picked.
+const DECISION_OPTION = {
+  PERMIT: "Let it read the report",
+  DENY: "Refuse it",
+  INDETERMINATE: "Say it cannot be sure",
+};
+
+const ENFORCEMENT_OPTION = {
+  ALLOWED: "The report opens",
+  DENY: "Nothing happens, it was refused",
+  DENY_INDETERMINATE: "Nothing happens, the system could not be sure",
+  REJECTED: "Nothing happens, the decision was thrown out",
+  BYPASS_BLOCKED: "Nothing happens, the attempt was blocked",
+};
+
+// Learn phase, part 1: meet the parts. One part at a time, plain
+// words, one job and one everyday picture each. No system words here;
+// the system names live in the inspector and the Architect layer.
+const LEARN_PARTS = [
+  {
+    name: "The program",
+    job: "Payments Reporter. It does the asking: it wants to read the quarterly report.",
+    picture: "Everyday picture: a courier sent to collect a package.",
+  },
+  {
+    name: "Its ID",
+    job: "Proof of who the program claims to be.",
+    picture: "Everyday picture: a driver's license. It says who you are. It says nothing about what you may do.",
+  },
+  {
+    name: "Its permission slip",
+    job: "Says exactly what the program is allowed to do, and who allowed it.",
+    picture: "Everyday picture: a signed note from the manager: this courier may collect this one package.",
+  },
+  {
+    name: "Its check-up report",
+    job: "The program's own report about itself: what it is running, whether it has been messed with, and when the report was written.",
+    picture: "Everyday picture: a recent health check. It only helps if it is fresh.",
+  },
+  {
+    name: "The checker",
+    job: "Examines the ID, the permission slip, and the check-up report together, then decides: yes, no, or cannot be sure.",
+    picture: "Everyday picture: the service desk that reads everything before stamping the work order.",
+  },
+  {
+    name: "The door guard",
+    job: "Acts on the decision at the door. The report opens only on a yes. A decision that was changed after signing gets thrown out.",
+    picture: "Everyday picture: the guard at the bay door, checking the stamped work order before opening the door.",
+  },
+  {
+    name: "The notebook",
+    job: "Every step is written down here, in order: what was asked, what was checked, what was decided, what happened.",
+    picture: "Everyday picture: the workshop logbook. Pages are added, never torn out.",
+  },
+];
+
+// Learn phase, part 2: watch it flow. The normal request moving
+// through the parts in order, one sentence per beat. The learner taps
+// through at their own pace; nothing advances on its own, and every
+// beat is a full sentence in text, so the highlight is never the only
+// carrier of the meaning.
+const FLOW_BEATS = [
+  { part: 0, text: "Payments Reporter asks to read the quarterly report." },
+  { part: 1, text: "The checker examines its ID. The name checks out." },
+  { part: 2, text: "The checker reads the permission slip. Reading this report is allowed." },
+  { part: 3, text: "The checker reads the check-up report. It is fresh, and nothing has been messed with." },
+  { part: 4, text: "The checker decides: yes. The decision is signed and tied to this one request." },
+  { part: 5, text: "The door guard checks the decision and opens the report." },
+  { part: 6, text: "Every step is written in the notebook, in order." },
+];
+
 const journey = new Journey();
 let level = "explore";
 let seed = 7;
@@ -83,6 +186,26 @@ let selectedEnforcement = null;
 let repairPrepared = false;
 let diagnosisRecordedFor = null;
 let lastInvoker = null;
+let partIndex = 0;
+let beatIndex = 0;
+// Whether the learner has finished or skipped the Learn intro in
+// this session. Remembered in sessionStorage so repeat runs in the
+// same session can go straight to Predict, as the owner directed.
+let introSeen = false;
+try {
+  introSeen = window.sessionStorage.getItem("atp-workshop-intro-seen") === "1";
+} catch (err) {
+  introSeen = false;
+}
+
+function markIntroSeen() {
+  introSeen = true;
+  try {
+    window.sessionStorage.setItem("atp-workshop-intro-seen", "1");
+  } catch (err) {
+    // In-memory flag still applies for this page view.
+  }
+}
 
 function el(id) { return document.getElementById(id); }
 function text(node, value) { node.textContent = value; return node; }
@@ -97,7 +220,7 @@ function showScreen(n) {
   if ((n === 5 || n === 6) && !(journey.activeRun() && journey.activeRun().prediction)) {
     n = journey.activeRun() ? 4 : 1;
   }
-  for (let i = 1; i <= 8; i += 1) {
+  for (let i = 1; i <= 10; i += 1) {
     if (i === 2) continue;
     const section = el("screen-" + i);
     if (section) section.hidden = i !== n;
@@ -145,19 +268,64 @@ function startNewRun(scenario, manipulation) {
   return run;
 }
 
+// --- Learn phase (Screens 9 and 10) --------------------------------
+
+function beginLearn() {
+  partIndex = 0;
+  beatIndex = 0;
+  renderPart();
+  showScreen(9);
+}
+
+// Where a learner goes when the intro ends or is skipped: to the
+// Predict screen when a run is waiting for its prediction, otherwise
+// back to the first screen.
+function afterLearn() {
+  markIntroSeen();
+  const run = journey.activeRun();
+  if (run && !run.prediction) showScreen(4);
+  else showScreen(1);
+}
+
+function renderPart() {
+  const part = LEARN_PARTS[partIndex];
+  text(el("learn-progress"), "Part " + (partIndex + 1) + " of " + LEARN_PARTS.length);
+  text(el("learn-part-name"), part.name);
+  text(el("learn-part-job"), part.job);
+  text(el("learn-part-picture"), part.picture);
+  el("learn-prev").disabled = partIndex === 0;
+  text(el("learn-next"), partIndex === LEARN_PARTS.length - 1 ? "Watch it flow" : "Next part");
+}
+
+function renderBeat() {
+  const beat = FLOW_BEATS[beatIndex];
+  text(el("flow-progress"), "Beat " + (beatIndex + 1) + " of " + FLOW_BEATS.length);
+  text(el("flow-beat"), beat.text);
+  el("flow-parts").querySelectorAll("li").forEach((li, i) => {
+    const active = i === beat.part;
+    li.classList.toggle("flow-active", active);
+    if (active) li.setAttribute("aria-current", "step");
+    else li.removeAttribute("aria-current");
+  });
+  el("flow-prev").disabled = beatIndex === 0;
+  const last = beatIndex === FLOW_BEATS.length - 1;
+  const run = journey.activeRun();
+  text(el("flow-next"), last
+    ? (run && !run.prediction ? "Continue to your prediction" : "Back to the first screen")
+    : "Next");
+}
+
 function renderRunInfo() {
   const run = journey.activeRun();
   if (!run) {
     text(el("run-info"), "No run started yet.");
-    text(el("predict-run-summary"), "No run started yet. Start a run from the component view or the control panel.");
+    text(el("predict-run-summary"), "No run started yet. Start a run from the first screen or the control panel.");
     return;
   }
   text(el("run-info"),
-    "Active run: " + run.runId + ", scenario " + run.scenario + ", seed " + run.seed +
-    ", manipulation " + run.manipulation + ", level " + run.level + ".");
+    "This run: " + (SCENARIO_SITUATION[run.scenario] || run.scenario) + ".");
   text(el("predict-run-summary"),
-    "Run " + run.runId + ": scenario " + run.scenario + ", seed " + run.seed +
-    ", one fault for this run: " + run.manipulation + ". No outcome is shown until you record a prediction.");
+    SCENARIO_STORY[run.scenario] || "Payments Reporter, a program, wants to read the quarterly report.");
 }
 
 function appraisalRecord() {
@@ -170,26 +338,26 @@ function componentStates() {
   const inputs = runData ? runData.fixture.inputs : null;
   const appraisal = appraisalRecord();
   const states = {
-    workload: run ? "[status] Requesting READ" : "[status] Ready",
-    identity: "[status] Not yet checked",
-    grant: "[status] Not yet checked",
-    attestation: "[status] Not yet checked",
-    decision: "[status] Not yet run",
-    enforcement: "[status] Waiting for a decision",
-    resource: "[status] /reports/quarterly, Not accessed",
-    ledger: "[status] No entries yet",
+    workload: run ? "Asking to read the report" : "Ready",
+    identity: "Not yet checked",
+    grant: "Not yet checked",
+    attestation: "Not yet checked",
+    decision: "Not yet run",
+    enforcement: "Waiting for a decision",
+    resource: "The quarterly report. Not opened yet",
+    ledger: "No entries yet",
   };
   if (run && inputs) {
-    states.identity = inputs.identity ? "[status] Present and valid" : "[status] Missing";
+    states.identity = inputs.identity ? "Present and valid" : "Missing";
     states.grant = !inputs.grant
-      ? "[status] Missing"
-      : run.manipulation === "revoke-grant" ? "[status] Revoked" : "[status] Present";
+      ? "Missing"
+      : run.manipulation === "revoke-grant" ? "Taken back" : "Present";
     states.attestation = !inputs.attestation
-      ? "[status] Missing"
+      ? "Missing"
       : appraisal && appraisal.verdict === "STALE"
-        ? "[status] Stale, age " + appraisal.freshness_seconds + " seconds"
-        : "[status] Fresh" + (appraisal ? ", age " + appraisal.freshness_seconds + " seconds" : "");
-    states.ledger = "[status] " + runData.records.length + " entries recorded";
+        ? "Too old, made " + appraisal.freshness_seconds + " seconds ago"
+        : "Fresh" + (appraisal ? ", made " + appraisal.freshness_seconds + " seconds ago" : "");
+    states.ledger = runData.records.length + " entries so far";
   }
   return states;
 }
@@ -212,14 +380,15 @@ function renderPriorRuns() {
   }
   for (const run of priors) {
     const card = make("div", "card");
-    card.append(make("p", "", "Prior run " + run.runId + ": scenario " + run.scenario +
-      ", seed " + run.seed + ", manipulation " + run.manipulation + "."));
+    card.append(make("p", "", "Earlier run: " +
+      (SCENARIO_SITUATION[run.scenario] || run.scenario) + "."));
     const outcome = journey.outcome(run.runId);
     if (outcome) {
-      card.append(make("p", "status-word", "Prior run outcome: Decision: " + outcome.decisionState +
-        ". Enforcement result: " + outcome.enforcementResult + "."));
+      card.append(make("p", "status-word", "What happened: decision " +
+        decisionDisplay(outcome.decisionState) + ". At the gate: " +
+        enforcementDisplay(outcome.enforcementResult) + "."));
     } else {
-      card.append(make("p", "", "No outcome was revealed for this run."));
+      card.append(make("p", "", "No outcome was shown for this run."));
     }
     list.append(card);
   }
@@ -243,21 +412,22 @@ function openInspector(component, invoker) {
   if (component === "grant" && runData) {
     const check = runData.records.find((r) => r.type === "delegation.revocation_check");
     if (check) {
-      currentText += ". A revocation check has been performed for this run. Revoked: " +
+      currentText += ". The checker has looked up whether this permission was taken back. Taken back: " +
         (check.revoked ? "yes" : "no") + ".";
     }
   }
   if (component === "attestation") {
     const appraisal = appraisalRecord();
     if (runData && appraisal) {
-      currentText = "[status] Verdict " + appraisal.verdict + ", age " + appraisal.freshness_seconds +
-        " seconds. The freshness threshold in this lab is 300 seconds, a synthetic lab constant (a lab constant, non-normative: not an official rule for real systems).";
+      currentText = "Judged " + (appraisal.verdict === "STALE" ? "too old" : "fresh") +
+        ", made " + appraisal.freshness_seconds +
+        " seconds before the check. The limit in this lab is 300 seconds, a synthetic lab constant (a lab constant, non-normative: not an official rule for real systems).";
     } else if (runData) {
-      currentText = "[status] No attestation appraisal in this run. The freshness threshold in this lab is 300 seconds, a synthetic lab constant (a lab constant, non-normative).";
+      currentText = "No check-up report was judged in this run. The limit in this lab is 300 seconds, a synthetic lab constant (a lab constant, non-normative).";
     }
   }
-  if (component === "decision") { currentText = "[status] Not yet run"; }
-  if (component === "enforcement") { currentText = "[status] Waiting for a decision"; }
+  if (component === "decision") { currentText = "Not yet run"; }
+  if (component === "enforcement") { currentText = "Waiting for a decision"; }
   const sections = [
     ["Purpose", meta.purpose],
     ["Current state", { text: currentText, tag: currentTag }],
@@ -332,14 +502,13 @@ function renderStep() {
   });
   const announce = el("decision-announce");
   announce.replaceChildren();
-  if (record.type === "authorization.decision") {
-    announce.append(make("p", "", "Decision: " + record.state + ". " + step.detail));
-  } else if (record.type === "enforcement.outcome") {
-    announce.append(make("p", "", "Enforcement result: " + record.result + ". " + step.detail));
+  if (record.type === "authorization.decision" || record.type === "enforcement.outcome") {
+    announce.append(make("p", "", step.detail));
   }
   const pred = run.prediction;
-  text(el("pred-summary"), "You predicted decision " + pred.decision +
-    " and enforcement " + pred.enforcement + ". Your reason: " + pred.reason);
+  text(el("pred-summary"), "You predicted: " + (DECISION_OPTION[pred.decision] || pred.decision) +
+    ". At the gate: " + (ENFORCEMENT_OPTION[pred.enforcement] || pred.enforcement) +
+    ". Your reason: " + pred.reason);
   el("pred-details").open = stepIndex === records.length - 1;
   el("prev-step").disabled = stepIndex === 0;
   el("next-step").disabled = stepIndex === records.length - 1;
@@ -351,11 +520,12 @@ function renderStep() {
     if (outcome) {
       journey.recordOutcome(run.runId);
       const box = make("div", "card");
-      box.append(make("h2", "", "Outcome, beside your prediction"));
-      box.append(make("p", "", "Your prediction: decision " + pred.decision +
-        ", enforcement " + pred.enforcement + ". Reason: " + pred.reason));
-      box.append(make("p", "status-word", "Actual outcome: Decision: " + outcome.decisionState +
-        ". Enforcement result: " + outcome.enforcementResult + "."));
+      box.append(make("h2", "", "What happened, next to your prediction"));
+      box.append(make("p", "", "Your prediction: " + (DECISION_OPTION[pred.decision] || pred.decision) +
+        ". At the gate: " + (ENFORCEMENT_OPTION[pred.enforcement] || pred.enforcement) +
+        ". Your reason: " + pred.reason));
+      box.append(make("p", "status-word", "What happened: decision " + decisionDisplay(outcome.decisionState) +
+        ". At the gate: " + enforcementDisplay(outcome.enforcementResult) + "."));
       finalBox.append(box);
     }
   }
@@ -388,8 +558,9 @@ function buildEvidence() {
   if (!run || !runData) return;
   text(el("evidence-binding"), bindingLine(run));
   const first = runData.records[0];
-  text(el("evidence-request"), "Request identifier: " + (first ? first.request_id : "none") +
-    ". Entries for this run, in order. Label: " + LABELS[1] + ".");
+  text(el("evidence-request"), "Every entry from this run, in the order it happened. " +
+    "Fine print: this run's request number is " + (first ? first.request_id : "none") +
+    ". Label: " + LABELS[1] + ".");
   const decisionIds = new Set();
   const decisionSeen = new Set();
   const outcomeSeen = new Set();
@@ -430,10 +601,10 @@ function prepareRepair() {
   const wording = REPAIR_WORDING[run.manipulation];
   el("replay-repair-note").hidden = run.manipulation !== "replay-decision";
   if (!wording) {
-    text(el("repair-note"), "This run has no fault to repair. It is already the happy path.");
+    text(el("repair-note"), "This run has nothing broken to repair. It is already the normal request.");
     btn.hidden = true;
   } else {
-    text(el("repair-note"), "Repair control for the active fault only. It prepares the repair. Only the rerun confirms it.");
+    text(el("repair-note"), "This repairs the one break in this run. It only prepares the repair; the rerun confirms it.");
     btn.hidden = false;
     text(btn, wording);
   }
@@ -634,7 +805,9 @@ function buildStatic() {
 
   const scenariosBox = el("scenario-buttons");
   for (const name of SCENARIO_NAMES) {
-    const b = make("button", "", "Run " + name);
+    const situation = SCENARIO_SITUATION[name] || name;
+    const b = make("button", "", "Run: " + situation.charAt(0).toUpperCase() +
+      situation.slice(1) + " (" + name + ")");
     b.type = "button";
     b.addEventListener("click", () => { startNewRun(name); showScreen(4); });
     scenariosBox.append(b);
@@ -658,8 +831,37 @@ function buildStatic() {
   });
   el("seed-select").addEventListener("change", () => { seed = Number(el("seed-select").value); });
   el("open-control").addEventListener("click", () => showScreen(3));
-  el("start-happy").addEventListener("click", () => { startNewRun("happy-path", "none"); showScreen(4); });
-  el("start-no-authority").addEventListener("click", () => { startNewRun("identity-no-authority", "none"); showScreen(4); });
+  // On the Explore path, a fresh session learns before it predicts:
+  // teach first, then test. Operate and Architect go straight to the
+  // Predict screen.
+  function startFromExplore(scenario) {
+    startNewRun(scenario, "none");
+    if (level === "explore" && !introSeen) beginLearn();
+    else showScreen(4);
+  }
+  el("start-happy").addEventListener("click", () => startFromExplore("happy-path"));
+  el("start-no-authority").addEventListener("click", () => startFromExplore("identity-no-authority"));
+  el("open-learn").addEventListener("click", () => beginLearn());
+  const flowList = el("flow-parts");
+  for (const part of LEARN_PARTS) {
+    flowList.append(make("li", "", part.name));
+  }
+  el("learn-prev").addEventListener("click", () => {
+    if (partIndex > 0) { partIndex -= 1; renderPart(); }
+  });
+  el("learn-next").addEventListener("click", () => {
+    if (partIndex < LEARN_PARTS.length - 1) { partIndex += 1; renderPart(); }
+    else { beatIndex = 0; renderBeat(); showScreen(10); }
+  });
+  el("flow-prev").addEventListener("click", () => {
+    if (beatIndex > 0) { beatIndex -= 1; renderBeat(); }
+  });
+  el("flow-next").addEventListener("click", () => {
+    if (beatIndex < FLOW_BEATS.length - 1) { beatIndex += 1; renderBeat(); }
+    else afterLearn();
+  });
+  document.querySelectorAll(".skip-learn").forEach((b) =>
+    b.addEventListener("click", afterLearn));
   el("show-prior").addEventListener("click", () => {
     renderPriorRuns();
     el("prior-view").hidden = !el("prior-view").hidden;

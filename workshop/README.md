@@ -4,6 +4,8 @@ A phone-first learning workshop built around one request: a workload asks to rea
 
 The learner walks the parts of the request, predicts an outcome before seeing it, steps through a run one stage at a time, inspects the recorded evidence, breaks and repairs one fault at a time, and teaches the journey back in their own words. Five approved memory anchors support recall checks inside the workshop.
 
+On a first visit, the Explore path teaches before it tests. Meet the parts introduces the seven parts one at a time in plain words, and Watch it flow steps through the normal request beat by beat, tapped through at the learner's pace. Only after that does the first prediction appear. The intro can be skipped with a clear control, and the skip is remembered for the session, so repeat runs can go straight to predicting.
+
 ## How to open it
 
 Serve the repository statically, then open the workshop path. For example, from the repository root:

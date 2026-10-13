@@ -17,18 +17,31 @@
 <section id="screen-1" class="screen" aria-labelledby="s1-title">
   <span class="chip">Simulated</span>
   <h1 id="s1-title" tabindex="-1">The payments report request</h1>
-  <p>A workload asks to read a protected report. The system checks who it is, what it is allowed to do, and whether its proof is fresh, then decides and enforces the decision.</p>
-  <p class="tag-note">Label for the story and the parts list: <span class="chip">Conceptual explanation</span></p>
+  <p>A program asks to read a protected report. The system checks who it is, what it is allowed to do, and whether its proof is fresh. Then it decides, and the decision is enforced.</p>
 
   <div id="explore-panel">
     <h2>Explore: the story in plain words</h2>
     <p>Label: <span class="chip">Conceptual explanation</span></p>
-    <p>Think of a car arriving at a workshop. The workload is the driver arriving with a job to do. The identity is the driver proving who they are. The grant is the written authorization from the manager, naming what this driver may do. The attestation evidence is a recent inspection note for the vehicle, with a time on it. The decision point is the service desk that checks all three together and issues a signed work order. The enforcement point is the bay gate that checks the work order before letting the vehicle through. The protected resource is the bay and the report inside it. The evidence ledger is the workshop logbook where every check and outcome is written down in order.</p>
-    <p>Limits of this analogy: a car analogy does not capture signing, binding, or revocation checking, and the journey says so rather than stretching it.</p>
-    <p>Bridge note: the analogy is a memory aid only. In the actual model, the grant is not a simple note from a manager: it carries scoped delegated authority, a bounded permission from an authority source, for this resource and action. The enforcement point does not merely glance at a work order: it checks a cryptographically protected decision that is bound to this specific request.</p>
+    <p>Think of a car arriving at a workshop:</p>
+    <ul class="plain-list">
+      <li><strong>The workload</strong> is the driver, arriving with a job to do.</li>
+      <li><strong>The identity</strong> is the driver proving who they are.</li>
+      <li><strong>The grant</strong> is the manager's written permission, naming what this driver may do.</li>
+      <li><strong>The check-up report</strong> (attestation evidence) is the car's own report about itself, with a time on it: what it is running and whether it has been messed with.</li>
+      <li><strong>The decision point</strong> is the service desk. It checks all three together and issues a signed work order.</li>
+      <li><strong>The enforcement point</strong> is the gate to the bay. It checks the work order before letting the car through.</li>
+      <li><strong>The protected resource</strong> is the bay, and the report inside it.</li>
+      <li><strong>The evidence ledger</strong> is the workshop logbook, where every check and outcome is written down in order.</li>
+    </ul>
+    <details>
+      <summary>Where the car story stops working</summary>
+      <p>The story is a memory aid only, and it has limits. It does not capture signing, binding (a decision tied to one request), or checking whether permission was taken back.</p>
+      <p>In the real model, the grant is more than a note from a manager: it carries a bounded permission from an authority, for this report and this action only. And the gate does more than glance at the work order: it checks a signed decision that is protected against changes and tied to this one request.</p>
+    </details>
     <p>
-      <button type="button" id="start-happy">Start the happy path run</button>
-      <button type="button" id="start-no-authority">Closing beat: run with identity but no grant</button>
+      <button type="button" id="start-happy">Start: the normal request, nothing broken</button>
+      <button type="button" id="start-no-authority">Start: identity, but no permission given</button>
+      <button type="button" id="open-learn">Meet the parts (the intro)</button>
     </p>
   </div>
 
@@ -69,71 +82,107 @@
   <div id="anchors-strip" class="stack"></div>
 </section>
 
+<!-- Screen 9: Learn, meet the parts -->
+<section id="screen-9" class="screen" hidden aria-labelledby="s9-title">
+  <span class="chip">Conceptual explanation</span>
+  <h1 id="s9-title" tabindex="-1">Meet the parts</h1>
+  <p>Seven parts, one at a time. Each part has one job.</p>
+  <p id="learn-progress" class="fine"></p>
+  <div class="card">
+    <h2 id="learn-part-name"></h2>
+    <p id="learn-part-job"></p>
+    <p id="learn-part-picture"></p>
+  </div>
+  <p>
+    <button type="button" id="learn-prev">Back</button>
+    <button type="button" id="learn-next">Next part</button>
+  </p>
+  <p><button type="button" class="skip-learn">Skip the intro, I know the parts</button></p>
+</section>
+
+<!-- Screen 10: Learn, watch it flow -->
+<section id="screen-10" class="screen" hidden aria-labelledby="s10-title">
+  <span class="chip">Conceptual explanation</span>
+  <h1 id="s10-title" tabindex="-1">Watch it flow</h1>
+  <p>The normal request, one beat at a time. Tap Next for each beat. Nothing moves on its own, and every beat is written out in words.</p>
+  <ol id="flow-parts" class="flow-list"></ol>
+  <p id="flow-progress" class="fine"></p>
+  <p id="flow-beat" class="story" aria-live="polite"></p>
+  <p>
+    <button type="button" id="flow-prev">Back</button>
+    <button type="button" id="flow-next">Next</button>
+  </p>
+  <p><button type="button" class="skip-learn">Skip the intro, I know the parts</button></p>
+</section>
+
 <!-- Screen 3: Control panel -->
 <section id="screen-3" class="screen" hidden aria-labelledby="s3-title">
   <span class="chip">Simulated</span>
-  <h1 id="s3-title" tabindex="-1">Control panel</h1>
-  <p>Change exactly one fault at a time. Choosing a control starts a new run with a fresh prediction gate.</p>
-  <p>Suggested order: revoke the grant, age the attestation, tamper with a decision, replay a decision, attempt a bypass. Free choice is allowed: pick any one of the five.</p>
+  <h1 id="s3-title" tabindex="-1">Break one thing</h1>
+  <p>Pick one thing to break. Each pick starts a new run, and you will predict again before anything runs.</p>
+  <p>A good order for a first visit: take back the permission, then use an old check-up report, then change a signed decision, then reuse a decision, then try to skip the checker. Or pick any one of the five.</p>
   <div class="stack" id="control-list">
     <div class="card">
-      <button type="button" data-manip="revoke-grant">Revoke the grant</button>
-      <p>What it changes: Adds the current grant to the seeded revocation list. The grant document still exists.</p>
+      <button type="button" data-manip="revoke-grant">Take back its permission</button>
+      <p>The permission slip still exists, but the checker is told it was taken back.</p>
+      <p class="fine">Fine print: the grant is added to the lab's list of taken-back grants.</p>
     </div>
     <div class="card">
-      <button type="button" data-manip="age-attestation">Age the attestation</button>
-      <p>What it changes: Advances the lab clock so the attestation age exceeds 300 seconds (the scenario uses 301 seconds), while identity and grant are issued fresh. Only the attestation becomes stale. The 300 second value is a synthetic lab constant, not a rule for real systems.</p>
+      <button type="button" data-manip="age-attestation">Use an old check-up report</button>
+      <p>Time moves forward, so the program's check-up report is older than the lab allows. Everything else stays fresh. Only the report is too old.</p>
+      <p class="fine">Fine print: the lab clock moves 301 seconds. The limit is 300 seconds, a made-up lab number, not a rule for real systems.</p>
     </div>
     <div class="card">
-      <button type="button" data-manip="tamper-decision">Tamper with a decision</button>
-      <p>What it changes: Alters one claim in the signed decision after signing (the resource field, as in the engine scenario). It changes the decision text, not the signature.</p>
+      <button type="button" data-manip="tamper-decision">Change the decision after it is signed</button>
+      <p>One line in the signed decision is changed after signing: it now points at a different report. The signature is not redone.</p>
     </div>
     <div class="card">
-      <button type="button" data-manip="replay-decision">Replay a decision</button>
-      <p>What it changes: Takes a genuine decision bound to a first request and presents it for a second, different request, with a new request identifier and a new one-time value.</p>
+      <button type="button" data-manip="replay-decision">Reuse a decision made for a different request</button>
+      <p>A real, correctly signed decision, made for one request, is shown again for a different request.</p>
+      <p class="fine">Fine print: the second request carries its own request number and one-time value, and they do not match the ones the decision was tied to.</p>
     </div>
     <div class="card">
-      <button type="button" data-manip="bypass-attempt">Attempt a bypass</button>
-      <p>What it changes: Tries to reach the protected resource directly, with no decision at all.</p>
+      <button type="button" data-manip="bypass-attempt">Try to skip the checker entirely</button>
+      <p>The program tries to open the report directly, without asking for a decision at all.</p>
     </div>
   </div>
-  <p><button type="button" id="clear-faults">Clear all faults</button></p>
-  <p>One fault per run in every mode, guided and free choice alike. Combinations are unavailable, because the engine and the scenario contract define isolated single-fault scenarios only.</p>
-  <p>Label: <span class="chip">Not modeled</span> There is no control for credential rotation, no control for editing policy, and no control for a dependency outage, because the engine does not perform them.</p>
+  <p><button type="button" id="clear-faults">Start clean, nothing broken</button></p>
+  <p>One break per run. Breaks cannot be combined.</p>
+  <p class="fine">Fine print: the reference engine and its contract define runs with a single break only.</p>
+  <p>Label: <span class="chip">Not modeled</span> Some breaks are not offered: swapping the program's proof of identity for a new one, rewriting the rules, or cutting a connection. The reference system does not do those things, so the workshop cannot either.</p>
   <p><button type="button" data-goto="1">Back to component view</button></p>
 </section>
 
 <!-- Screen 4: Predict gate -->
 <section id="screen-4" class="screen" hidden aria-labelledby="s4-title">
   <span class="chip">Simulated</span>
-  <h1 id="s4-title" tabindex="-1">Predict first</h1>
-  <p id="predict-run-summary">No run started yet. Start a run from the component view or the control panel.</p>
-  <h2>Before you run this, what do you predict?</h2>
+  <h1 id="s4-title" tabindex="-1">What will the system do?</h1>
+  <p id="predict-run-summary" class="story">No run started yet. Start a run from the first screen or the control panel.</p>
   <fieldset>
-    <legend>Decision you predict</legend>
+    <legend>First: what will the checker decide?</legend>
     <div class="stack">
-      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">PERMIT: allowed</button>
-      <button type="button" class="choice" data-decision="DENY" aria-pressed="false">DENY: not allowed</button>
-      <button type="button" class="choice" data-decision="INDETERMINATE" aria-pressed="false">INDETERMINATE: cannot be decided safely from the evidence available</button>
+      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">Let it read the report</button>
+      <button type="button" class="choice" data-decision="DENY" aria-pressed="false">Refuse it</button>
+      <button type="button" class="choice" data-decision="INDETERMINATE" aria-pressed="false">Say it cannot be sure</button>
     </div>
   </fieldset>
   <fieldset>
-    <legend>Enforcement result you predict</legend>
+    <legend>Second: what will happen at the gate?</legend>
     <div class="stack">
-      <button type="button" class="choice" data-enforcement="ALLOWED" aria-pressed="false">ALLOWED: the decision was PERMIT and the operation ran</button>
-      <button type="button" class="choice" data-enforcement="DENY" aria-pressed="false">DENY: a DENY decision was applied</button>
-      <button type="button" class="choice" data-enforcement="DENY_INDETERMINATE" aria-pressed="false">DENY_INDETERMINATE: the decision was INDETERMINATE, so nothing ran</button>
-      <button type="button" class="choice" data-enforcement="REJECTED" aria-pressed="false">REJECTED: the decision itself was thrown out at enforcement</button>
-      <button type="button" class="choice" data-enforcement="BYPASS_BLOCKED" aria-pressed="false">BYPASS_BLOCKED: direct access with no decision was blocked</button>
+      <button type="button" class="choice" data-enforcement="ALLOWED" aria-pressed="false">The report opens</button>
+      <button type="button" class="choice" data-enforcement="DENY" aria-pressed="false">Nothing happens, it was refused</button>
+      <button type="button" class="choice" data-enforcement="DENY_INDETERMINATE" aria-pressed="false">Nothing happens, the system could not be sure</button>
+      <button type="button" class="choice" data-enforcement="REJECTED" aria-pressed="false">Nothing happens, the decision was thrown out</button>
+      <button type="button" class="choice" data-enforcement="BYPASS_BLOCKED" aria-pressed="false">Nothing happens, the attempt was blocked</button>
     </div>
   </fieldset>
-  <label for="pred-reason">Reason in your own words (required)</label>
+  <label for="pred-reason">Why do you think so? Your reason, in your own words (required)</label>
   <textarea id="pred-reason" rows="3"></textarea>
-  <p>Your prediction will be shown next to the actual outcome after the run, unchanged.</p>
   <p>
     <button type="button" id="record-prediction" disabled>Record prediction and continue</button>
     <button type="button" data-goto="1">Back to component view</button>
   </p>
+  <p class="fine">Fine print: your prediction is written down before anything runs, and it is never changed afterwards. After the run, it is shown next to what actually happened, exactly as you wrote it.</p>
 </section>
 
 <!-- Screen 5: Step runner -->
@@ -209,7 +258,7 @@
   <h2>Reset</h2>
   <p><button type="button" id="reset-button">Reset scenario</button></p>
   <div id="reset-confirm" hidden>
-    <p>Reset will archive the current run and clear the active run, including all faults, predictions, and trace for the active run. The archived run stays reachable only through the Prior run view. Do you want to reset?</p>
+    <p>Reset saves this run into Prior runs and clears the screen: the break you picked, your prediction, and the steps all go. You can still find the saved run under Prior runs. Do you want to reset?</p>
     <p>
       <button type="button" id="reset-confirm-yes">Yes, reset the scenario</button>
       <button type="button" id="reset-confirm-no">Cancel reset</button>
@@ -223,7 +272,7 @@
   <span class="chip">Conceptual explanation</span>
   <h1 id="s8-title" tabindex="-1">Teach-back</h1>
   <p id="journey-status">Journey status: incomplete. Finishing requires a teach-back entry. Skipping teach-back leaves the journey marked incomplete.</p>
-  <label for="teach-1">Prompt 1: Explain this request in your own words, from workload to protected resource, naming what each part contributed.</label>
+  <label for="teach-1">Prompt 1: Explain this request in your own words. Start with the program that asked, end with the report it wanted, and say what each part in between did.</label>
   <textarea id="teach-1" rows="4"></textarea>
   <label for="teach-2">Prompt 2: Explain one fault you broke and repaired: what you changed, what you predicted, what actually happened, and which stage caught it.</label>
   <textarea id="teach-2" rows="4"></textarea>
