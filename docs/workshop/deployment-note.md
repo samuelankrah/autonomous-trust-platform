@@ -1,7 +1,7 @@
 # Workshop Deployment Note
 
 Date: 2026-10-13
-Status: NOT LIVE. The Pages workflow is in place, but the site did not come up. One owner action in the repository Settings is the recorded fallback.
+Status: LIVE (resolved 2026-10-13). The owner enabled Pages in the repository Settings (Source: GitHub Actions), the fallback below. A trigger commit (85167e5) then deployed successfully: workflow run for head SHA 85167e5 completed with conclusion success, and the site and its assets were verified live by direct fetch. Live URL: https://samuelankrah.github.io/autonomous-trust-platform/ (index title "ATP Workshop: The payments report request"; css/workshop.css, js/app/main.js, js/service.js, js/scenarios.js, js/app/state.js all returned HTTP 200). The sections below are the pre-resolution record, kept as history.
 
 ## What was done
 
