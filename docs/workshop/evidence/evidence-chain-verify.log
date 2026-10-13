@@ -1,0 +1,4 @@
+$ python3 cli.py verify evidence/walkthrough-seed-7/evidence.jsonl (from labs/decision-service)
+chain: chain ok, 64 records
+closed sequences: ok
+exit: 0

@@ -1,0 +1,7 @@
+Working tree state at 90bfd1209d5d33fee8dd0abb777bc08192a1ecf9, captured while populating docs/workshop/evidence/.
+The single untracked entry below is the evidence directory itself (the artifact being written).
+No tracked file is modified or staged.
+
+$ git status --porcelain
+?? docs/workshop/evidence/
+(end of output)

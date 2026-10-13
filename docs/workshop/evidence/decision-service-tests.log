@@ -1,0 +1,7 @@
+$ python3 -m unittest discover -s tests (from labs/decision-service)
+......................
+----------------------------------------------------------------------
+Ran 22 tests in 0.069s
+
+OK
+exit: 0

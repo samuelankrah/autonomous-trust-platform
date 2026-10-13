@@ -1,0 +1,7 @@
+$ python3 -m unittest discover -s tests (from labs/sprint-02-task-05-authorization)
+.............
+----------------------------------------------------------------------
+Ran 13 tests in 0.523s
+
+OK
+exit: 0

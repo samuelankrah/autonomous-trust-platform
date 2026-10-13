@@ -1,0 +1,55 @@
+$ python3 cli.py walkthrough (from labs/decision-service, seed 7 default)
+seed=7 fast=False code=90bfd12
+
+[PASS] happy-path  (AZ-001, AZ-003, AZ-004, AZ-005, AZ-006, AZ-013, AZ-016, AZ-017, AZ-019, AZ-020, ENF-001, ENF-003, ENF-008, ENF-010, CTL-001, CTL-002, CTL-003, CTL-004, CTL-005, CTL-008, CTL-010, CTL-012)
+  [ok] decision-state-permit: state=PERMIT
+  [ok] permit-bounded: validity window present
+  [ok] transaction-bound: binding matches request
+  [ok] provenance-structured: provenance is a mapping, not a role string
+  [ok] policy-version-observed: policy version recorded
+  [ok] freshness-per-input: per-input freshness preserved
+  [ok] enforcement-allowed: protected op invoked
+  [ok] evidence-correlated: sequence=['identity.issued', 'delegation.granted', 'identity.validation', 'delegation.revocation_check', 'delegation.validation', 'attestation.appraisal', 'authorization.decision', 'resource.operation', 'enforcement.outcome']
+  [ok] decision-outcome-linked: decision_id correlates decision and outcome
+
+[PASS] identity-no-authority  (AZ-002, AZ-019, AZ-021, ENF-010, CTL-008)
+  [ok] decision-state-deny: state=DENY
+  [ok] identity-not-authority: no provenance without authority
+  [ok] deny-not-misreported: deny applied, op not invoked
+  [ok] no-resource-operation: protected path untouched
+
+[PASS] revoked-delegation  (AZ-015, AZ-019, CTL-009, FR-011, FR-012)
+  [ok] decision-state-deny: state=DENY
+  [ok] revocation-recorded: revocation check evidenced
+  [ok] deny-reason-names-revocation: reason=delegated authority not recognized: grant revoked
+  [ok] op-not-invoked: no protected operation
+
+[PASS] stale-attestation  (AZ-011, AZ-012, AZ-019, AZ-022, ENF-010, FR-007, CTL-011)
+  [ok] decision-state-indeterminate: state=INDETERMINATE
+  [ok] indeterminate-not-permit: unknown never becomes permit
+  [ok] indeterminate-distinct-from-deny: enforcement=DENY_INDETERMINATE
+  [ok] attestation-appraised-stale: stale appraisal evidenced with threshold
+  [ok] unknown-preserved: unknown state named in reason
+  [ok] op-not-invoked: no protected operation on indeterminate
+
+[PASS] tampered-decision  (ENF-008, CTL-005, ENF-010)
+  [ok] source-validation-rejects: enforcement=REJECTED
+  [ok] reason-names-source: reason=decision source signature does not verify (ENF-008)
+
+[PASS] replayed-decision  (ENF-003, CTL-010, AZ-017, AZ-018)
+  [ok] original-use-allowed: legitimate first use succeeds
+  [ok] replay-rejected: enforcement=REJECTED
+  [ok] reason-names-binding: reason=decision not bound to this request/nonce (ENF-003)
+
+[PASS] bypass-attempt  (ENF-001, ENF-002, ENF-006, ENF-007, CTL-006, CTL-007)
+  [ok] bypass-blocked: enforcement=BYPASS_BLOCKED
+  [ok] bypass-evidenced: attempt recorded in ledger
+  [ok] no-decision-no-operation: nothing to enforce without a decision
+
+ledger chain: chain ok, 64 records
+closed sequences: ok
+checks: 31 passed, 0 failed
+OVERALL: PASS
+
+evidence written to /home/hatch/workspace/autonomous-trust-platform/labs/decision-service/evidence/walkthrough-seed-7
+exit: 0

@@ -1,0 +1,5 @@
+$ git rev-parse HEAD
+90bfd1209d5d33fee8dd0abb777bc08192a1ecf9
+$ git rev-parse origin/main
+90bfd1209d5d33fee8dd0abb777bc08192a1ecf9
+HEAD equals origin/main: yes

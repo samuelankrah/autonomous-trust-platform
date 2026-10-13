@@ -1,0 +1,32 @@
+Fixture regeneration check at HEAD 90bfd1209d5d33fee8dd0abb777bc08192a1ecf9
+
+$ python3 labs/decision-service/tools/export_fixtures.py --out-dir /tmp/fix-final
+PASS happy-path-seed-7.json
+PASS identity-no-authority-seed-7.json
+PASS revoked-delegation-seed-7.json
+PASS stale-attestation-seed-7.json
+PASS tampered-decision-seed-7.json
+PASS replayed-decision-seed-7.json
+PASS bypass-attempt-seed-7.json
+PASS happy-path-seed-11.json
+PASS identity-no-authority-seed-11.json
+PASS revoked-delegation-seed-11.json
+PASS stale-attestation-seed-11.json
+PASS tampered-decision-seed-11.json
+PASS replayed-decision-seed-11.json
+PASS bypass-attempt-seed-11.json
+wrote 14 fixtures and index.json to /tmp/fix-final
+
+$ diff -r /tmp/fix-final docs/workshop/fixtures
+diff -r /tmp/fix-final/index.json docs/workshop/fixtures/index.json
+105c105
+<   "source_engine_commit": "90bfd1209d5d33fee8dd0abb777bc08192a1ecf9"
+---
+>   "source_engine_commit": "5d82623e43697bf47e042e082c2ac4afe28ddc76"
+diff exit: 1 (1 means differences, listed above)
+
+Reading of the diff: the 14 fixture files are byte-identical. index.json differs in exactly one
+field, source_engine_commit: the committed index records the commit checked out when it was
+generated (5d82623e43697bf47e042e082c2ac4afe28ddc76, the Phase 0 final commit), and a
+regeneration at any later HEAD records that later HEAD. That field is provenance, by design;
+at a fixed HEAD, regeneration is byte-identical (verified twice in the revision session).

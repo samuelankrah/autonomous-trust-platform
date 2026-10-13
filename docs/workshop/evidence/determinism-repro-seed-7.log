@@ -1,0 +1,5 @@
+$ python3 cli.py repro --seed 7 (from labs/decision-service)
+run A verdict: PASS, run B verdict: PASS
+evidence bytes A: 31544, B: 31544
+rerun-twice byte-identical: True
+exit: 0
