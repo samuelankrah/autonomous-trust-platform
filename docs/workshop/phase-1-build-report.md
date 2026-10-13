@@ -384,5 +384,5 @@ Owner go recorded: Samuel directed publication to GitHub Pages on 2026-10-13. Fu
 
 - Main before this report's commits: 592c40a5ce7c556c4add67c3ed2fd821201e7fd4 (the Pages workflow commit). HEAD equals origin/main at that point, working tree clean.
 - The pre-fix state referenced by the original acceptance draft was be6ac28ebb0421311e18409bd1d66dbd28251dec; the D-01 fix is 4ffafb091ccbc26f42c7b1bd589b24400e92ab69.
-- REPORT_INTRODUCING_COMMIT: to be filled by the immediately following commit, which completes this line; the fill commit changes no other content.
+- This report was introduced in commit fe3e0fc148003b222e0f3e881063e72facd47d8e, immediately after the evidence commit 34a7fe9. This line was completed by the commit immediately following fe3e0fc, which changed nothing else; run git log -1 for the final main state.
 - Machine checks for this edition ran against the tree of 592c40a; the report and evidence commits that follow change only documentation and evidence files, never workshop code or fixtures.
