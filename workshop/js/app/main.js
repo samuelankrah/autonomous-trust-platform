@@ -4,6 +4,7 @@
 // Journey class in state.js is the second line of defense.
 
 import { Journey, MANIPULATION_SCENARIO } from "./state.js";
+import { ScreenStack, ResetGate } from "./nav.js";
 import {
   COMPONENT_META,
   COMPONENT_ORDER,
@@ -218,7 +219,17 @@ function make(tag, cls, value) {
   return node;
 }
 
-function showScreen(n) {
+// --- Global navigation (Back and Reset) -----------------------------
+// One navigation bar under the page head serves every screen. Back
+// walks the stack of visited screens; Reset is shared by the bar and
+// the Repair screen through one gate and one perform function.
+const navStack = new ScreenStack();
+const resetGate = new ResetGate();
+// The page loads on the first screen, so the stack starts there:
+// Back from the first screen a learner visits lands back on it.
+navStack.visit(1);
+
+function showScreen(n, options) {
   if ((n === 5 || n === 6) && !(journey.activeRun() && journey.activeRun().prediction)) {
     n = journey.activeRun() ? 4 : 1;
   }
@@ -230,7 +241,68 @@ function showScreen(n) {
   const heading = document.querySelector("#screen-" + n + " h1");
   if (heading) heading.focus();
   window.scrollTo(0, 0);
+  // Record the screen actually landed on. A Back landing already has
+  // its screen on top of the stack; a guard redirect resyncs here.
+  if (!(options && options.fromBack) || navStack.current() !== n) navStack.visit(n);
+  if (n === 4) renderPredictGate();
   if (n === 7) prepareRepair();
+}
+
+// Whether a screen may still be shown right now. Outcome screens (5
+// and 6) need a recorded prediction on the active run, the same rule
+// the showScreen guard enforces.
+function screenStillValid(n) {
+  if (n === 5 || n === 6) {
+    const run = journey.activeRun();
+    return Boolean(run && run.prediction);
+  }
+  return true;
+}
+
+// Back: drop the current screen, then land on the most recent earlier
+// screen that is still valid. Stack entries for outcome screens whose
+// run has since been replaced are skipped. An empty stack, or nothing
+// valid left in it, lands on the first screen. The showScreen guard
+// still applies to the landing, so Back never bypasses it.
+function goBack() {
+  navStack.back();
+  let target = navStack.current();
+  while (target !== null && !screenStillValid(target)) {
+    navStack.back();
+    target = navStack.current();
+  }
+  if (target === null) {
+    navStack.visit(1);
+    target = 1;
+  }
+  showScreen(target, { fromBack: true });
+}
+
+// One confirmation state for both Reset controls (the navigation bar
+// and the Repair screen). Opening or closing moves both confirmation
+// blocks together, and both confirm buttons run performReset().
+function setResetConfirmVisible(open) {
+  if (open) resetGate.open();
+  else resetGate.close();
+  el("nav-reset-confirm").hidden = !open;
+  el("reset-confirm").hidden = !open;
+}
+
+// The single reset implementation. It runs only while the shared
+// confirmation is open (see ResetGate). Semantics are the Repair
+// screen's original ones: the active run is archived into Prior runs,
+// run data is cleared, states re-render, and the learner lands on the
+// first screen. The navigation stack is cleared as part of the reset.
+function performReset() {
+  resetGate.confirm(() => {
+    journey.reset();
+    runData = null;
+    navStack.clear();
+    setResetConfirmVisible(false);
+    renderRunInfo();
+    renderComponentStates();
+    showScreen(1);
+  });
 }
 
 // --- Run lifecycle -------------------------------------------------
@@ -506,7 +578,38 @@ function closeInspector() {
 
 // --- Predict gate (Screen 4) ----------------------------------------
 
+// A recorded prediction is immutable in the state model: it can never
+// be changed or re-recorded for its run, before or after the outcome
+// is viewed. So whenever the Predict screen is shown for a run that
+// already has a prediction, the gate renders locked: the recorded
+// prediction is shown as read back text, the choices, the reason box,
+// and the record button are disabled, and a plain note explains why.
+// Only a fresh run (which archives the old one) opens a fresh gate.
+function renderPredictGate() {
+  const run = journey.activeRun();
+  const pred = run ? run.prediction : null;
+  const locked = Boolean(pred);
+  el("predict-locked").hidden = !locked;
+  if (locked) {
+    text(el("predict-locked-summary"), "Your recorded prediction: " +
+      (DECISION_OPTION[pred.decision] || pred.decision) +
+      ". At the gate: " + (ENFORCEMENT_OPTION[pred.enforcement] || pred.enforcement) +
+      ". Your reason: " + pred.reason);
+  }
+  document.querySelectorAll("[data-decision], [data-enforcement]").forEach((b) => {
+    b.disabled = locked;
+  });
+  el("pred-reason").disabled = locked;
+  if (locked) el("record-prediction").disabled = true;
+  else updateGate();
+}
+
 function updateGate() {
+  const run = journey.activeRun();
+  if (run && run.prediction) {
+    el("record-prediction").disabled = true;
+    return;
+  }
   el("record-prediction").disabled = !(
     selectedDecision && selectedEnforcement && el("pred-reason").value.trim().length > 0
   );
@@ -957,6 +1060,9 @@ function buildStatic() {
   el("record-prediction").addEventListener("click", () => {
     const run = journey.activeRun();
     if (!run) { showScreen(1); return; }
+    // Locked runs never reach setPrediction: the gate renders locked
+    // for them, and this guard keeps a stray click from throwing.
+    if (run.prediction) { renderPredictGate(); return; }
     journey.setPrediction(run.runId, {
       decision: selectedDecision,
       enforcement: selectedEnforcement,
@@ -1000,16 +1106,15 @@ function buildStatic() {
     startNewRun("happy-path", "none");
     showScreen(4);
   });
-  el("reset-button").addEventListener("click", () => { el("reset-confirm").hidden = false; });
-  el("reset-confirm-no").addEventListener("click", () => { el("reset-confirm").hidden = true; });
-  el("reset-confirm-yes").addEventListener("click", () => {
-    journey.reset();
-    runData = null;
-    el("reset-confirm").hidden = true;
-    renderRunInfo();
-    renderComponentStates();
-    showScreen(1);
-  });
+  // Global navigation bar: Back walks the visited-screen stack, and
+  // both Reset controls share one confirmation and one performReset().
+  el("nav-back").addEventListener("click", goBack);
+  el("nav-reset").addEventListener("click", () => setResetConfirmVisible(true));
+  el("nav-reset-no").addEventListener("click", () => setResetConfirmVisible(false));
+  el("nav-reset-yes").addEventListener("click", performReset);
+  el("reset-button").addEventListener("click", () => setResetConfirmVisible(true));
+  el("reset-confirm-no").addEventListener("click", () => setResetConfirmVisible(false));
+  el("reset-confirm-yes").addEventListener("click", performReset);
   el("teach-1").addEventListener("input", updateFinish);
   el("teach-2").addEventListener("input", updateFinish);
   el("finish-journey").addEventListener("click", finishJourney);

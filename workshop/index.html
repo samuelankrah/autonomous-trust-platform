@@ -13,6 +13,18 @@
   <span class="chip">Simulated</span>
 </header>
 
+<nav class="global-nav" aria-label="Workshop navigation">
+  <button type="button" id="nav-back">Back</button>
+  <button type="button" id="nav-reset">Reset</button>
+  <div id="nav-reset-confirm" class="nav-reset-confirm" hidden>
+    <p>Reset saves this run into Prior runs and clears the screen: the trial you picked, your prediction, and the steps all go. You can still find the saved run under Prior runs. Do you want to reset?</p>
+    <p>
+      <button type="button" id="nav-reset-yes">Reset</button>
+      <button type="button" id="nav-reset-no">Keep my progress</button>
+    </p>
+  </div>
+</nav>
+
 <main>
 <!-- Screen 1: Component view -->
 <section id="screen-1" class="screen" aria-labelledby="s1-title">
@@ -164,6 +176,10 @@
   <nav class="journey-ribbon" data-stage="counsel" aria-label="Journey progress"></nav>
   <h1 id="s4-title" tabindex="-1">What will Steward Decia do?</h1>
   <p id="predict-run-summary" class="story">No run started yet. Start a run from the first screen or the control panel.</p>
+  <div id="predict-locked" hidden>
+    <p class="status-word">This prediction is recorded. Start a new run to predict again.</p>
+    <p id="predict-locked-summary"></p>
+  </div>
   <fieldset>
     <legend>First: what will Decia decide?</legend>
     <div class="stack">

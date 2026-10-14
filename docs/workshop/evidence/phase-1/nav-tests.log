@@ -1,0 +1,13 @@
+PASS 1 the global navigation bar sits under the page head, before main, so it is present on every screen
+PASS 2 the bar carries buttons labeled exactly Back and Reset, and the reset confirmation offers Reset and Keep my progress
+PASS 3 the Predict screen carries the locked prediction note, word for word
+PASS 4 main.js wires the bar through the shared stack and gate
+PASS 5 visit records screens in order and ignores a consecutive duplicate
+PASS 6 back pops the stack in order and runs out to null
+PASS 7 clear empties the stack
+PASS 8 reset confirm while the confirmation was never opened runs nothing
+PASS 9 open then confirm runs the reset once and clears the stack
+PASS 10 closing the confirmation cancels: a later confirm runs nothing
+PASS 11 a recorded prediction alone is not outcome viewing yet
+PASS 12 after the outcome is viewed, re-recording a prediction throws and the first prediction stands
+Navigation tests: 12 passed, 0 failed

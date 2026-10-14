@@ -180,6 +180,14 @@ export class Journey {
     });
   }
 
+  // True once the run outcome has been recorded as viewed (the final
+  // step was reached and recordOutcome emitted its record). Read
+  // only: it reports a fact the state model already tracks, and it
+  // changes nothing about when outcomes are exposed.
+  outcomeViewed(runId) {
+    return this._outcomeRecorded.has(runId);
+  }
+
   recordDiagnosis(runId, diagnosis) {
     return this._appendRecord("diagnosis", {
       run_id: runId,
