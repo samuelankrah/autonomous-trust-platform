@@ -70,10 +70,10 @@ export const COMPONENT_META = {
     failure: section("not applicable in this scenario", "not modeled"),
   },
   identity: {
-    label: "Herald and house colors (identity)",
-    icon: "H",
+    label: CAST.herald + " (identity)",
+    icon: "I",
     purpose: section(
-      "The herald and house colors (identity) say who " + CAST.envoy + " claims to serve. The identity carries the name the workload runs under and when that proof runs out.",
+      CAST.heraldName + " the herald and the house colors (identity) say who " + CAST.envoy + " claims to serve. The identity carries the name the workload runs under and when that proof runs out.",
       "engine-observed"
     ),
     inputs: section(
@@ -118,10 +118,10 @@ export const COMPONENT_META = {
     ),
   },
   attestation: {
-    label: "The Quartermaster's inspection (attestation)",
-    icon: "Q",
+    label: CAST.quartermaster + "'s inspection (attestation)",
+    icon: "A",
     purpose: section(
-      "The Quartermaster's inspection (attestation evidence) is the report on " + CAST.envoy + "'s party: what it is running and whether it has been messed with, with the time it was made, so " + CAST.stewardName + " can judge whether it is fresh.",
+      CAST.quartermaster + "'s inspection (attestation evidence) is the report on " + CAST.envoy + "'s party: what it is running and whether it has been messed with, with the time it was made, so " + CAST.stewardName + " can judge whether it is fresh.",
       "engine-observed"
     ),
     inputs: section(
@@ -143,7 +143,7 @@ export const COMPONENT_META = {
   },
   decision: {
     label: CAST.steward + " (the checker)",
-    icon: "M",
+    icon: "D",
     purpose: section(
       CAST.steward + " (the decision point) looks at the identity, the Sealed Letter, and the inspection together and issues a signed order with a reason. The answer is one of three: let him take the Ledger, turn him away, or say she cannot be sure. In the system's own words: PERMIT, DENY, or INDETERMINATE.",
       "engine-observed"
@@ -167,7 +167,7 @@ export const COMPONENT_META = {
   },
   enforcement: {
     label: CAST.guard + " (enforcement at the gate)",
-    icon: "T",
+    icon: "G",
     purpose: section(
       CAST.guard + " (the enforcement point) checks " + CAST.stewardName + "'s order, its signature and its binding to this one errand, and acts on it before " + CAST.vault + ".",
       "engine-observed"
@@ -279,7 +279,7 @@ export function stepFor(record) {
       return {
         eventType: type,
         component: "identity",
-        title: "The herald's claim checked",
+        title: CAST.heraldName + "'s claim checked",
         detail: CAST.stewardName + " checked who " + CAST.envoy + " claims to be. Valid: " + boolWord(record.valid) + ".",
       };
     case "delegation.revocation_check":
@@ -302,7 +302,7 @@ export function stepFor(record) {
         eventType: type,
         component: "attestation",
         title: "The inspection checked",
-        detail: "The Quartermaster's inspection was checked. It was judged " +
+        detail: CAST.quartermasterName + "'s inspection was checked. It was judged " +
           (record.verdict === "STALE" ? "too old" : record.verdict === "FRESH" ? "fresh" : "not recorded") +
           (typeof record.freshness_seconds === "number"
             ? ". It was made " + record.freshness_seconds + " seconds before the check"

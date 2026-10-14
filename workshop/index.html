@@ -18,31 +18,31 @@
 <section id="screen-1" class="screen" aria-labelledby="s1-title">
   <span class="chip">Simulated</span>
   <h1 id="s1-title" tabindex="-1">The Gatehouse</h1>
-  <p>You are the gatehouse apprentice, learning the Steward's craft from Steward Maren. Pell, envoy of the Counting House, has come to fetch the King's Ledger from the Ledger Vault. Before any door opens, who he claims to be, what he is allowed to do, and how fresh his inspection is are all read and checked. Then Maren decides, and Captain Tam acts on her decision. Nothing opens on trust.</p>
+  <p>You are the gatehouse apprentice, learning the Steward's craft from Steward Decia. Payton, envoy of the Counting House, has come to fetch the King's Ledger from the Ledger Vault. Before any door opens, who he claims to be, what he is allowed to do, and how fresh his inspection is are all read and checked. Then Decia decides, and Captain Dorian acts on her decision. Nothing opens on trust.</p>
 
   <div id="explore-panel">
     <h2>Explore: the story in plain words</h2>
     <p>Label: <span class="chip">Conceptual explanation</span></p>
     <p>The court, in plain words:</p>
     <ul class="plain-list">
-      <li><strong>Pell, envoy of the Counting House (the workload)</strong>: he does the asking. He has come for the King's Ledger.</li>
-      <li><strong>His herald and house colors (the identity)</strong>: who he claims to serve.</li>
-      <li><strong>The Sealed Letter from Lord Aldric (the grant)</strong>: this envoy may collect this one ledger, nothing else.</li>
-      <li><strong>The Quartermaster's inspection (attestation)</strong>: a dated report on Pell's party: gear sound, nothing messed with.</li>
-      <li><strong>Steward Maren (the decision point)</strong>: she reads the claim, the letter, and the inspection together, and decides.</li>
-      <li><strong>Captain Tam of the gate (the enforcement point)</strong>: he opens the vault door only on Maren's signed order.</li>
+      <li><strong>Payton, envoy of the Counting House (the workload)</strong>: he does the asking. He has come for the King's Ledger.</li>
+      <li><strong>Ideon the herald and the house colors (the identity)</strong>: Ideon announces who Payton claims to serve.</li>
+      <li><strong>The Sealed Letter from Lord Grantham (the grant)</strong>: this envoy may collect this one ledger, nothing else.</li>
+      <li><strong>Quartermaster Atesia's inspection (attestation)</strong>: her dated report on Payton's party: gear sound, nothing messed with.</li>
+      <li><strong>Steward Decia (the decision point)</strong>: she reads the claim, the letter, and the inspection together, and decides.</li>
+      <li><strong>Captain Dorian of the gate (the enforcement point)</strong>: he opens the vault door only on Decia's signed order.</li>
       <li><strong>The Ledger Vault (the protected resource)</strong>: where the King's Ledger is kept.</li>
-      <li><strong>The Chronicle, kept by Brother Anselm (the evidence ledger)</strong>: every arrival, check, decision, and outcome, written in order.</li>
+      <li><strong>The Chronicle, kept by Brother Evidan (the evidence ledger)</strong>: every arrival, check, decision, and outcome, written in order.</li>
     </ul>
     <details>
       <summary>Where the kingdom story stops working</summary>
       <p>The story is a memory aid only, and it has limits. Real systems have no single wall or gate: requests arrive from everywhere at once.</p>
       <p>Identity in real systems is proven with cryptographic keys, not faces, voices, or colors. Many checkers and guards act at the same time, in different places, and no person is doing the judging: software decides in a blink, by rules.</p>
-      <p>And the Sealed Letter in the real model is data, not paper: a grant carrying a bounded permission from an authority, for this resource and this action only. Captain Tam's check is likewise more than a glance: he verifies a signed order that is protected against changes and tied to this one errand.</p>
+      <p>And the Sealed Letter in the real model is data, not paper: a grant carrying a bounded permission from an authority, for this resource and this action only. Captain Dorian's check is likewise more than a glance: he verifies a signed order that is protected against changes and tied to this one errand.</p>
     </details>
     <p>
-      <button type="button" id="start-happy">Start: Pell's normal errand, nothing amiss</button>
-      <button type="button" id="start-no-authority">Start: Pell arrives with no letter</button>
+      <button type="button" id="start-happy">Start: Payton's normal errand, nothing amiss</button>
+      <button type="button" id="start-no-authority">Start: Payton arrives with no letter</button>
       <button type="button" id="open-learn">Meet the court (the intro)</button>
     </p>
   </div>
@@ -87,6 +87,7 @@
 <!-- Screen 9: Learn, meet the parts -->
 <section id="screen-9" class="screen" hidden aria-labelledby="s9-title">
   <span class="chip">Conceptual explanation</span>
+  <nav class="journey-ribbon" data-stage="meet" aria-label="Journey progress"></nav>
   <h1 id="s9-title" tabindex="-1">Meet the court</h1>
   <p>Seven members of the court and the errand, one at a time. Each has one job.</p>
   <p id="learn-progress" class="fine"></p>
@@ -105,8 +106,10 @@
 <!-- Screen 10: Learn, watch it flow -->
 <section id="screen-10" class="screen" hidden aria-labelledby="s10-title">
   <span class="chip">Conceptual explanation</span>
+  <nav class="journey-ribbon" data-stage="road" aria-label="Journey progress"></nav>
   <h1 id="s10-title" tabindex="-1">Watch the road to the gate</h1>
-  <p>Pell's normal errand, one beat at a time. Tap Next for each beat. Nothing moves on its own, and every beat is written out in words.</p>
+  <p>Payton's normal errand, one beat at a time. Tap Next for each beat. Nothing moves on its own, and every beat is written out in words.</p>
+  <div id="road-map-learn" class="road-map"></div>
   <ol id="flow-parts" class="flow-list"></ol>
   <p id="flow-progress" class="fine"></p>
   <p id="flow-beat" class="story" aria-live="polite"></p>
@@ -126,17 +129,17 @@
   <div class="stack" id="control-list">
     <div class="card">
       <button type="button" data-manip="revoke-grant">The Taken-Back Letter</button>
-      <p>The Sealed Letter still exists, but the lord's proclamation has taken it back, and Maren checks the posted list.</p>
+      <p>The Sealed Letter still exists, but the lord's proclamation has taken it back, and Decia checks the posted list.</p>
       <p class="fine">Fine print: the grant is added to the lab's list of taken-back grants.</p>
     </div>
     <div class="card">
       <button type="button" data-manip="age-attestation">The Old Inspection</button>
-      <p>Time moves forward, so the Quartermaster's inspection is older than the lab allows. Everything else stays fresh. Only the inspection is too old.</p>
+      <p>Time moves forward, so Atesia's inspection is older than the lab allows. Everything else stays fresh. Only the inspection is too old.</p>
       <p class="fine">Fine print: the lab clock moves 301 seconds. The limit is 300 seconds, a made-up lab number, not a rule for real systems.</p>
     </div>
     <div class="card">
       <button type="button" data-manip="tamper-decision">The Broken Seal</button>
-      <p>One line in Maren's signed order is changed after signing: it now points at a different ledger. The signature is not redone.</p>
+      <p>One line in Decia's signed order is changed after signing: it now points at a different ledger. The signature is not redone.</p>
     </div>
     <div class="card">
       <button type="button" data-manip="replay-decision">Yesterday's Pass</button>
@@ -151,19 +154,20 @@
   <p><button type="button" id="clear-faults">Start clean, no trial</button></p>
   <p>One trial per run. Trials cannot be combined.</p>
   <p class="fine">Fine print: the reference engine and its contract define runs with a single break only.</p>
-  <p>Label: <span class="chip">Not modeled</span> Some trials are not offered: swapping Pell's proof of who he is for a new one, rewriting the Steward's rules, or cutting the road to the gate. The reference system does not do those things, so the game cannot either.</p>
+  <p>Label: <span class="chip">Not modeled</span> Some trials are not offered: swapping Payton's proof of who he is for a new one, rewriting the Steward's rules, or cutting the road to the gate. The reference system does not do those things, so the game cannot either.</p>
   <p><button type="button" data-goto="1">Back to component view</button></p>
 </section>
 
 <!-- Screen 4: Predict gate -->
 <section id="screen-4" class="screen" hidden aria-labelledby="s4-title">
   <span class="chip">Simulated</span>
-  <h1 id="s4-title" tabindex="-1">What will Steward Maren do?</h1>
+  <nav class="journey-ribbon" data-stage="counsel" aria-label="Journey progress"></nav>
+  <h1 id="s4-title" tabindex="-1">What will Steward Decia do?</h1>
   <p id="predict-run-summary" class="story">No run started yet. Start a run from the first screen or the control panel.</p>
   <fieldset>
-    <legend>First: what will Maren decide?</legend>
+    <legend>First: what will Decia decide?</legend>
     <div class="stack">
-      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">Let Pell take the Ledger</button>
+      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">Let Payton take the Ledger</button>
       <button type="button" class="choice" data-decision="DENY" aria-pressed="false">Turn him away</button>
       <button type="button" class="choice" data-decision="INDETERMINATE" aria-pressed="false">Say she cannot be sure</button>
     </div>
@@ -173,7 +177,7 @@
     <div class="stack">
       <button type="button" class="choice" data-enforcement="ALLOWED" aria-pressed="false">The Ledger is handed over</button>
       <button type="button" class="choice" data-enforcement="DENY" aria-pressed="false">Nothing happens, he was turned away</button>
-      <button type="button" class="choice" data-enforcement="DENY_INDETERMINATE" aria-pressed="false">Nothing happens, Maren could not be sure</button>
+      <button type="button" class="choice" data-enforcement="DENY_INDETERMINATE" aria-pressed="false">Nothing happens, Decia could not be sure</button>
       <button type="button" class="choice" data-enforcement="REJECTED" aria-pressed="false">Nothing happens, the order was thrown out</button>
       <button type="button" class="choice" data-enforcement="BYPASS_BLOCKED" aria-pressed="false">Nothing happens, the attempt was blocked</button>
     </div>
@@ -190,12 +194,14 @@
 <!-- Screen 5: Step runner -->
 <section id="screen-5" class="screen" hidden aria-labelledby="s5-title">
   <span class="chip">Reference-tested</span>
+  <nav class="journey-ribbon" data-stage="watch" aria-label="Journey progress"></nav>
   <p class="binding" id="runner-binding"></p>
   <h1 id="s5-title" tabindex="-1">The errand, step by step</h1>
   <p id="step-indicator">No steps yet. Record a prediction first.</p>
   <h2 id="step-title"></h2>
   <p id="step-detail"></p>
   <div id="decision-announce" aria-live="polite" class="announce"></div>
+  <div id="road-map-runner" class="road-map"></div>
   <ol id="step-list"></ol>
   <details id="pred-details">
     <summary>Your prediction</summary>
@@ -226,6 +232,7 @@
 <!-- Screen 6: Evidence viewer -->
 <section id="screen-6" class="screen" hidden aria-labelledby="s6-title">
   <span class="chip">Reference-tested</span>
+  <nav class="journey-ribbon" data-stage="chronicle" aria-label="Journey progress"></nav>
   <p class="binding" id="evidence-binding"></p>
   <h1 id="s6-title" tabindex="-1">The Chronicle</h1>
   <p id="evidence-request"></p>
@@ -240,6 +247,7 @@
 <!-- Screen 7: Repair and reset -->
 <section id="screen-7" class="screen" hidden aria-labelledby="s7-title">
   <span class="chip">Simulated</span>
+  <nav class="journey-ribbon" data-stage="set-right" aria-label="Journey progress"></nav>
   <h1 id="s7-title" tabindex="-1">Set it right</h1>
   <h2>Diagnosis</h2>
   <p>What went wrong, which stage caught it, and what will you change to set it right? All three answers are required before the repair controls unlock.</p>
@@ -272,6 +280,7 @@
 <!-- Screen 8: Teach-back -->
 <section id="screen-8" class="screen" hidden aria-labelledby="s8-title">
   <span class="chip">Conceptual explanation</span>
+  <nav class="journey-ribbon" data-stage="teach" aria-label="Journey progress"></nav>
   <h1 id="s8-title" tabindex="-1">Teach-back</h1>
   <p id="journey-status">Journey status: incomplete. Finishing requires a teach-back entry. Skipping teach-back leaves the journey marked incomplete.</p>
   <label for="teach-1">Prompt 1: Explain this request in your own words, in real system words, not story words. Start with the workload that asked, end with the protected resource it wanted, and say what the identity, the grant, the attestation, the decision point, the enforcement point, and the evidence ledger each did.</label>

@@ -9,6 +9,7 @@
   --accent: #7f1d1d;
   --accent-ink: #ffffff;
   --gold: #9a7418;
+  --gold-wash: #f3dfae;
   --line: #6f5b3e;
   --fine: #5a4632;
   --focus: #9a3412;
@@ -22,6 +23,7 @@
     --accent: #e0653f;
     --accent-ink: #221607;
     --gold: #d9a441;
+    --gold-wash: #6b5313;
     --line: #8a7350;
     --fine: #cdb693;
     --focus: #f0b64f;
@@ -159,6 +161,60 @@ legend { font-weight: 700; font-size: 1.1rem; padding: 0; margin-bottom: 0.5rem;
 }
 .flow-list li.flow-active { background: var(--wash); border-color: var(--accent); font-weight: 700; }
 .tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+/* Journey progress ribbon: stage names only, state in text as well
+   as style ("done" and "you are here" are words, not just color). */
+.journey-ribbon { margin: 0.75rem 0 0.25rem; }
+.ribbon-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.ribbon-stage {
+  border: 0.125rem solid var(--line);
+  border-radius: 999rem;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.9rem;
+  background: var(--card);
+}
+.ribbon-stage.is-done { background: var(--wash); }
+.ribbon-stage.is-current {
+  border-color: var(--accent);
+  border-width: 0.2rem;
+  font-weight: 700;
+  background: var(--wash);
+}
+.ribbon-state { font-weight: 700; }
+/* Kingdom map: inline SVG scaled by viewBox, never wider than the
+   screen, so a phone shows the whole road without page scroll. */
+.road-map { margin: 1rem 0; }
+.road-map-svg { display: block; width: 100%; height: auto; }
+.road-map-svg text { font-family: Georgia, "Times New Roman", serif; fill: var(--ink); }
+.map-road { stroke: var(--line); stroke-width: 3; }
+.map-road-head { fill: var(--line); }
+.map-link { stroke: var(--line); stroke-width: 0.75; opacity: 0.55; }
+.map-grant-line { stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.map-box {
+  fill: var(--card);
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.map-node.is-visited .map-box { fill: var(--wash); }
+.map-node.is-active .map-box {
+  fill: var(--gold-wash);
+  stroke: var(--accent);
+  stroke-width: 3.5;
+}
+.map-name { font-size: 14px; font-weight: 700; }
+.map-concept { font-size: 10.5px; font-style: italic; }
+.map-note { font-size: 11px; font-style: italic; }
+.map-caption { font-size: 12px; font-style: italic; }
+.map-check { font-size: 14px; font-weight: 800; visibility: hidden; }
+.map-node.is-visited .map-check { visibility: visible; }
+.map-tag { font-size: 11px; font-weight: 800; visibility: hidden; }
+.map-node.is-active .map-tag { visibility: visible; }
 footer { border-top: 0.125rem solid var(--line); }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none; transition: none; scroll-behavior: auto; }

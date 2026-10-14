@@ -12,6 +12,7 @@ import {
   enforcementDisplay,
 } from "./steps.js";
 import { CAST } from "./cast.js";
+import { buildRoadMap, setRoadMapState, COMPONENT_NODE, BEAT_NODE } from "./map.js";
 import { runScenario, SCENARIO_NAMES } from "../fixture.js";
 
 const LABELS = ["Simulated", "Reference-tested", "Conceptual explanation", "Not modeled"];
@@ -87,7 +88,7 @@ const SCENARIO_STORY = {
   "happy-path": CAST.envoy + ", envoy of the Counting House, has come to fetch " + CAST.resourceName + ". His herald's claim checks out. He carries the Sealed Letter. His party's inspection is fresh. Nothing is amiss.",
   "identity-no-authority": CAST.envoy + " has come to fetch " + CAST.resourceName + ". His herald's claim checks out. But he carries no Sealed Letter: nobody gave him permission to take this ledger.",
   "revoked-delegation": CAST.envoy + " has come to fetch " + CAST.resourceName + ". He carries the Sealed Letter, but the lord's proclamation has since taken that letter back.",
-  "stale-attestation": CAST.envoy + " has come to fetch " + CAST.resourceName + ". He carries the Sealed Letter. But the Quartermaster's inspection of his party is old: it was written a while ago, not just now.",
+  "stale-attestation": CAST.envoy + " has come to fetch " + CAST.resourceName + ". He carries the Sealed Letter. But " + CAST.quartermasterName + "'s inspection of his party is old: it was written a while ago, not just now.",
   "tampered-decision": CAST.envoy + " asked, and " + CAST.stewardName + "'s signed order said yes. Then someone changed the order after it was signed.",
   "replayed-decision": CAST.envoy + " asked, and " + CAST.stewardName + "'s signed order said yes, for that one errand. Now the same order is being shown for a different errand.",
   "bypass-attempt": "Someone does not come to the gate at all. They try to climb the wall and take the Ledger with no order, and the attempt is watched.",
@@ -131,8 +132,8 @@ const LEARN_PARTS = [
     picture: "Real concept: the workload, the program that makes the request.",
   },
   {
-    name: "The herald and house colors",
-    job: "They announce who " + CAST.envoy + " claims to serve. A claim, nothing more: it says who he says he is, and nothing about what he may do.",
+    name: CAST.herald + " and the house colors",
+    job: CAST.heraldName + " announces who " + CAST.envoy + " claims to serve, and the house colors back the claim. A claim, nothing more: it says who he says he is, and nothing about what he may do.",
     picture: "Real concept: identity.",
   },
   {
@@ -141,8 +142,8 @@ const LEARN_PARTS = [
     picture: "Real concept: the grant, delegated authority. Permission comes from this letter, never from who " + CAST.envoy + " is.",
   },
   {
-    name: "The Quartermaster's inspection",
-    job: "A dated report on " + CAST.envoy + "'s party: gear sound, nothing messed with. It only helps if it is fresh.",
+    name: CAST.quartermaster + "'s inspection",
+    job: CAST.quartermasterName + " inspects " + CAST.envoy + "'s party and writes a dated report: gear sound, nothing messed with. It only helps if it is fresh.",
     picture: "Real concept: attestation, the workload's own report about itself.",
   },
   {
@@ -171,7 +172,7 @@ const FLOW_BEATS = [
   { part: 0, text: CAST.envoy + " arrives at the gatehouse and asks for " + CAST.resourceName + "." },
   { part: 1, text: CAST.stewardName + " hears the herald's claim: " + CAST.envoy + " serves the Counting House. The claim checks out." },
   { part: 2, text: CAST.stewardName + " reads the Sealed Letter. Collecting this one ledger is allowed, for this envoy." },
-  { part: 3, text: CAST.stewardName + " reads the Quartermaster's inspection. It is fresh, and nothing has been messed with." },
+  { part: 3, text: CAST.stewardName + " reads " + CAST.quartermasterName + "'s inspection. It is fresh, and nothing has been messed with." },
   { part: 4, text: CAST.stewardName + " decides: yes. Her order is signed and tied to this one errand." },
   { part: 5, text: CAST.guard + " checks the order and opens the vault door." },
   { part: 6, text: CAST.scribe + " writes every step in the Chronicle, in order." },
@@ -269,6 +270,49 @@ function startNewRun(scenario, manipulation) {
   return run;
 }
 
+// --- Journey progress ribbon ---------------------------------------
+// One ribbon per learning-path screen, keyed by the screen's
+// data-stage attribute. The ribbon names stages only: it never shows
+// outcomes, decisions, or results. Stage state is carried in text
+// ("done", "you are here") as well as style.
+const RIBBON_STAGES = [
+  ["meet", "Meet the court"],
+  ["road", "The road"],
+  ["counsel", "Your counsel"],
+  ["watch", "Watch it happen"],
+  ["chronicle", "The Chronicle"],
+  ["set-right", "Set it right"],
+  ["teach", "Teach it back"],
+];
+
+function renderRibbons() {
+  document.querySelectorAll(".journey-ribbon").forEach((nav) => {
+    const currentIndex = RIBBON_STAGES.findIndex(([id]) => id === nav.dataset.stage);
+    const list = make("ol", "ribbon-list");
+    RIBBON_STAGES.forEach(([id, label], i) => {
+      const item = make("li", "ribbon-stage");
+      item.append(document.createTextNode(label));
+      if (currentIndex >= 0 && i < currentIndex) {
+        item.classList.add("is-done");
+        item.append(make("span", "ribbon-state", " ✓ done"));
+      } else if (i === currentIndex) {
+        item.classList.add("is-current");
+        item.setAttribute("aria-current", "step");
+        item.append(make("span", "ribbon-state", " you are here"));
+      }
+      list.append(item);
+    });
+    nav.replaceChildren(list);
+  });
+}
+
+// --- Kingdom map instances ------------------------------------------
+// Built once from map.js geometry: one for the Learn flow, one for
+// the step runner. The textual beat list and step list remain the
+// canonical carriers of meaning; the map is a visual echo.
+let learnMap = null;
+let runnerMap = null;
+
 // --- Learn phase (Screens 9 and 10) --------------------------------
 
 function beginLearn() {
@@ -302,6 +346,11 @@ function renderBeat() {
   const beat = FLOW_BEATS[beatIndex];
   text(el("flow-progress"), "Beat " + (beatIndex + 1) + " of " + FLOW_BEATS.length);
   text(el("flow-beat"), beat.text);
+  if (learnMap) {
+    const visited = [];
+    for (let i = 0; i < beatIndex; i += 1) visited.push(BEAT_NODE[FLOW_BEATS[i].part]);
+    setRoadMapState(learnMap, BEAT_NODE[beat.part], visited, "you are here");
+  }
   el("flow-parts").querySelectorAll("li").forEach((li, i) => {
     const active = i === beat.part;
     li.classList.toggle("flow-active", active);
@@ -501,6 +550,14 @@ function renderStep() {
     const li = make("li", "", (i === stepIndex ? "[current] " : "") + s.title);
     list.append(li);
   });
+  if (runnerMap) {
+    const visited = [];
+    for (let i = 0; i < stepIndex; i += 1) {
+      visited.push(COMPONENT_NODE[stepFor(records[i]).component] || "scriptorium");
+    }
+    setRoadMapState(runnerMap,
+      COMPONENT_NODE[step.component] || "scriptorium", visited, "the request is here");
+  }
   const announce = el("decision-announce");
   announce.replaceChildren();
   if (record.type === "authorization.decision" || record.type === "enforcement.outcome") {
@@ -778,6 +835,11 @@ function exportSession() {
 // --- Wiring ------------------------------------------------------------
 
 function buildStatic() {
+  renderRibbons();
+  learnMap = buildRoadMap();
+  el("road-map-learn").append(learnMap);
+  runnerMap = buildRoadMap();
+  el("road-map-runner").append(runnerMap);
   const list = el("component-list");
   for (const key of COMPONENT_ORDER) {
     const meta = COMPONENT_META[key];
