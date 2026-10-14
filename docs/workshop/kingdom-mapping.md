@@ -2,21 +2,23 @@
 
 Status: owner-directed 2026-10-13. Mapping authored by Dex's worker for owner review.
 
-Rename revision note (2026-10-14): at owner direction, the cast was renamed so each name echoes its real concept, as a memory aid (the owner suggested Ideon and Atesia; the rest follow his pattern). The old cast was Pell the envoy, an unnamed herald, Lord Aldric, an unnamed Quartermaster, Steward Maren, Captain Tam, and Brother Anselm the scribe. The new cast is Payton the envoy (payments, the workload), Ideon the herald (identity), Lord Grantham (the grant, the authority source), Quartermaster Atesia (attestation), Steward Decia (the decision point), Captain Dorian (enforcement at the gate), and Brother Evidan (the evidence ledger). Concepts, mechanics, trials, and the approved anchor cues and meanings are unchanged. This revision also added the kingdom map and the journey progress ribbon described at the end of this document.
+Rename revision note (2026-10-14): at owner direction, the cast was renamed so each name echoes its real concept, as a memory aid (the owner suggested Ideon and Atesia; the rest follow his pattern). The old cast was Pell the envoy, an unnamed herald, Lord Aldric, an unnamed Quartermaster, Steward Maren, Captain Tam, and Brother Anselm the scribe. The new cast is the envoy (the workload; his name was settled as Worlan later the same day, see the second rename note below), Ideon the herald (identity), Lord Grantham (the grant, the authority source), Quartermaster Atesia (attestation), Steward Decia (the decision point), Captain Dorian (enforcement at the gate), and Brother Evidan (the evidence ledger). Concepts, mechanics, trials, and the approved anchor cues and meanings are unchanged. This revision also added the kingdom map and the journey progress ribbon described at the end of this document.
+
+Second rename note (2026-10-14): later the same day, the owner flagged the envoy's name in the note above as a misalignment. In that first rename he was called Payton, which echoes payments, the scenario instance (this envoy happens to be a payments reporter), not the concept the name has to teach, which is the workload. Every other cast name echoes its concept, so the envoy's name must echo workload. The owner picked Worlan over Worland, and the envoy is Worlan everywhere on the surface and in this document from this note on. The note above is kept as written, except that it no longer names him, so this note is the one place the old name remains on record.
 
 The reskin is presentation only. Engine behavior, the scenario contract, fixtures, parity, recorded values, and session exports are unchanged. Only display text, names, and theme change.
 
 ## The cast
 
 - The gatehouse apprentice: the learner, learning the Steward's craft by watching errands, predicting what Steward Decia will decide, and advising her before the decision is revealed (the learner).
-- Payton: envoy of the Counting House, who comes to the gate asking to take the King's Ledger (the workload, a payments reporter program).
-- Ideon the herald and the house colors: Ideon announces who Payton claims to serve (identity, the claimed identity).
-- The Sealed Letter from Lord Grantham: the letter Lord Grantham gave Payton, delegating permission for this errand (the grant, delegated authority). Lord Grantham is the lord who issues letters and proclaims when one is taken back.
-- Quartermaster Atesia's inspection: Atesia's check of Payton and his party before the errand, written up as a dated inspection report (attestation, with the surface phrase "inspection report").
+- Worlan: envoy of the Counting House, who comes to the gate asking to take the King's Ledger (the workload, a payments reporter program).
+- Ideon the herald and the house colors: Ideon announces who Worlan claims to serve (identity, the claimed identity).
+- The Sealed Letter from Lord Grantham: the letter Lord Grantham gave Worlan, delegating permission for this errand (the grant, delegated authority). Lord Grantham is the lord who issues letters and proclaims when one is taken back.
+- Quartermaster Atesia's inspection: Atesia's check of Worlan and his party before the errand, written up as a dated inspection report (attestation, with the surface phrase "inspection report").
 - Steward Decia: the checker at the court who reads the claim, the letter, and the inspection, applies the standing rules, and signs her order (the decision point).
 - Captain Dorian of the gate: the guard at the gate who checks Decia's order and carries it out or throws it out (the enforcement point).
 - The Chronicle, kept by Brother Evidan the scribe: the bound record where every claim, check, decision, and outcome is written in order (the evidence ledger).
-- The King's Ledger: the protected report Payton is sent to read, kept inside the vault (the protected report, engine path /reports/quarterly).
+- The King's Ledger: the protected report Worlan is sent to read, kept inside the vault (the protected report, engine path /reports/quarterly).
 - The Ledger Vault: the locked store where the King's Ledger is kept (the protected resource).
 - The castle: the place under protection, with the gate, the court, and the vault inside it (the protected system).
 
@@ -24,17 +26,17 @@ The reskin is presentation only. Engine behavior, the scenario contract, fixture
 
 | Engine concept | Story form |
 | --- | --- |
-| Workload | Payton, envoy of the Counting House, a payments reporter program sent on an errand |
-| Identity (the claimed identity) | Ideon the herald and the house colors, announcing who Payton claims to serve |
-| Authentication (checking the evidence for the claimed identity) | Ideon's announcement at his herald post, and the evidence for the claim, checked by Decia before she accepts that the claim is Payton's |
+| Workload | Worlan, envoy of the Counting House, a payments reporter program sent on an errand |
+| Identity (the claimed identity) | Ideon the herald and the house colors, announcing who Worlan claims to serve |
+| Authentication (checking the evidence for the claimed identity) | Ideon's announcement at his herald post, and the evidence for the claim, checked by Decia before she accepts that the claim is Worlan's |
 | Grant (delegated authority) | The Sealed Letter from Lord Grantham, delegating permission for the errand |
-| Attestation evidence | Quartermaster Atesia's inspection, written up as a dated inspection report about Payton and his party |
+| Attestation evidence | Quartermaster Atesia's inspection, written up as a dated inspection report about Worlan and his party |
 | Attestation freshness (the inspection's date against the lab's 300 second synthetic limit) | The date written on the inspection, checked against how old the lab allows an inspection to be (300 seconds, a synthetic lab constant, not a rule for real systems) |
 | Policy (the standing rules Decia applies) | The standing rules of the castle that Decia applies to every errand, the same for everyone |
 | Decision point | Steward Decia, the checker who decides and signs her order |
 | Enforcement point | Captain Dorian at the gate, who checks Decia's order and carries it out or throws it out |
 | Protected resource | The Ledger Vault, where the King's Ledger is kept |
-| Protected operation (READ on /reports/quarterly) | Payton taking and reading the King's Ledger (READ on /reports/quarterly) |
+| Protected operation (READ on /reports/quarterly) | Worlan taking and reading the King's Ledger (READ on /reports/quarterly) |
 | Evidence ledger | The Chronicle, kept by Brother Evidan the scribe, written in order and never rewritten |
 | Revocation and the revocation list (the posted list of taken-back letters, proclaimed by the lord) | A letter taken back by Lord Grantham, with the taking back posted on the list at the court for Decia to check |
 | Decision signing and integrity check (Decia's seal and signature on her order) | Decia's seal and signature on her order, checked by Captain Dorian so any change after signing is caught |
@@ -47,7 +49,7 @@ The eight inspector components, in engine order, with their on-screen story labe
 
 | Engine order | Component | On-screen story label |
 | --- | --- | --- |
-| 1 | workload | Payton, envoy of the Counting House |
+| 1 | workload | Worlan, envoy of the Counting House |
 | 2 | identity | Ideon the herald (identity) |
 | 3 | grant | The Sealed Letter (the grant) |
 | 4 | attestation | Quartermaster Atesia's inspection (attestation) |
@@ -60,13 +62,13 @@ The eight inspector components, in engine order, with their on-screen story labe
 
 | Engine scenario | Story chapter | What happens |
 | --- | --- | --- |
-| happy-path | Payton's Normal Errand | Payton arrives with a checked claim, a valid Sealed Letter, and a fresh inspection, Decia permits, and Captain Dorian hands over the Ledger. |
-| identity-no-authority | No Letter | Payton's claim checks out and his inspection is fresh, but no Sealed Letter was ever given, so Decia turns him away. |
-| revoked-delegation | The Taken-Back Letter | Payton carries a Sealed Letter, but Lord Grantham has taken it back and it is on the posted list, so Decia turns him away. |
-| stale-attestation | The Old Inspection | Payton's inspection is older than the lab allows, so Decia cannot be sure and the Ledger stays shut. |
+| happy-path | Worlan's Normal Errand | Worlan arrives with a checked claim, a valid Sealed Letter, and a fresh inspection, Decia permits, and Captain Dorian hands over the Ledger. |
+| identity-no-authority | No Letter | Worlan's claim checks out and his inspection is fresh, but no Sealed Letter was ever given, so Decia turns him away. |
+| revoked-delegation | The Taken-Back Letter | Worlan carries a Sealed Letter, but Lord Grantham has taken it back and it is on the posted list, so Decia turns him away. |
+| stale-attestation | The Old Inspection | Worlan's inspection is older than the lab allows, so Decia cannot be sure and the Ledger stays shut. |
 | tampered-decision | The Broken Seal | Decia's signed order is changed after signing to point at a different ledger, so Captain Dorian throws the order out. |
 | replayed-decision | Yesterday's Pass | A genuine, correctly signed order made for one errand is shown again for a different errand, so Captain Dorian throws it out on the second showing. |
-| bypass-attempt | Over the Wall | Payton tries to reach the Ledger Vault without the gate at all, with no claim read, no letter, and no order, and the attempt is blocked and written in the Chronicle. |
+| bypass-attempt | Over the Wall | Worlan tries to reach the Ledger Vault without the gate at all, with no claim read, no letter, and no order, and the attempt is blocked and written in the Chronicle. |
 
 ## Trials
 
@@ -78,7 +80,7 @@ The five fault manipulations the apprentice can run, with the plain helper line 
 | age-attestation | The Old Inspection | Time moves forward, so Atesia's inspection is older than the lab allows. Everything else stays fresh. Only the inspection is too old. | Decision INDETERMINATE (Say she cannot be sure). Gate outcome DENY_INDETERMINATE: Nothing happens, Decia could not be sure. |
 | tamper-decision | The Broken Seal | One line in Decia's signed order is changed after signing: it now points at a different ledger. The signature is not redone. | Gate outcome REJECTED: Nothing happens, the order was thrown out. |
 | replay-decision | Yesterday's Pass | A real, correctly signed order, made for one errand, is shown again for a different errand. | First showing ALLOWED: The Ledger is handed over. Second showing REJECTED: Nothing happens, the order was thrown out. |
-| bypass-attempt | Over the Wall | Payton tries to reach the Ledger without the gate at all: no claim read, no letter, no order. | No decision is made. Gate outcome BYPASS_BLOCKED: Nothing happens, the attempt was blocked. |
+| bypass-attempt | Over the Wall | Worlan tries to reach the Ledger without the gate at all: no claim read, no letter, no order. | No decision is made. Gate outcome BYPASS_BLOCKED: Nothing happens, the attempt was blocked. |
 
 ## Decision states
 
@@ -86,7 +88,7 @@ What Steward Decia decides, shown to the apprentice in story words, with the eng
 
 | Engine code | Story label |
 | --- | --- |
-| PERMIT | Let Payton take the Ledger |
+| PERMIT | Let Worlan take the Ledger |
 | DENY | Turn him away |
 | INDETERMINATE | Say she cannot be sure |
 

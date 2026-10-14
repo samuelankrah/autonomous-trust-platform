@@ -30,17 +30,17 @@
 <section id="screen-1" class="screen" aria-labelledby="s1-title">
   <span class="chip">Simulated</span>
   <h1 id="s1-title" tabindex="-1">The Gatehouse</h1>
-  <p>You are the gatehouse apprentice, learning the Steward's craft from Steward Decia. Payton, envoy of the Counting House, has come to fetch the King's Ledger from the Ledger Vault. Before any door opens, who he claims to be, what he is allowed to do, and how fresh his inspection is are all read and checked. Then Decia decides, and Captain Dorian acts on her decision. Nothing opens on trust.</p>
+  <p>You are the gatehouse apprentice, learning the Steward's craft from Steward Decia. Worlan, envoy of the Counting House, has come to fetch the King's Ledger from the Ledger Vault. Before any door opens, who he claims to be, what he is allowed to do, and how fresh his inspection is are all read and checked. Then Decia decides, and Captain Dorian acts on her decision. Nothing opens on trust.</p>
 
   <div id="explore-panel">
     <h2>Explore: the story in plain words</h2>
     <p>Label: <span class="chip">Conceptual explanation</span></p>
     <p>The court, in plain words:</p>
     <ul class="plain-list">
-      <li><strong>Payton, envoy of the Counting House (the workload)</strong>: he does the asking. He has come for the King's Ledger.</li>
-      <li><strong>Ideon the herald and the house colors (the identity)</strong>: Ideon announces who Payton claims to serve.</li>
+      <li><strong>Worlan, envoy of the Counting House (the workload)</strong>: he does the asking. He has come for the King's Ledger.</li>
+      <li><strong>Ideon the herald and the house colors (the identity)</strong>: Ideon announces who Worlan claims to serve.</li>
       <li><strong>The Sealed Letter from Lord Grantham (the grant)</strong>: this envoy may collect this one ledger, nothing else.</li>
-      <li><strong>Quartermaster Atesia's inspection (attestation)</strong>: her dated report on Payton's party: gear sound, nothing messed with.</li>
+      <li><strong>Quartermaster Atesia's inspection (attestation)</strong>: her dated report on Worlan's party: gear sound, nothing messed with.</li>
       <li><strong>Steward Decia (the decision point)</strong>: she reads the claim, the letter, and the inspection together, and decides.</li>
       <li><strong>Captain Dorian of the gate (the enforcement point)</strong>: he opens the vault door only on Decia's signed order.</li>
       <li><strong>The Ledger Vault (the protected resource)</strong>: where the King's Ledger is kept.</li>
@@ -53,8 +53,8 @@
       <p>And the Sealed Letter in the real model is data, not paper: a grant carrying a bounded permission from an authority, for this resource and this action only. Captain Dorian's check is likewise more than a glance: he verifies a signed order that is protected against changes and tied to this one errand.</p>
     </details>
     <p>
-      <button type="button" id="start-happy">Start: Payton's normal errand, nothing amiss</button>
-      <button type="button" id="start-no-authority">Start: Payton arrives with no letter</button>
+      <button type="button" id="start-happy">Start: Worlan's normal errand, nothing amiss</button>
+      <button type="button" id="start-no-authority">Start: Worlan arrives with no letter</button>
       <button type="button" id="open-learn">Meet the court (the intro)</button>
     </p>
   </div>
@@ -120,7 +120,7 @@
   <span class="chip">Conceptual explanation</span>
   <nav class="journey-ribbon" data-stage="road" aria-label="Journey progress"></nav>
   <h1 id="s10-title" tabindex="-1">Watch the road to the gate</h1>
-  <p>Payton's normal errand, one beat at a time. Tap Next for each beat. Nothing moves on its own, and every beat is written out in words.</p>
+  <p>Worlan's normal errand, one beat at a time. Tap Next for each beat. Nothing moves on its own, and every beat is written out in words.</p>
   <div id="road-map-learn" class="road-map"></div>
   <ol id="flow-parts" class="flow-list"></ol>
   <p id="flow-progress" class="fine"></p>
@@ -166,7 +166,7 @@
   <p><button type="button" id="clear-faults">Start clean, no trial</button></p>
   <p>One trial per run. Trials cannot be combined.</p>
   <p class="fine">Fine print: the reference engine and its contract define runs with a single break only.</p>
-  <p>Label: <span class="chip">Not modeled</span> Some trials are not offered: swapping Payton's proof of who he is for a new one, rewriting the Steward's rules, or cutting the road to the gate. The reference system does not do those things, so the game cannot either.</p>
+  <p>Label: <span class="chip">Not modeled</span> Some trials are not offered: swapping Worlan's proof of who he is for a new one, rewriting the Steward's rules, or cutting the road to the gate. The reference system does not do those things, so the game cannot either.</p>
   <p><button type="button" data-goto="1">Back to component view</button></p>
 </section>
 
@@ -183,7 +183,7 @@
   <fieldset>
     <legend>First: what will Decia decide?</legend>
     <div class="stack">
-      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">Let Payton take the Ledger</button>
+      <button type="button" class="choice" data-decision="PERMIT" aria-pressed="false">Let Worlan take the Ledger</button>
       <button type="button" class="choice" data-decision="DENY" aria-pressed="false">Turn him away</button>
       <button type="button" class="choice" data-decision="INDETERMINATE" aria-pressed="false">Say she cannot be sure</button>
     </div>
