@@ -56,6 +56,14 @@
     "update_behavior": "Installing a newer package over an existing fleet carries the owner's profile, history, and application records forward. Nothing earned is reset by an update.",
     "update_prompt": "Update my job fleet from this zip file."
   },
+  "model": {
+    "apply_control": "Every application requires the owner's approval on that specific application. There is no unattended auto-apply mode.",
+    "credentials": "No employer or ATS credentials are delegated to any third party. The fleet never asks for the owner's passwords.",
+    "data": "The owner's resume, profile, and application record never leave the owner's account. Nothing is sent to the seller.",
+    "deployment": "Runs inside the owner's own AI assistant account, on the owner's own machine and files. There is no seller-side cloud and no hosted dashboard.",
+    "pricing_model": "One-time payment of $99. No subscription, no per-application quota, no credits that expire.",
+    "updates": "All updates included, delivered as new packages through Gumroad; installing one carries the owner's profile and records forward."
+  },
   "operation": {
     "approval_rule": "Nothing is ever applied for without the owner's approval on that specific application",
     "control_phrases": [
