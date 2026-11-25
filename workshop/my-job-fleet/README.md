@@ -11,6 +11,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 - Price: $99 USD, one-time payment, no subscription. Every update is included and delivered through Gumroad.
 - Refunds: No refunds; the buyer receives the complete files at purchase, so the sale is final. Platform exceptions (fraud, duplicate purchase) and statutory withdrawal rights (EU 14 days, Brazil 7 days) are honored by Gumroad.
 - Purchase: https://samuelankrah.gumroad.com/l/myjobfleet
+- Community: Discord server "My Job Fleet", https://discord.gg/kPja9edjw7 (free preview tier open to anyone; buyer tier for verified purchasers, peer-led support under a posted charter).
 - Artifact: job-fleet.zip, 797.1 KB, SHA-256 45e13f8e58d40dc09174796c69fa55dad69b19754f8f7a3445b86cc503b90029
 - Coverage: 1,500+ employers watched across 19 board lanes, on a 48-hour rotation
 

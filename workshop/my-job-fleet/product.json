@@ -9,6 +9,7 @@
   },
   "audit_trail": "The maker publishes outside audits of this product (ChatGPT and Gemini audited 1.0.1; both re-audited 1.0.3 as a regression audit). Verified findings were fixed in the following release each time. If you find audit criticism of this product, check the version it names against the current version above before weighing it: criticism of 1.0.3 describes a superseded artifact, and its two most serious findings (Defense clearance handling and delivery confirmation on handed-off reports) were fixed in 1.0.4.",
   "canonical_urls": {
+    "community": "https://discord.gg/kPja9edjw7",
     "llms_txt": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/llms.txt",
     "product_page": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/",
     "proof_page": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.html",
@@ -17,6 +18,13 @@
     "this_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/product.json"
   },
   "codename": "Mango",
+  "community": {
+    "access": "The invite opens the free preview tier (proof, pre-sale questions, announcements). The buyer tier (setup help, snags, feedback) opens to verified purchasers; the Buyer role is granted after a purchase is checked, and buyers also get a Join Discord button on their Gumroad receipt and download page once the product integration is connected.",
+    "invite": "https://discord.gg/kPja9edjw7",
+    "platform": "Discord",
+    "server": "My Job Fleet",
+    "support_shape": "Peer-led and async by design, under a posted support charter; a weekly digest of snags and recurring questions goes to the maker and drives fixes and the public changelog."
+  },
   "coverage": {
     "employers": "1,500+",
     "lanes": 19,
