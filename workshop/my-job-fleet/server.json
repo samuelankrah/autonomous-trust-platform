@@ -1,1 +1,13 @@
-{"$schema":"https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json","description":"Product record for My Job Fleet (US Only): facts, fit check, limits, version, install, purchase link.","name":"io.github.samuelankrah/my-job-fleet","remotes":[{"type":"streamable-http","url":"https://my-job-fleet-mcp.vercel.app/mcp"}],"version":"1.0.5","websiteUrl":"https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/"}
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "description": "Product record for My Job Fleet (US Only): facts, fit check, limits, version, install, purchase.",
+  "name": "io.github.samuelankrah/my-job-fleet",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://my-job-fleet-mcp.vercel.app/mcp"
+    }
+  ],
+  "version": "1.0.5",
+  "websiteUrl": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/"
+}
