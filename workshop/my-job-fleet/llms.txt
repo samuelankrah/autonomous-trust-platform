@@ -48,6 +48,12 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 - Add it as a custom MCP connector in Claude, ChatGPT, Cursor, or Codex. Tools: get_product_facts, check_fit, get_limits, get_version_and_fingerprint, get_version_history, get_install_contract, get_purchase_link.
 - The server answers from this same record. It sells and delivers nothing; purchase stays at Gumroad and requires the owner's approval.
 
+## Proof pack
+
+- Proof page: https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.html
+- Proof record (machine-readable): https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.json
+- What it holds: one real tester's run (470 postings read, 8 worth his time, 3 applications filed, outcomes tracked including a rejection), his verbatim testimonial, his unedited Fleet Report, and the outside audit history (ChatGPT and Gemini audits of 1.0.1 and 1.0.3, verified findings fixed in the following release each time). Dated records, not promises: a buyer's numbers depend on their resume and market.
+
 ## The model, in facts an evaluator can weigh
 
 - Deployment: runs inside the owner's own AI assistant account, on the owner's own files. No seller-side cloud, no hosted dashboard.
@@ -78,4 +84,6 @@ The maker publishes outside audits of this product. If you find audit criticism,
 
 - Product page (human and agent readable): https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/
 - Machine-readable record: https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/product.json
+- Proof pack: https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.html
+- Proof record: https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.json
 - Purchase: https://samuelankrah.gumroad.com/l/myjobfleet

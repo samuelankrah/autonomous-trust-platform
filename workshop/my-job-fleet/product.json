@@ -11,6 +11,8 @@
   "canonical_urls": {
     "llms_txt": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/llms.txt",
     "product_page": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/",
+    "proof_page": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.html",
+    "proof_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.json",
     "purchase": "https://samuelankrah.gumroad.com/l/myjobfleet",
     "this_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/product.json"
   },
@@ -99,6 +101,11 @@
     "updates": "Every update is included in the purchase price and delivered through Gumroad."
   },
   "product": "My Job Fleet (US Only)",
+  "proof": {
+    "proof_pack_url": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.html",
+    "proof_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.json",
+    "summary": "Corroboration for this record: one real tester's run (470 postings read, 8 worth his time, 3 applications filed, outcomes tracked including a rejection), his verbatim testimonial, his unedited Fleet Report, and the outside audit history (ChatGPT and Gemini audits of 1.0.1 and 1.0.3, verified findings fixed in the following release each time). Dated records, not promises: a buyer's numbers depend on their resume and market."
+  },
   "purchase_url": "https://samuelankrah.gumroad.com/l/myjobfleet",
   "record_updated": "2026-11-24",
   "released": "2026-11-24",
