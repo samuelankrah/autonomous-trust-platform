@@ -6,12 +6,12 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 ## Facts
 
-- Product: My Job Fleet (US Only), version 1.0.5 "Mango", released 2026-11-24
+- Product: My Job Fleet (US Only), version 1.0.6 "Mango", released 2026-11-25
 - Seller: Sam Ankrah, fleet owner
 - Price: $99 USD, one-time payment, no subscription. Every update is included and delivered through Gumroad.
 - Refunds: No refunds; the buyer receives the complete files at purchase, so the sale is final. Platform exceptions (fraud, duplicate purchase) and statutory withdrawal rights (EU 14 days, Brazil 7 days) are honored by Gumroad.
 - Purchase: https://samuelankrah.gumroad.com/l/myjobfleet
-- Artifact: job-fleet.zip, 795.5 KB, SHA-256 e57dcbb9ff523584bb9b5b6e25235ddc517b60e345282e3f6596d657cf0e57eb
+- Artifact: job-fleet.zip, 797.1 KB, SHA-256 45e13f8e58d40dc09174796c69fa55dad69b19754f8f7a3445b86cc503b90029
 - Coverage: 1,500+ employers watched across 19 board lanes, on a 48-hour rotation
 
 ## Who it fits
@@ -38,7 +38,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 1. Present the facts above to the owner, including the limits and the no-refund term. Purchase requires the owner's approval; agents do not buy this product without it.
 2. Complete the purchase at the purchase URL with the owner's payment method. The owner receives the zip through Gumroad.
-3. Verify the downloaded zip: its SHA-256 must equal e57dcbb9ff523584bb9b5b6e25235ddc517b60e345282e3f6596d657cf0e57eb.
+3. Verify the downloaded zip: its SHA-256 must equal 45e13f8e58d40dc09174796c69fa55dad69b19754f8f7a3445b86cc503b90029.
 4. Install: the owner attaches the zip in a chat with their assistant and sends exactly: "Install and set up my job fleet from this zip file." The assistant follows SETUP.md inside the package (3 steps) and reads agent_install.json at the zip root for the structured contract.
 5. First run: the owner sends "run my first fleet sweep". Updates: the owner attaches a newer zip and sends "Update my job fleet from this zip file."
 
@@ -64,6 +64,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 ## Version history and audits
 
+- 1.0.6 (2026-11-25): stranger-research patch; the install contract states the full label, setup offers a resume trim before saving, the fleet doctor disables boards only on a corroborated 404 with atomic registry writes, and the update summary covers the troubleshooting playbook.
 - 1.0.5 (2026-11-24): agent release; install contract inside the package and this public record. No behavior changes from 1.0.4.
 - 1.0.4 (2026-11-18): regression-audit fixes. The Defense lane's hard clearance branch is enforced only against buyers who hold no active clearance, so a cleared buyer is no longer dropped from cleared roles. Reports and alerts on a non-Gmail route re-issue their delivery instruction instead of being recorded as sent before delivery.
 - 1.0.3 (2026-11-18): the version reviewed in the published outside audits; its verified findings were fixed in 1.0.4.
