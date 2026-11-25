@@ -42,6 +42,12 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 4. Install: the owner attaches the zip in a chat with their assistant and sends exactly: "Install and set up my job fleet from this zip file." The assistant follows SETUP.md inside the package (3 steps) and reads agent_install.json at the zip root for the structured contract.
 5. First run: the owner sends "run my first fleet sweep". Updates: the owner attaches a newer zip and sends "Update my job fleet from this zip file."
 
+## MCP product server (connect an assistant to this record)
+
+- Endpoint: https://my-job-fleet-mcp.vercel.app/mcp (Streamable HTTP, public, read-only, no authentication, no data collected)
+- Add it as a custom MCP connector in Claude, ChatGPT, Cursor, or Codex. Tools: get_product_facts, check_fit, get_limits, get_version_and_fingerprint, get_version_history, get_install_contract, get_purchase_link.
+- The server answers from this same record. It sells and delivers nothing; purchase stays at Gumroad and requires the owner's approval.
+
 ## The model, in facts an evaluator can weigh
 
 - Deployment: runs inside the owner's own AI assistant account, on the owner's own files. No seller-side cloud, no hosted dashboard.

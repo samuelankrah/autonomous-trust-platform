@@ -56,6 +56,21 @@
     "update_behavior": "Installing a newer package over an existing fleet carries the owner's profile, history, and application records forward. Nothing earned is reset by an update.",
     "update_prompt": "Update my job fleet from this zip file."
   },
+  "mcp_server": {
+    "access": "Public, read-only, no authentication, no data collected.",
+    "endpoint": "https://my-job-fleet-mcp.vercel.app/mcp",
+    "purpose": "Connect an assistant to this endpoint as a custom MCP connector to evaluate the product from its own record: facts, a fit check against its stated limits, version and fingerprint verification, version history, the install contract, and the purchase link. The server sells and delivers nothing; purchase stays at Gumroad and requires the owner's approval.",
+    "tools": [
+      "get_product_facts",
+      "check_fit",
+      "get_limits",
+      "get_version_and_fingerprint",
+      "get_version_history",
+      "get_install_contract",
+      "get_purchase_link"
+    ],
+    "transport": "Streamable HTTP (MCP)"
+  },
   "model": {
     "apply_control": "Every application requires the owner's approval on that specific application. There is no unattended auto-apply mode.",
     "credentials": "No employer or ATS credentials are delegated to any third party. The fleet never asks for the owner's passwords.",
