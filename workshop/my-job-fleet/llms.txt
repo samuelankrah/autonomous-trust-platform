@@ -19,7 +19,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 ## Who it fits
 
-- An experienced professional whose job search has become a second, unpaid job
+- An experienced professional whose job search has become a second, unpaid job: hunting a step up from a job they hold (more pay, a bigger seat), bracing for a layoff, or already between roles
 - A job search in the United States, or targeting US-based and US-remote roles
 - An owner who wants applications handled for them, with a human approval before anything is submitted
 - Cleared professionals seeking cleared work (a Defense lane opens from the owner's own stated clearance)
