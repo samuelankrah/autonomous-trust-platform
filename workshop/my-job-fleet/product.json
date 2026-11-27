@@ -48,7 +48,7 @@
    "A paid assistant plan is the realistic expectation for full cycles. On a free plan runs are smaller, boards are read partially, and a run can pause at a usage limit and resume when the owner says continue; a partial run is reported as partial, never as complete."
   ],
   "note": "The $99 is the product. The assistant plan that runs it is the buyer's own, separate, and not included.",
-  "status": "Measured 2026-11-26 from the maker's own run records: text volume processed per 48-hour cycle, by pipeline stage, converted at 4 characters per token. An estimate from text volume, not a meter reading — the run records do not log token consumption directly.",
+  "status": "Measured 2026-11-26 from the maker's own run records: text volume processed per 48-hour cycle, by pipeline stage, converted at 4 characters per token. An estimate from text volume, not a meter reading, because the run records do not log token consumption directly.",
   "estimate": {
    "measured_on": "2026-11-26",
    "estimator": "characters/4 (estimate, not a meter reading)",
@@ -218,18 +218,18 @@
   },
   {
    "added": [
-    "The companion layer (companion/ in the package): briefs built from the owner's own resume and the roles they have already applied to — no setup form, no new homework.",
-    "Interjections: plain-language notes on the owner's own search — a fitting title never applied to, a word employers keep asking for that the resume barely uses, the real cost of the remote-versus-onsite dial, in numbers.",
+    "The companion layer (companion/ in the package): briefs built from the owner's own resume and the roles they have already applied to. No setup form, no new homework.",
+    "Interjections: plain-language notes on the owner's own search: a fitting title never applied to, a word employers keep asking for that the resume barely uses, the real cost of the remote-versus-onsite dial, in numbers.",
     "Signals: roles the fleet has watched stay open for months, named with ages measured from the fleet's own first sighting, and roles that disappeared and came back.",
     "Horizon briefs: roles forming in the owner's field before they have a settled name, detected from converging words across postings under different job titles, with the evidence shown."
    ],
    "date": "2026-11-26",
    "improved": [
-    "Release notes discipline: this version history and the package changelog now state Added and Improved separately — this release and every release from now on.",
+    "Release notes discipline: this version history and the package changelog now state Added and Improved separately, starting with this release and every release from now on.",
     "Setup's personalization checklist now covers the companion's terms file (swap point 31 in core/SWAP_POINTS.md), written from the owner's profile; the layer ships with a worked example and setup replaces it before the owner's first real brief.",
     "Version stamps corrected to 1.0.7 in SETUP, QUICKSTART, and the install contract."
    ],
-   "summary": "The guidance release: a companion layer that reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs — interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name. Release notes now state Added and Improved separately.",
+   "summary": "The guidance release: a companion layer that reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs: interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name. Release notes now state Added and Improved separately.",
    "version": "1.0.7"
   },
   {
