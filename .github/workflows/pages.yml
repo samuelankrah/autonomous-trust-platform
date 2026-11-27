@@ -38,3 +38,29 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  # Self-healing retry: the deploy step fails intermittently on GitHub's side
+  # (observed 2026-11-25 and 2026-11-27) while every earlier step succeeds.
+  # If the first deploy job fails, run the whole job once more automatically
+  # so a transient GitHub error never leaves the site stale or needs a human.
+  deploy-retry:
+    needs: deploy
+    if: failure()
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "workshop"
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
