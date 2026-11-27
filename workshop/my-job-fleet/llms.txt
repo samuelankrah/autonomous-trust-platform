@@ -8,9 +8,10 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 - Product: My Job Fleet (US Only), version 1.0.8 "Mango", released 2026-11-26
 - Seller: Sam Ankrah, fleet owner
-- Price: $99 USD, one-time payment, no subscription. Every update is included and delivered through Gumroad.
-- Refunds: No refunds; the buyer receives the complete files at purchase, so the sale is final. Platform exceptions (fraud, duplicate purchase) and statutory withdrawal rights (EU 14 days, Brazil 7 days) are honored by Gumroad.
-- Purchase: https://samuelankrah.gumroad.com/l/myjobfleet
+- Price: $99 USD, one-time payment, no subscription. Every update is included and delivered through the register you purchased from.
+- Refunds: No refunds; the buyer receives the complete files at purchase, so the sale is final. Platform exceptions (fraud, duplicate purchase) and statutory withdrawal rights (EU 14 days, Brazil 7 days) are honored.
+- Purchase (Gumroad, instant download): https://samuelankrah.gumroad.com/l/myjobfleet
+- Purchase (Stripe, seller Nyansa LLC; files delivered to the buyer's email shortly after purchase): https://buy.stripe.com/bJe6oG1Yk8ua9Qp2Mp2wU00
 - Install contract (pre-purchase inspection): https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json
 - Community: Discord server "My Job Fleet", https://discord.gg/kPja9edjw7 (free preview tier open to anyone; buyer tier for verified purchasers, peer-led support under a posted charter).
 - Artifact: job-fleet.zip, 833.7 KB, SHA-256 d9a65ad7694c6f40591c83555497b314b25b81dedd6de7f8a63c76257be637da
@@ -39,7 +40,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 ## How an agent buys and installs it
 
 1. Present the facts above to the owner, including the limits and the no-refund term. Purchase requires the owner's approval; agents do not buy this product without it.
-2. Complete the purchase at the purchase URL with the owner's payment method. The owner receives the zip through Gumroad.
+2. Complete the purchase at either purchase URL with the owner's payment method. Gumroad delivers the zip at purchase; Stripe delivers the files to the owner's email shortly after purchase.
 3. Verify the downloaded zip: its SHA-256 must equal d9a65ad7694c6f40591c83555497b314b25b81dedd6de7f8a63c76257be637da.
 4. Install: the owner attaches the zip in a chat with their assistant and sends exactly: "Install and set up my job fleet from this zip file." The assistant follows SETUP.md inside the package (3 steps) and reads agent_install.json at the zip root for the structured contract. The same contract is published next to this record for pre-purchase inspection: https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json
 5. First run: the owner sends "run my first fleet sweep". Updates: the owner attaches a newer zip and sends "Update my job fleet from this zip file."
@@ -48,7 +49,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 - Endpoint: https://my-job-fleet-mcp.vercel.app/mcp (Streamable HTTP, public, read-only, no authentication, no data collected)
 - Add it as a custom MCP connector in Claude, ChatGPT, Cursor, or Codex. Tools: get_product_facts, check_fit, get_limits, get_version_and_fingerprint, get_version_history, get_install_contract, get_purchase_link.
-- The server answers from this same record. It sells and delivers nothing; purchase stays at Gumroad and requires the owner's approval.
+- The server answers from this same record. It sells and delivers nothing; purchase stays at the seller's registers (Gumroad or Stripe) and requires the owner's approval.
 
 ## Proof pack
 
