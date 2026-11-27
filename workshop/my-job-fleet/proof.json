@@ -23,7 +23,7 @@
   "report_image": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/derek-fleet-report-2026-11-18.png",
   "report_image_note": "The tester's actual Consolidated Fleet Report, published unedited. The same image appears on the Gumroad product page.",
   "run_date": "2026-11-12",
-  "tester": "Derek, the first user of My Job Fleet. He received the fleet free as its first tester; his testimonial and Fleet Report are published with his approval, under his own name."
+  "tester": "Derek, the first user of My Job Fleet. He is an experienced professional, and the roles in his run are senior roles, not entry-level positions. He received the fleet free as its first tester; his testimonial and Fleet Report are published with his approval, under his own name."
  },
  "how_to_verify": [
   "Check the current version and the SHA-256 fingerprint in product.json, or through the MCP server's get_version_and_fingerprint tool at https://my-job-fleet-mcp.vercel.app/mcp",
@@ -71,7 +71,7 @@
  },
  "this_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.json",
  "second_field_run": {
-  "tester": "Jude, a My Job Fleet user searching in insider risk and data loss prevention. He set up the fleet himself on 2026-11-18. His testimonial is published with his approval, under his first name.",
+  "tester": "Jude, a My Job Fleet user with over 3 years of experience in insider risk and data loss prevention. He set up the fleet himself on 2026-11-18. His testimonial is published with his approval, under his first name.",
   "fleet_version": "1.0.0",
   "field": "Insider risk / data loss prevention (DLP)",
   "outcomes": [
