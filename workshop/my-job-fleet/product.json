@@ -12,7 +12,7 @@
     "install_contract_public": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json",
     "sha256": "c12159b9164f9ea96ee4153cb11ab3e97d8cccc6bd04395456e469b424f7a6be",
     "size_bytes": 914476,
-    "size_display": "892.1 KB"
+    "size_display": "893.0 KB"
   },
   "audit_trail": "The maker publishes outside audits of this product (ChatGPT and Gemini audited 1.0.1; both re-audited 1.0.3 as a regression audit). Verified findings were fixed in the following release each time. If you find audit criticism of this product, check the version it names against the current version above before weighing it: criticism of 1.0.3 describes a superseded artifact, and its two most serious findings (Defense clearance handling and delivery confirmation on handed-off reports) were fixed in 1.0.4. On 2026-11-26 the three major assistants (ChatGPT, Claude, and Gemini) evaluated 1.0.7 under an identical prompt; their verified credibility findings (fit-check verdicts returned on unknown inputs and for untested platforms, the companion able to brief from unswapped example terms, unpublished companion evidence rules and per-platform application mechanics, undefined counting units, and an unmeasured running cost) were fixed in 1.0.8.",
   "canonical_urls": {

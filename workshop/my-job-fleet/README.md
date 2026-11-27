@@ -13,7 +13,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 - Purchase: https://samuelankrah.gumroad.com/l/myjobfleet
 - Install contract (pre-purchase inspection): https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json
 - Community: Discord server "My Job Fleet", https://discord.gg/kPja9edjw7 (free preview tier open to anyone; buyer tier for verified purchasers, peer-led support under a posted charter).
-- Artifact: job-fleet.zip, 892.1 KB, SHA-256 c12159b9164f9ea96ee4153cb11ab3e97d8cccc6bd04395456e469b424f7a6be
+- Artifact: job-fleet.zip, 893.0 KB, SHA-256 c12159b9164f9ea96ee4153cb11ab3e97d8cccc6bd04395456e469b424f7a6be
 - Coverage: 1,400+ employers searched across 19 board lanes, on a 48-hour rotation
 
 ## Who it fits
