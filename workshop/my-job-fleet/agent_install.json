@@ -29,7 +29,7 @@
   ],
   "install": {
     "first_run_prompt": "run my first fleet sweep",
-    "how": "The owner attaches this zip in a chat with their assistant and sends the install prompt. The assistant then follows SETUP.md in this package exactly: three steps, shown to the owner as Step 1 of 3 (profile), Step 2 of 3 (fleet built), Step 3 of 3 (first sweep). The first Fleet Report lands in the owner's inbox in the same sitting.",
+    "how": "The owner attaches this zip in a chat with their assistant and sends the install prompt. The assistant then follows SETUP.md in this package exactly: three steps, shown to the owner as Step 1 of 3 (profile), Step 2 of 3 (fleet built), Step 3 of 3 (first sweep). The first Fleet Report is delivered in the same sitting by the route the owner chose in setup (email, or in-chat where the owner chose in-chat delivery).",
     "prompt": "Install and set up my job fleet from this zip file.",
     "staged_consent": "Each capability asks at its moment; declining pauses only that capability.",
     "update_behavior": "Installing a newer package over an existing fleet carries the owner's profile, history, and application records forward. Nothing earned is reset by an update. An update is accepted only when the new zip matches the SHA-256 published for that version and the new version is higher than the one installed.",
@@ -56,7 +56,7 @@
   },
   "product": "My Job Fleet (US Only)",
   "purchase_url": "https://samuelankrah.gumroad.com/l/myjobfleet",
-  "released": "2026-11-26",
+  "released": "2026-11-27",
   "requirements": [
     "An AI assistant account the owner controls (the fleet was built and tested on Muse AI; a paid plan is recommended because setup is token-heavy and a free plan's allowance burns quickly)",
     "The owner's resume, in any common document format",
@@ -65,6 +65,6 @@
   "schema": "my-job-fleet/agent-install/v1",
   "seller": "Sam Ankrah, fleet owner",
   "support_model": "The fleet maintains itself: a built-in fleet doctor performs provably safe repairs, a troubleshooting guide ships in the package (core/TROUBLESHOOTING.md), and a weekly health check folds into the Fleet Report. Field improvement notes, not error reports, are the channel back to the maker.",
-  "version": "1.0.8",
-  "what_it_is": "A job-search system that runs inside the owner's own AI assistant account. On a 48-hour rotation it reads live postings on employers' own career pages (1,500+ employers, 19 board lanes including Workday, Greenhouse, Lever, Ashby, SmartRecruiters, and iCIMS), scores each posting against the owner's resume by duties performed rather than job titles, delivers one Fleet Report per cycle, and submits applications only with the owner's approval on each application. A companion layer reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs: interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name."
+  "version": "1.0.9",
+  "what_it_is": "A job-search system that runs inside the owner's own AI assistant account. On a 48-hour rotation it reads live postings on employers' own career pages (1,400+ employers, 18 scanning lanes plus the Careers Monitor watch lane, including Workday, Greenhouse, Lever, Ashby, SmartRecruiters, and iCIMS), scores each posting against the owner's resume by duties performed rather than job titles, delivers one Fleet Report per cycle, and submits applications only with the owner's approval on each application. A companion layer reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs: interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name."
 }

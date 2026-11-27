@@ -1,20 +1,20 @@
 # My Job Fleet (US Only)
 
-> A job-search system that runs inside the owner's own AI assistant account. On a 48-hour rotation it reads live postings on employers' own career pages (1,500+ employers, 19 board lanes including Workday, Greenhouse, Lever, Ashby, SmartRecruiters, and iCIMS), scores each posting against the owner's resume by duties performed rather than job titles, delivers one Fleet Report per cycle, and submits applications only with the owner's approval on each application. A companion layer reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs: interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name.
+> A job-search system that runs inside the owner's own AI assistant account. On a 48-hour rotation it reads live postings on employers' own career pages (1,400+ employers, 19 board lanes including Workday, Greenhouse, Lever, Ashby, SmartRecruiters, and iCIMS), scores each posting against the owner's resume by duties performed rather than job titles, delivers one Fleet Report per cycle, and submits applications only with the owner's approval on each application. A companion layer reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs: interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name.
 
 This page is the agent-readable record for My Job Fleet. It states the facts an agent needs to evaluate the product for its owner, quote it accurately, and, after the owner's approval, purchase and install it. The canonical machine-readable record is product.json at this same directory.
 
 ## Facts
 
-- Product: My Job Fleet (US Only), version 1.0.8 "Mango", released 2026-11-26
+- Product: My Job Fleet (US Only), version 1.0.9 "Mango", released 2026-11-27
 - Seller: Sam Ankrah, fleet owner
 - Price: $99 USD, one-time payment, no subscription. Every update is included and delivered through Gumroad.
 - Refunds: No refunds; the buyer receives the complete files at purchase, so the sale is final. Platform exceptions (fraud, duplicate purchase) and statutory withdrawal rights (EU 14 days, Brazil 7 days) are honored by Gumroad.
 - Purchase: https://samuelankrah.gumroad.com/l/myjobfleet
 - Install contract (pre-purchase inspection): https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json
 - Community: Discord server "My Job Fleet", https://discord.gg/kPja9edjw7 (free preview tier open to anyone; buyer tier for verified purchasers, peer-led support under a posted charter).
-- Artifact: job-fleet.zip, 833.7 KB, SHA-256 d9a65ad7694c6f40591c83555497b314b25b81dedd6de7f8a63c76257be637da
-- Coverage: 1,500+ employers watched across 19 board lanes, on a 48-hour rotation
+- Artifact: job-fleet.zip, 892.1 KB, SHA-256 c12159b9164f9ea96ee4153cb11ab3e97d8cccc6bd04395456e469b424f7a6be
+- Coverage: 1,400+ employers searched across 19 board lanes, on a 48-hour rotation
 
 ## Who it fits
 
@@ -40,7 +40,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 1. Present the facts above to the owner, including the limits and the no-refund term. Purchase requires the owner's approval; agents do not buy this product without it.
 2. Complete the purchase at the purchase URL with the owner's payment method. The owner receives the zip through Gumroad.
-3. Verify the downloaded zip: its SHA-256 must equal d9a65ad7694c6f40591c83555497b314b25b81dedd6de7f8a63c76257be637da.
+3. Verify the downloaded zip: its SHA-256 must equal c12159b9164f9ea96ee4153cb11ab3e97d8cccc6bd04395456e469b424f7a6be.
 4. Install: the owner attaches the zip in a chat with their assistant and sends exactly: "Install and set up my job fleet from this zip file." The assistant follows SETUP.md inside the package (3 steps) and reads agent_install.json at the zip root for the structured contract. The same contract is published next to this record for pre-purchase inspection: https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json
 5. First run: the owner sends "run my first fleet sweep". Updates: the owner attaches a newer zip and sends "Update my job fleet from this zip file."
 
@@ -67,8 +67,8 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 ## Counting, defined
 
-- Employer: a unique company, counted once no matter how many boards or lanes watch it. The package manifest counts 1,565 unique employers; this record states the floor (1,500+) so the claim stays true as registries change between releases.
-- Board: one employer's careers board on one platform, as entered in one lane's registry. One employer can account for several boards. The package manifest counts 1,359 board entries.
+- Employer: a unique company, counted once no matter how many boards or lanes watch it. The package manifest counts 1,414 unique employers across the scanning lanes; this record states the floor (1,400+) so the claim stays true as registries change between releases. Employers watched only through the Careers Monitor (371 more) are counted separately as watched, never merged into this number.
+- Board: one employer's careers board on one platform, as entered in one lane's registry. One employer can account for several boards. The package manifest counts 1,417 board entries.
 - Lane: one scanning pipeline (an engine, a registry, and the shared scoring gate), organized by platform or by watch type. The fleet has 19 lanes.
 - Posting: one job listing observed on one board. The same role re-listed is a new posting observation; the companion groups observations by employer + title when it talks about roles.
 
@@ -90,6 +90,7 @@ A per-cycle token range has not been measured; the maker's own fleet run records
 
 ## Version history and audits
 
+- 1.0.9 (2026-11-27): the registry and resilience release. Added: chunked runs for the big engine lanes (a killed or timed-out run keeps its completed chunks and resumes past them), filing-time capture in the application record (the verdict, the score, the duty-mapping evidence, and where the evaluation notes live), and the open-applications worklist. Improved: employer registries refreshed to the maker's current fleet (the November financial-services expansion and the 2026-11-26 sector expansion; 1,400+ unique employers), duplicate boards removed so no board is scanned twice, interview/offer/withdrawn stages in the application ledger (the weekly rollup's interview count is now real), outcome matching widened to fourteen platforms' notification domains with its coverage stated on every run, partial chunked runs keeping their status in the consolidated Fleet Report, scoring documentation corrected (the gate is an evidence screen; the roughly 70 percent duties standard is enforced at the application review, not computed by the gate), and the maker's note printed in the open in SETUP.md.
 - 1.0.8 (2026-11-26): the credibility release; fixes from the 2026-11-26 three-model evaluation (ChatGPT, Claude, Gemini, one identical prompt). Added: per-platform application mechanics, the companion's published evidence rules, counting definitions and a plain data-handling paragraph in this record, and the install contract published for pre-purchase inspection. Improved: check_fit takes the assistant platform into account and returns "cannot determine" on unknown inputs instead of "fits"; the companion fails closed until setup replaces the worked-example terms; horizon briefs have a stated formation gate; running cost is stated as unmeasured, with its drivers.
 - 1.0.7 (2026-11-26): the guidance release. Added: the companion layer, briefs built from the owner's resume and the roles they have already applied to, with interjections, long-unfilled and repost signals, and horizon briefs on roles forming before they have a name. Improved: release notes now state Added and Improved separately (this record and the package changelog); setup's swap-point checklist covers the companion's terms file.
 - 1.0.6 (2026-11-25): stranger-research patch; the install contract states the full label, setup offers a resume trim before saving, the fleet doctor disables boards only on a corroborated 404 with atomic registry writes, and the update summary covers the troubleshooting playbook.

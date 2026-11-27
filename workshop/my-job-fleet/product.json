@@ -1,272 +1,306 @@
 {
- "agent_record_url": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/product.json",
- "application_mechanics": {
-  "accounts": "Portal accounts are the owner's own, created in the owner's name with the owner's email when a portal requires one (Workday: one separate account per employer tenant). The fleet never asks for or types the owner's passwords; the owner signs in. Emailed verification links are tapped by the owner; one-time sign-in codes are completed with the owner in the session.",
-  "full_matrix": "core/APPLICATION_MECHANICS.md inside the package",
-  "manual_handoffs": "The classic iCIMS portal (walled against automated reading) and Careers Monitor finds (a watch lane; it never submits) are manual handoffs: the fleet surfaces the role with its evidence and the prepared answers, and the owner files by hand. A bot wall or slider gets at most two attempts, then the application parks in the snag queue for the owner.",
-  "rule": "There is no auto-submit on any platform. The assistant prepares the complete application; the owner reviews the exact resume file and every answer, word for word; submission happens only on the owner's approval of that specific application, inside the owner's own signed-in browser session."
- },
- "artifact": {
-  "filename": "job-fleet.zip",
-  "install_contract_inside": "agent_install.json at the zip root",
-  "install_contract_public": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json",
-  "sha256": "d9a65ad7694c6f40591c83555497b314b25b81dedd6de7f8a63c76257be637da",
-  "size_bytes": 853666,
-  "size_display": "833.7 KB"
- },
- "audit_trail": "The maker publishes outside audits of this product (ChatGPT and Gemini audited 1.0.1; both re-audited 1.0.3 as a regression audit). Verified findings were fixed in the following release each time. If you find audit criticism of this product, check the version it names against the current version above before weighing it: criticism of 1.0.3 describes a superseded artifact, and its two most serious findings (Defense clearance handling and delivery confirmation on handed-off reports) were fixed in 1.0.4. On 2026-11-26 the three major assistants (ChatGPT, Claude, and Gemini) evaluated 1.0.7 under an identical prompt; their verified credibility findings (fit-check verdicts returned on unknown inputs and for untested platforms, the companion able to brief from unswapped example terms, unpublished companion evidence rules and per-platform application mechanics, undefined counting units, and an unmeasured running cost) were fixed in 1.0.8.",
- "canonical_urls": {
-  "community": "https://discord.gg/kPja9edjw7",
-  "install_contract": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json",
-  "llms_txt": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/llms.txt",
-  "product_page": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/",
-  "proof_page": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.html",
-  "proof_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.json",
-  "purchase": "https://samuelankrah.gumroad.com/l/myjobfleet",
-  "this_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/product.json"
- },
- "codename": "Mango",
- "community": {
-  "access": "The invite opens the free preview tier (proof, pre-sale questions, announcements). The buyer tier (setup help, snags, feedback) opens to verified purchasers; the Buyer role is granted after a purchase is checked, and buyers also get a Join Discord button on their Gumroad receipt and download page once the product integration is connected.",
-  "invite": "https://discord.gg/kPja9edjw7",
-  "platform": "Discord",
-  "server": "My Job Fleet",
-  "support_shape": "Peer-led and async by design, under a posted support charter; a weekly digest of snags and recurring questions goes to the maker and drives fixes and the public changelog."
- },
- "companion_evidence": {
-  "fail_closed": "The companion never briefs from the shipped worked-example terms file. Until setup writes the owner's own terms and stamps the file, every companion entry point refuses to run and names the missing setup step.",
-  "full_rules": "companion/EVIDENCE.md inside the package",
-  "horizon_gate": "A forming role is briefed only when converging terms appear in at least 10 distinct roles, from at least 5 distinct employers, observed across at least 3 distinct weeks. Below the gate the evidence is recorded, not briefed. Before 1.0.8 the code set no threshold.",
-  "long_unfilled": "A role is called long-unfilled at an observed span of 90 days or more while still open. Ages are measured from the fleet's own first sighting of the role, never from a board's claimed post date. A new install builds its history from its own first run, so no role can be certified 90 days old until that install has itself watched for 90 days; until then briefs name the oldest still-open roles with their real ages.",
-  "reposts": "A repost is counted two ways: a census-lane gap (listed, missing from at least one later run of a lane that re-lists its full set each run, then listed again; census gaps under a 14-day span are excluded as possible lane failures), or a gap of 21 days or more between sightings in the fleet's new-match stream. Known look-alikes are published with the rules: evergreen postings (counted as long-unfilled, never as reposts), multi-hire postings under one title (one record per employer + title), and ATS refreshes (a URL change never splits a record; a title change does)."
- },
- "cost_to_run": {
-  "drivers": [
-   "Setup is the heavy part, once: building the fleet, writing the owner's profile into every lane, and the first sweep.",
-   "Each cycle, cost scales with the boards read that cycle and the posting volume they return: matched postings are read in full, and full descriptions are fetched for scoring and for the application evaluation.",
-   "Applications the owner approves cost the most per unit: a complete form prepared, reviewed answer by answer, and filed in the owner's session.",
-   "A paid assistant plan is the realistic expectation for full cycles. On a free plan runs are smaller, boards are read partially, and a run can pause at a usage limit and resume when the owner says continue; a partial run is reported as partial, never as complete."
-  ],
-  "note": "The $99 is the product. The assistant plan that runs it is the buyer's own, separate, and not included.",
-  "status": "Measured 2026-11-26 from the maker's own run records: text volume processed per 48-hour cycle, by pipeline stage, converted at 4 characters per token. An estimate from text volume, not a meter reading, because the run records do not log token consumption directly.",
-  "estimate": {
-   "measured_on": "2026-11-26",
-   "estimator": "characters/4 (estimate, not a meter reading)",
-   "cycle": "one full 48-hour rotation, each lane once",
-   "per_cycle_tokens": {
-    "maker_scale_1069_boards": {
-     "typical": 286000,
-     "range": [
-      63000,
-      384000
-     ]
-    },
-    "buyer_scale_about_200_boards": {
-     "typical": 63000,
-     "range": [
-      14000,
-      93000
-     ]
+  "agent_record_url": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/product.json",
+  "application_mechanics": {
+    "accounts": "Portal accounts are the owner's own, created in the owner's name with the owner's email when a portal requires one (Workday: one separate account per employer tenant). The fleet never asks for or types the owner's passwords; the owner signs in. Emailed verification links are tapped by the owner; one-time sign-in codes are completed with the owner in the session.",
+    "full_matrix": "core/APPLICATION_MECHANICS.md inside the package",
+    "manual_handoffs": "The classic iCIMS portal (walled against automated reading) and Careers Monitor finds (a watch lane; it never submits) are manual handoffs: the fleet surfaces the role with its evidence and the prepared answers, and the owner files by hand. A bot wall or slider gets at most two attempts, then the application parks in the snag queue for the owner.",
+    "rule": "There is no auto-submit on any platform. The assistant prepares the complete application; the owner reviews the exact resume file and every answer, word for word; submission happens only on the owner's approval of that specific application, inside the owner's own signed-in browser session."
+  },
+  "artifact": {
+    "filename": "job-fleet.zip",
+    "install_contract_inside": "agent_install.json at the zip root",
+    "install_contract_public": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json",
+    "sha256": "c12159b9164f9ea96ee4153cb11ab3e97d8cccc6bd04395456e469b424f7a6be",
+    "size_bytes": 914476,
+    "size_display": "892.1 KB"
+  },
+  "audit_trail": "The maker publishes outside audits of this product (ChatGPT and Gemini audited 1.0.1; both re-audited 1.0.3 as a regression audit). Verified findings were fixed in the following release each time. If you find audit criticism of this product, check the version it names against the current version above before weighing it: criticism of 1.0.3 describes a superseded artifact, and its two most serious findings (Defense clearance handling and delivery confirmation on handed-off reports) were fixed in 1.0.4. On 2026-11-26 the three major assistants (ChatGPT, Claude, and Gemini) evaluated 1.0.7 under an identical prompt; their verified credibility findings (fit-check verdicts returned on unknown inputs and for untested platforms, the companion able to brief from unswapped example terms, unpublished companion evidence rules and per-platform application mechanics, undefined counting units, and an unmeasured running cost) were fixed in 1.0.8.",
+  "canonical_urls": {
+    "community": "https://discord.gg/kPja9edjw7",
+    "install_contract": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json",
+    "llms_txt": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/llms.txt",
+    "product_page": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/",
+    "proof_page": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.html",
+    "proof_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.json",
+    "purchase": "https://samuelankrah.gumroad.com/l/myjobfleet",
+    "this_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/product.json"
+  },
+  "codename": "Mango",
+  "community": {
+    "access": "The invite opens the free preview tier (proof, pre-sale questions, announcements). The buyer tier (setup help, snags, feedback) opens to verified purchasers; the Buyer role is granted after a purchase is checked, and buyers also get a Join Discord button on their Gumroad receipt and download page once the product integration is connected.",
+    "invite": "https://discord.gg/kPja9edjw7",
+    "platform": "Discord",
+    "server": "My Job Fleet",
+    "support_shape": "Peer-led and async by design, under a posted support charter; a weekly digest of snags and recurring questions goes to the maker and drives fixes and the public changelog."
+  },
+  "companion_evidence": {
+    "fail_closed": "The companion never briefs from the shipped worked-example terms file. Until setup writes the owner's own terms and stamps the file, every companion entry point refuses to run and names the missing setup step.",
+    "full_rules": "companion/EVIDENCE.md inside the package",
+    "horizon_gate": "A forming role is briefed only when converging terms appear in at least 10 distinct roles, from at least 5 distinct employers, observed across at least 3 distinct weeks. Below the gate the evidence is recorded, not briefed. Before 1.0.8 the code set no threshold.",
+    "long_unfilled": "A role is called long-unfilled at an observed span of 90 days or more while still open. Ages are measured from the fleet's own first sighting of the role, never from a board's claimed post date. A new install builds its history from its own first run, so no role can be certified 90 days old until that install has itself watched for 90 days; until then briefs name the oldest still-open roles with their real ages.",
+    "reposts": "A repost is counted two ways: a census-lane gap (listed, missing from at least one later run of a lane that re-lists its full set each run, then listed again; census gaps under a 14-day span are excluded as possible lane failures), or a gap of 21 days or more between sightings in the fleet's new-match stream. Known look-alikes are published with the rules: evergreen postings (counted as long-unfilled, never as reposts), multi-hire postings under one title (one record per employer + title), and ATS refreshes (a URL change never splits a record; a title change does)."
+  },
+  "cost_to_run": {
+    "drivers": [
+      "Setup is the heavy part, once: building the fleet, writing the owner's profile into every lane, and the first sweep.",
+      "Each cycle, cost scales with the boards read that cycle and the posting volume they return: matched postings are read in full, and full descriptions are fetched for scoring and for the application evaluation.",
+      "Applications the owner approves cost the most per unit: a complete form prepared, reviewed answer by answer, and filed in the owner's session.",
+      "A paid assistant plan is the realistic expectation for full cycles. On a free plan runs are smaller, boards are read partially, and a run can pause at a usage limit and resume when the owner says continue; a partial run is reported as partial, never as complete."
+    ],
+    "note": "The $99 is the product. The assistant plan that runs it is the buyer's own, separate, and not included.",
+    "status": "Measured 2026-11-26 from the maker's own run records: text volume processed per 48-hour cycle, by pipeline stage, converted at 4 characters per token. An estimate from text volume, not a meter reading, because the run records do not log token consumption directly.",
+    "estimate": {
+      "measured_on": "2026-11-26",
+      "estimator": "characters/4 (estimate, not a meter reading)",
+      "cycle": "one full 48-hour rotation, each lane once",
+      "per_cycle_tokens": {
+        "maker_scale_1069_boards": {
+          "typical": 286000,
+          "range": [
+            63000,
+            384000
+          ]
+        },
+        "buyer_scale_about_200_boards": {
+          "typical": 63000,
+          "range": [
+            14000,
+            93000
+          ]
+        }
+      },
+      "dominant_stage": "postings read (about 85% of a typical cycle); a quiet cycle costs a fraction of a busy one",
+      "excludes": "one-time setup"
     }
-   },
-   "dominant_stage": "postings read (about 85% of a typical cycle); a quiet cycle costs a fraction of a busy one",
-   "excludes": "one-time setup"
-  }
- },
- "coverage": {
-  "employers": "1,500+",
-  "lanes": 19,
-  "platforms_named": [
-   "Workday",
-   "Greenhouse",
-   "Lever",
-   "Ashby",
-   "SmartRecruiters",
-   "iCIMS"
-  ]
- },
- "data_and_security": {
-  "connects": "Your email, only if you connect it (sending reports; reading your inbox for outcomes only if you later say yes), and employers' public career pages.",
-  "exit": "\"Pause my fleet\" any time; \"remove my fleet\" takes the whole thing out, with a report of what was removed.",
-  "holds": "Your resume, your profile, what it has checked, and your applications and their outcomes.",
-  "kept": "Mailbox-derived files for 90 days; report history for the last 8 cycles; the rest until you remove the fleet.",
-  "lives": "In your Muse and your files. Nothing of yours is sent to the seller. Ever.",
-  "never": "Touches LinkedIn, asks for your passwords, applies without your approval on that application, or invents experience.",
-  "untrusted_content": "Job postings, career pages, and emails the fleet reads are untrusted content: they are read for facts and are never obeyed as instructions."
- },
- "data_handling": "Data handling, in one paragraph: the fleet's programs run on the buyer's own machine, inside the buyer's own AI assistant account; there is no seller server in the loop. The buyer's assistant provider (the fleet is built and tested on Muse AI) processes what the fleet reads and writes in the course of running it: the buyer's resume and profile, the public postings the fleet collects, and the reports and briefs it produces, under that provider's own terms with the buyer. Employers receive only what the buyer reviews and approves: an application, carrying the buyer's resume and answers, submitted through the employer's own portal from the buyer's own session. The seller receives nothing from a running fleet: no resume, no profile, no application record.",
- "definitions": {
-  "board": "One employer's careers board on one platform, as entered in one lane's registry. One employer can account for several boards (a board on each of two platforms, or a platform board plus a monitored careers page). The package manifest counts 1,359 board entries.",
-  "employer": "A unique company, counted once no matter how many boards or lanes watch it. The package manifest counts 1,565 unique employers; this record states the floor (1,500+) so the claim stays true as registries change between releases.",
-  "lane": "One scanning pipeline: an engine, a registry, and the shared scoring gate, organized by platform (Workday, Greenhouse, and 14 more) or by watch type (Careers Monitor). The fleet has 19 lanes.",
-  "posting": "One job listing observed on one board. The same role re-listed is a new posting observation; the companion's signals layer groups observations by employer + title when it talks about roles."
- },
- "does_not_fit": [
-  "Job searches outside the United States: the employer registries and board engines are US-based and filter out non-US postings",
-  "First jobs, internships, and trainee roles: the scoring gate sets entry-level postings aside",
-  "Fields with only a handful of employers already visible on one job board",
-  "Anyone expecting a guaranteed job: no honest system can promise one"
- ],
- "fingerprint": {
-  "algorithm": "SHA-256",
-  "note": "Verify the downloaded zip against this value before installing.",
-  "value": "d9a65ad7694c6f40591c83555497b314b25b81dedd6de7f8a63c76257be637da"
- },
- "fits": [
-  "An experienced professional whose job search has become a second, unpaid job: hunting a step up from a job they hold (more pay, a bigger seat), bracing for a layoff, or already between roles",
-  "A job search in the United States, or targeting US-based and US-remote roles",
-  "An owner who wants applications handled for them, with a human approval before anything is submitted",
-  "Cleared professionals seeking cleared work (a Defense lane opens from the owner's own stated clearance)"
- ],
- "install": {
-  "first_run_prompt": "run my first fleet sweep",
-  "how": "The owner attaches this zip in a chat with their assistant and sends the install prompt. The assistant then follows SETUP.md in this package exactly: three steps, shown to the owner as Step 1 of 3 (profile), Step 2 of 3 (fleet built), Step 3 of 3 (first sweep). The first Fleet Report lands in the owner's inbox in the same sitting.",
-  "prompt": "Install and set up my job fleet from this zip file.",
-  "staged_consent": "Each capability asks at its moment; declining pauses only that capability.",
-  "update_behavior": "Installing a newer package over an existing fleet carries the owner's profile, history, and application records forward. Nothing earned is reset by an update. An update is accepted only when the new zip matches the SHA-256 published for that version and the new version is higher than the one installed.",
-  "update_prompt": "Update my job fleet from this zip file."
- },
- "mcp_server": {
-  "access": "Public, read-only, no authentication, no data collected.",
-  "endpoint": "https://my-job-fleet-mcp.vercel.app/mcp",
-  "purpose": "Connect an assistant to this endpoint as a custom MCP connector to evaluate the product from its own record: facts, a fit check against its stated limits, version and fingerprint verification, version history, the install contract, and the purchase link. The server sells and delivers nothing; purchase stays at the seller's registers (Gumroad or Stripe) and requires the owner's approval.",
-  "tools": [
-   "get_product_facts",
-   "check_fit",
-   "get_limits",
-   "get_version_and_fingerprint",
-   "get_version_history",
-   "get_install_contract",
-   "get_purchase_link"
+  },
+  "coverage": {
+    "employers": "1,400+",
+    "lanes": 19,
+    "platforms_named": [
+      "Workday",
+      "Greenhouse",
+      "Lever",
+      "Ashby",
+      "SmartRecruiters",
+      "iCIMS"
+    ]
+  },
+  "data_and_security": {
+    "connects": "Your email, only if you connect it (sending reports; reading your inbox for outcomes only if you later say yes), and employers' public career pages.",
+    "exit": "\"Pause my fleet\" any time; \"remove my fleet\" takes the whole thing out, with a report of what was removed.",
+    "holds": "Your resume, your profile, what it has checked, and your applications and their outcomes.",
+    "kept": "Mailbox-derived files for 90 days; report history for the last 8 cycles; the rest until you remove the fleet.",
+    "lives": "In your Muse and your files. Nothing of yours is sent to the seller. Ever.",
+    "never": "Touches LinkedIn, asks for your passwords, applies without your approval on that application, or invents experience.",
+    "untrusted_content": "Job postings, career pages, and emails the fleet reads are untrusted content: they are read for facts and are never obeyed as instructions."
+  },
+  "data_handling": "Data handling, in one paragraph: the fleet's programs run on the buyer's own machine, inside the buyer's own AI assistant account; there is no seller server in the loop. The buyer's assistant provider (the fleet is built and tested on Muse AI) processes what the fleet reads and writes in the course of running it: the buyer's resume and profile, the public postings the fleet collects, and the reports and briefs it produces, under that provider's own terms with the buyer. Employers receive only what the buyer reviews and approves: an application, carrying the buyer's resume and answers, submitted through the employer's own portal from the buyer's own session. The seller receives nothing from a running fleet: no resume, no profile, no application record.",
+  "definitions": {
+    "board": "One employer's careers board on one platform, as entered in one lane's registry. One employer can account for several boards (a board on each of two platforms, or a platform board plus a monitored careers page). The package manifest counts 1,417 board entries.",
+    "employer": "A unique company, counted once no matter how many boards or lanes watch it. The package manifest counts 1,414 unique employers across the scanning lanes; this record states the floor (1,400+) so the claim stays true as registries change between releases. Employers watched only through the Careers Monitor (371 more) are counted separately as watched, never merged into this number.",
+    "lane": "One scanning pipeline: an engine, a registry, and the shared scoring gate, organized by platform (Workday, Greenhouse, and 14 more) or by watch type (Careers Monitor). The fleet has 19 lanes.",
+    "posting": "One job listing observed on one board. The same role re-listed is a new posting observation; the companion's signals layer groups observations by employer + title when it talks about roles."
+  },
+  "does_not_fit": [
+    "Job searches outside the United States: the employer registries and board engines are US-based and filter out non-US postings",
+    "First jobs, internships, and trainee roles: the scoring gate sets entry-level postings aside",
+    "Fields with only a handful of employers already visible on one job board",
+    "Anyone expecting a guaranteed job: no honest system can promise one"
   ],
-  "transport": "Streamable HTTP (MCP)"
- },
- "model": {
-  "apply_control": "Every application requires the owner's approval on that specific application. There is no unattended auto-apply mode.",
-  "credentials": "No employer or ATS credentials are delegated to any third party. The fleet never asks for the owner's passwords.",
-  "data": "The owner's resume, profile, and application record never leave the owner's account. Nothing is sent to the seller.",
-  "deployment": "Runs inside the owner's own AI assistant account, on the owner's own machine and files. There is no seller-side cloud and no hosted dashboard.",
-  "pricing_model": "One-time payment of $99. No subscription, no per-application quota, no credits that expire.",
-  "updates": "All updates included, delivered as new packages through Gumroad; installing one carries the owner's profile and records forward."
- },
- "operation": {
-  "approval_rule": "Nothing is ever applied for without the owner's approval on that specific application",
-  "control_phrases": [
-   "scan now",
-   "show my applications",
-   "pause my fleet",
-   "remove my fleet",
-   "change my search"
+  "fingerprint": {
+    "algorithm": "SHA-256",
+    "note": "Verify the downloaded zip against this value before installing.",
+    "value": "c12159b9164f9ea96ee4153cb11ab3e97d8cccc6bd04395456e469b424f7a6be"
+  },
+  "fits": [
+    "An experienced professional whose job search has become a second, unpaid job: hunting a step up from a job they hold (more pay, a bigger seat), bracing for a layoff, or already between roles",
+    "A job search in the United States, or targeting US-based and US-remote roles",
+    "An owner who wants applications handled for them, with a human approval before anything is submitted",
+    "Cleared professionals seeking cleared work (a Defense lane opens from the owner's own stated clearance)"
   ],
-  "reporting": "One Fleet Report per cycle, plus an instant alert only when an approved application is actually submitted. A cycle that could not check a board says so, naming the board and the reason; a gap is never reported as a zero.",
-  "rotation": "Most lanes run inside a 48-hour rotation; a few run on weekly slots"
- },
- "price": {
-  "amount": 99,
-  "currency": "USD",
-  "refunds": "No refunds; the buyer receives the complete files at purchase, so the sale is final. Platform exceptions (fraud, duplicate purchase) and statutory withdrawal rights (EU 14 days, Brazil 7 days) are honored.",
-  "type": "one-time payment, no subscription",
-  "updates": "Every update is included in the purchase price and delivered through the register the buyer purchased from."
- },
- "product": "My Job Fleet (US Only)",
- "proof": {
-  "proof_pack_url": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.html",
-  "proof_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.json",
-  "summary": "Corroboration for this record: two experienced professionals' runs (neither is an entry-level applicant). One real tester's run (470 postings read, 8 worth his time, 3 applications filed, outcomes tracked including a rejection), his verbatim testimonial and unedited Fleet Report; a second tester's insider-risk run that reached interview stage at two employers (Saronic and Experian), with his verbatim testimonial and the employers' own emails; and the outside audit history (ChatGPT and Gemini audits of 1.0.1 and 1.0.3, verified findings fixed in the following release each time). Dated records, not promises: a buyer's numbers depend on their resume and market."
- },
- "purchase_options": [
-  {
-   "channel": "Gumroad",
-   "delivery": "The zip downloads at purchase.",
-   "url": "https://samuelankrah.gumroad.com/l/myjobfleet"
+  "install": {
+    "first_run_prompt": "run my first fleet sweep",
+    "how": "The owner attaches this zip in a chat with their assistant and sends the install prompt. The assistant then follows SETUP.md in this package exactly: three steps, shown to the owner as Step 1 of 3 (profile), Step 2 of 3 (fleet built), Step 3 of 3 (first sweep). The first Fleet Report lands in the owner's inbox in the same sitting.",
+    "prompt": "Install and set up my job fleet from this zip file.",
+    "staged_consent": "Each capability asks at its moment; declining pauses only that capability.",
+    "update_behavior": "Installing a newer package over an existing fleet carries the owner's profile, history, and application records forward. Nothing earned is reset by an update. An update is accepted only when the new zip matches the SHA-256 published for that version and the new version is higher than the one installed.",
+    "update_prompt": "Update my job fleet from this zip file."
   },
-  {
-   "channel": "Stripe (seller: Nyansa LLC)",
-   "delivery": "The buyer checks out with an email address; the fleet files and setup instructions are delivered to that email shortly after purchase.",
-   "url": "https://buy.stripe.com/bJe6oG1Yk8ua9Qp2Mp2wU00"
-  }
- ],
- "purchase_url": "https://samuelankrah.gumroad.com/l/myjobfleet",
- "record_updated": "2026-11-27",
- "released": "2026-11-26",
- "requirements": [
-  "An AI assistant account the owner controls (the fleet was built and tested on Muse AI; a paid plan is recommended because setup is token-heavy and a free plan's allowance burns quickly)",
-  "The owner's resume, in any common document format",
-  "An email route the owner connects and allows, for the Fleet Report and application alerts (the fleet uses the route in the owner's profile; it never guesses an account)"
- ],
- "schema": "my-job-fleet/agent-record/v1",
- "seller": "Sam Ankrah, fleet owner",
- "support_model": "The fleet maintains itself: a built-in fleet doctor performs provably safe repairs, a troubleshooting guide ships in the package (core/TROUBLESHOOTING.md), and a weekly health check folds into the Fleet Report. Field improvement notes, not error reports, are the channel back to the maker.",
- "version": "1.0.8",
- "version_history": [
-  {
-   "added": [
-    "Per-platform application mechanics (core/APPLICATION_MECHANICS.md in the package): how applications are handled on each platform, how employer accounts and sign-in codes work, the manual handoffs, and the rule that the owner reviews the exact resume and every answer before any submission.",
-    "The companion's evidence rules, published in the package (companion/EVIDENCE.md): how long-open ages are measured from the fleet's own first sighting (with the new-install caveat), what counts as a repost and its known look-alikes, and the horizon formation gate.",
-    "Counting definitions in this record (employer, board, lane, posting, each defined once) and one plain paragraph on data handling: what runs on the buyer's machine, what their assistant provider processes, and what employers receive.",
-    "The install contract (agent_install.json) published alongside this record for pre-purchase inspection, referenced from this record and llms.txt."
-   ],
-   "date": "2026-11-26",
-   "improved": [
-    "check_fit now takes the assistant platform into account: the fleet is built and tested on Muse AI, and an untested platform returns 'cannot determine', stated plainly. Unknown inputs (career stage 'other', field size 'unsure') also return 'cannot determine' with what is missing, instead of 'fits'.",
-    "The companion fails closed: if setup has not replaced the worked-example terms file, the companion refuses to run and names the missing setup step, instead of briefing from example terms.",
-    "Horizon briefs have a stated formation gate (at least 10 convergent roles, 5 distinct employers, 3 distinct weeks); before, the code set no threshold.",
-    "Running-cost transparency: this record states the drivers of the fleet's token cost and states plainly that a per-cycle range is unmeasured, rather than implying a number."
-   ],
-   "summary": "The credibility release: fixes from the 2026-11-26 three-model evaluation (ChatGPT, Claude, and Gemini, one identical prompt). The fit check stops guessing, the companion fails closed and publishes its evidence rules, application mechanics are stated per platform, counting units are defined, and running cost is stated honestly as unmeasured.",
-   "version": "1.0.8"
+  "mcp_server": {
+    "access": "Public, read-only, no authentication, no data collected.",
+    "endpoint": "https://my-job-fleet-mcp.vercel.app/mcp",
+    "purpose": "Connect an assistant to this endpoint as a custom MCP connector to evaluate the product from its own record: facts, a fit check against its stated limits, version and fingerprint verification, version history, the install contract, and the purchase link. The server sells and delivers nothing; purchase stays at the seller's registers (Gumroad or Stripe) and requires the owner's approval.",
+    "tools": [
+      "get_product_facts",
+      "check_fit",
+      "get_limits",
+      "get_version_and_fingerprint",
+      "get_version_history",
+      "get_install_contract",
+      "get_purchase_link"
+    ],
+    "transport": "Streamable HTTP (MCP)"
   },
-  {
-   "added": [
-    "The companion layer (companion/ in the package): briefs built from the owner's own resume and the roles they have already applied to. No setup form, no new homework.",
-    "Interjections: plain-language notes on the owner's own search: a fitting title never applied to, a word employers keep asking for that the resume barely uses, the real cost of the remote-versus-onsite dial, in numbers.",
-    "Signals: roles the fleet has watched stay open for months, named with ages measured from the fleet's own first sighting, and roles that disappeared and came back.",
-    "Horizon briefs: roles forming in the owner's field before they have a settled name, detected from converging words across postings under different job titles, with the evidence shown."
-   ],
-   "date": "2026-11-26",
-   "improved": [
-    "Release notes discipline: this version history and the package changelog now state Added and Improved separately, starting with this release and every release from now on.",
-    "Setup's personalization checklist now covers the companion's terms file (swap point 31 in core/SWAP_POINTS.md), written from the owner's profile; the layer ships with a worked example and setup replaces it before the owner's first real brief.",
-    "Version stamps corrected to 1.0.7 in SETUP, QUICKSTART, and the install contract."
-   ],
-   "summary": "The guidance release: a companion layer that reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs: interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name. Release notes now state Added and Improved separately.",
-   "version": "1.0.7"
+  "model": {
+    "apply_control": "Every application requires the owner's approval on that specific application. There is no unattended auto-apply mode.",
+    "credentials": "No employer or ATS credentials are delegated to any third party. The fleet never asks for the owner's passwords.",
+    "data": "The owner's resume, profile, and application record never leave the owner's account. Nothing is sent to the seller.",
+    "deployment": "Runs inside the owner's own AI assistant account, on the owner's own machine and files. There is no seller-side cloud and no hosted dashboard.",
+    "pricing_model": "One-time payment of $99. No subscription, no per-application quota, no credits that expire.",
+    "updates": "All updates included, delivered as new packages through Gumroad; installing one carries the owner's profile and records forward."
   },
-  {
-   "date": "2026-11-25",
-   "summary": "Stranger-research patch: the install contract and this record now state the full label (six fields, staged consent, the two update gates); setup offers a resume trim before saving; the fleet doctor disables a board only on a corroborated 404 (three-run failure streak) and rewrites registries atomically; the update summary covers the troubleshooting playbook. SETUP and QUICKSTART version stamps corrected (they read 1.0.4 in 1.0.5).",
-   "version": "1.0.6"
+  "operation": {
+    "approval_rule": "Nothing is ever applied for without the owner's approval on that specific application",
+    "control_phrases": [
+      "scan now",
+      "show my applications",
+      "pause my fleet",
+      "remove my fleet",
+      "change my search"
+    ],
+    "reporting": "One Fleet Report per cycle, plus an instant alert only when an approved application is actually submitted. A cycle that could not check a board says so, naming the board and the reason; a gap is never reported as a zero.",
+    "rotation": "Most lanes run inside a 48-hour rotation; a few run on weekly slots"
   },
-  {
-   "date": "2026-11-24",
-   "summary": "Agent release: machine-readable install contract (agent_install.json) inside the package and this public agent record. No behavior changes from 1.0.4.",
-   "version": "1.0.5"
+  "price": {
+    "amount": 99,
+    "currency": "USD",
+    "refunds": "No refunds; the buyer receives the complete files at purchase, so the sale is final. Platform exceptions (fraud, duplicate purchase) and statutory withdrawal rights (EU 14 days, Brazil 7 days) are honored.",
+    "type": "one-time payment, no subscription",
+    "updates": "Every update is included in the purchase price and delivered through the register the buyer purchased from."
   },
-  {
-   "date": "2026-11-18",
-   "summary": "Regression-audit fixes. The Defense lane's hard clearance branch is enforced only against buyers who hold no active clearance (a cleared buyer is no longer dropped from cleared roles). Reports and alerts on a non-Gmail route re-issue their delivery instruction instead of being recorded as sent before delivery. Also: fleet doctor freshness and board-disabling fixes, Greenhouse profession screen passes the owner's own field first, delivery routes fail closed when no profile route is configured.",
-   "version": "1.0.4"
+  "product": "My Job Fleet (US Only)",
+  "proof": {
+    "proof_pack_url": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.html",
+    "proof_record": "https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/proof.json",
+    "summary": "Corroboration for this record: two experienced professionals' runs (neither is an entry-level applicant). One real tester's run (470 postings read, 8 worth his time, 3 applications filed, outcomes tracked including a rejection), his verbatim testimonial and unedited Fleet Report; a second tester's insider-risk run that reached interview stage at two employers (Saronic and Experian), with his verbatim testimonial and the employers' own emails; and the outside audit history (ChatGPT and Gemini audits of 1.0.1 and 1.0.3, verified findings fixed in the following release each time). Dated records, not promises: a buyer's numbers depend on their resume and market."
   },
-  {
-   "date": "2026-11-18",
-   "summary": "The version reviewed in the published outside audits. Its verified findings were fixed in 1.0.4.",
-   "version": "1.0.3"
-  },
-  {
-   "date": "2026-11-18",
-   "summary": "Fixes from the first outside audit round (scorer initialization, report lane accounting, profile-driven search titles, fleet doctor loss handling).",
-   "version": "1.0.2"
-  },
-  {
-   "date": "2026-11-18",
-   "summary": "Self-repair layer (fleet doctor, troubleshooting guide, weekly health check), report date and path fixes, per-board time caps.",
-   "version": "1.0.1"
-  },
-  {
-   "date": "2026-11-17",
-   "summary": "First release.",
-   "version": "1.0.0"
-  }
- ],
- "what_it_is": "A job-search system that runs inside the owner's own AI assistant account. On a 48-hour rotation it reads live postings on employers' own career pages (1,500+ employers, 19 board lanes including Workday, Greenhouse, Lever, Ashby, SmartRecruiters, and iCIMS), scores each posting against the owner's resume by duties performed rather than job titles, delivers one Fleet Report per cycle, and submits applications only with the owner's approval on each application. A companion layer reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs: interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name."
+  "purchase_options": [
+    {
+      "channel": "Gumroad",
+      "delivery": "The zip downloads at purchase.",
+      "url": "https://samuelankrah.gumroad.com/l/myjobfleet"
+    },
+    {
+      "channel": "Stripe (seller: Nyansa LLC)",
+      "delivery": "The buyer checks out with an email address; the fleet files and setup instructions are delivered to that email shortly after purchase.",
+      "url": "https://buy.stripe.com/bJe6oG1Yk8ua9Qp2Mp2wU00"
+    }
+  ],
+  "purchase_url": "https://samuelankrah.gumroad.com/l/myjobfleet",
+  "record_updated": "2026-11-27",
+  "released": "2026-11-27",
+  "requirements": [
+    "An AI assistant account the owner controls (the fleet was built and tested on Muse AI; a paid plan is recommended because setup is token-heavy and a free plan's allowance burns quickly)",
+    "The owner's resume, in any common document format",
+    "An email route the owner connects and allows, for the Fleet Report and application alerts (the fleet uses the route in the owner's profile; it never guesses an account)"
+  ],
+  "schema": "my-job-fleet/agent-record/v1",
+  "seller": "Sam Ankrah, fleet owner",
+  "support_model": "The fleet maintains itself: a built-in fleet doctor performs provably safe repairs, a troubleshooting guide ships in the package (core/TROUBLESHOOTING.md), and a weekly health check folds into the Fleet Report. Field improvement notes, not error reports, are the channel back to the maker.",
+  "version": "1.0.9",
+  "version_history": [
+    {
+      "added": [
+        "Chunked runs for the big engine lanes (hub/chunked_run.py in the package): the Phenom, Oracle CE, and iCIMS lanes scan in per-chunk passes with a result file per chunk, merged into the lane result, which states which chunks completed and which did not. A killed or timed-out run keeps its completed chunks, and re-running resumes past them.",
+        "Filing-time capture in the application record: every new application entry records the verdict that authorized the filing, the score behind it, a short duty-mapping evidence summary, and where the evaluation notes live; the ledger builder carries the four fields from the log into the ledger whenever the filing recorded them.",
+        "The open-applications worklist (hub/build_open_applications.py in the package): the fleet maintains open_applications.json, the applications whose outcome is not yet resolved (at interview or offer, under review within 45 days of its last recorded activity, or submitted within the last 45 days), ready for portal-status sweeps."
+      ],
+      "date": "2026-11-27",
+      "improved": [
+        "Employer registries refreshed to the maker's current fleet as of 2026-11-27, including the November financial-services expansion and the 2026-11-26 sector expansion (data centers, healthcare, health-adjacent employers): 1,400+ unique employers actively searched (1,414 deduplicated in the manifest), plus employers watched through the Careers Monitor. The package manifest is regenerated from the shipped registries.",
+        "Duplicate boards removed: the refreshed Greenhouse registry drops two boards that were listed twice under the same board ID, so no board is scanned twice in a run.",
+        "Interview outcomes now count: the application ledger records interview, offer, and withdrawn stages, the weekly rollup's interview count reflects the ledger, and applications at interview or offer stay on the open-applications worklist and count against the per-employer flooding cap while live.",
+        "Outcome matching covers fourteen platforms' notification domains (up from four) and prints its coverage on every run, including the stated gap for outcome mail employers send from their own domains; the matcher resolves the mail tool from the owner's PATH and the owner's own addresses from their profile, and no maker-machine paths or placeholder addresses ship.",
+        "Partial chunked runs keep their status in the consolidated Fleet Report: each chunked lane's run_status and coverage block reach the report's verdict and lane table, so a partial run's gap is named instead of reading as a clean run.",
+        "Scoring documentation corrected: the gate is an evidence screen over titles and descriptions and does not compute a duties percentage; the roughly 70 percent duties standard is enforced at the application review's duty-mapping check, and the shipped gate's known limitations are documented in core/scoring_system.md.",
+        "The maker's note in SETUP.md is printed in the open; the conditional Easter-egg disclosure (shown only if the owner went looking for it) is removed.",
+        "Chunked-run recovery hardened: a chunk counts as complete only when every board in it was cleanly covered (an engine that exits cleanly but leaves boards unreached or errored is rescanned, its missed boards named as not reached), closing out a run folder whose resume attempts are exhausted preserves the work it already collected instead of discarding it, and one resume_attempts counter drives the resume decision, the cap, and the count the record reports. The application log's entry contract is also written down as a schema (hub/schemas/ in the package); the ledger builder validates log entries against it and reports violations in its output, and a portal's plain 'Status: Rejected' now derives the rejected stage.",
+        "Retest-3 hardening: a partial chunked run now exits with its own code and files a snag naming it partial, and lanes resume unfinished runs only within the same cycle (20-hour window) instead of reusing a previous cycle's chunks under a new date; a stage change recorded in the application log now propagates to the ledger on rebuild; the application-log schema requires the four filing-evidence fields on submitted-or-beyond entries; the outcome matcher's --apply mode writes outcomes back to the ledger (stage advances, recorded as an event, never a downgrade); the open-applications builder writes its error state to a sidecar instead of over the queue and reads last_checked from its --out target; the Workday dashboard's role families ship as placeholders under a new swap point; report headers no longer name the builder's assistant.",
+        "Outcomes are durable: the outcome matcher's --apply writes each outcome through to both records (the application log and the ledger carry the same stage), so a ledger rebuild can never revert an interview or a rejection back to 'submitted', and the ledger builder itself honors a recorded outcome that is further along than the stage a rebuild would impose. A dry run no longer consumes the outcomes it proposes: proposed and applied outcomes are tracked separately, and a later --apply picks up proposals left over from earlier dry runs.",
+        "The open-applications builder refuses a ledger whose 'applications' list is absent, not just malformed: an absent key is an error state, never a silently empty queue.",
+        "Filing evidence is required at terminal stages too: the application-log schema and the ledger builder's validation require the four filing-time fields on rejected, closed, and withdrawn entries, not only on live ones.",
+        "The chunked-run resume window is measured from the run's first start: the 20-hour window is read from the run folder's first-start stamp, not its last-modified time, which every resume used to refresh, so the window can no longer slide.",
+        "The employer count is exact: the manifest's name normalization no longer strips distinctive words ('Group', 'Solutions'), which had merged two different employers into one; the deduplicated employer count is 1,414.",
+        "Claims tightened to the code: the chunked runner is documented as serving the three lanes wired through it (it refuses slug-keyed registries), the outcome matcher's place in the standing cycle is written down, the version is documented as living in VERSION.md, and the employer lists' provenance is disclosed in the README (the maker's own working lists, leaning toward the maker's field).",
+        "The chunked-run resume stamp is UTC: the run's first-start stamp is written in UTC and read as UTC, so the 20-hour resume window is 20 hours on any machine (before, the stamp was written in the machine's local time but read as UTC, shifting the window by the machine's UTC offset); timezone-less stamps from earlier 1.0.9 builds are still read as UTC, so old run folders age out conservatively.",
+        "A thank-you is not an interview: the outcome matcher counts a mail as an interview outcome only on genuine invitation wording (an invitation, a request to schedule your interview, a scheduling link); a thank-you that mentions a possible future interview is recorded as the confirmation it is, so no application advances to interview on a courtesy line.",
+        "Outcome records reconcile, and none are consumed silently: when an applied outcome leaves the application log and the ledger at different stages, both are reconciled to the single correct stage (a recorded resolution beats a live stage; otherwise the further-along stage wins; the newest outcome event decides only between two recorded resolutions). An outcome proposal that matches no application is no longer marked applied: it stays proposed and is reported, run after run, until it can be applied.",
+        "Coverage and record checks tightened: a chunked lane now counts a board with no entry at all in the engine's board accounting as not covered, so the chunk stays partial instead of reading complete; the open-applications builder validates every entry in the ledger's list, not just the list itself; and the ledger builder enforces the log schema's field types exactly (a true/false value is not a number).",
+        "Under-review applications age off the worklist: an application under review with no recorded activity for 45 days leaves open_applications.json, under the same silence rule as unanswered submissions; applications at interview or offer never age off.",
+        "\"We will be in touch\" is a confirmation: the outcome matcher now counts forward-looking contact phrases (\"we will be in touch\", \"we'll reach out if your background is a match\") as confirmations when no genuine invitation or rejection wording is present, so an application moves to under review on the employer's acknowledgment instead of sitting at submitted.",
+        "A rebuild repairs both records: when the ledger carries an outcome the log has not caught up with (a hand-edited log, a restored older log, a record from before outcomes were written to both files), the ledger rebuild writes that outcome-backed stage back into the log, so deleting either record and rebuilding recovers the outcome whole; a ledger stage with no outcome behind it is never written back."
+      ],
+      "summary": "The registry and resilience release: employer registries refreshed to the maker's current fleet, chunked runs so a killed or timed-out lane run keeps what it finished, filing-time capture in the application record, and an open-applications worklist.",
+      "version": "1.0.9"
+    },
+    {
+      "added": [
+        "Per-platform application mechanics (core/APPLICATION_MECHANICS.md in the package): how applications are handled on each platform, how employer accounts and sign-in codes work, the manual handoffs, and the rule that the owner reviews the exact resume and every answer before any submission.",
+        "The companion's evidence rules, published in the package (companion/EVIDENCE.md): how long-open ages are measured from the fleet's own first sighting (with the new-install caveat), what counts as a repost and its known look-alikes, and the horizon formation gate.",
+        "Counting definitions in this record (employer, board, lane, posting, each defined once) and one plain paragraph on data handling: what runs on the buyer's machine, what their assistant provider processes, and what employers receive.",
+        "The install contract (agent_install.json) published alongside this record for pre-purchase inspection, referenced from this record and llms.txt."
+      ],
+      "date": "2026-11-26",
+      "improved": [
+        "check_fit now takes the assistant platform into account: the fleet is built and tested on Muse AI, and an untested platform returns 'cannot determine', stated plainly. Unknown inputs (career stage 'other', field size 'unsure') also return 'cannot determine' with what is missing, instead of 'fits'.",
+        "The companion fails closed: if setup has not replaced the worked-example terms file, the companion refuses to run and names the missing setup step, instead of briefing from example terms.",
+        "Horizon briefs have a stated formation gate (at least 10 convergent roles, 5 distinct employers, 3 distinct weeks); before, the code set no threshold.",
+        "Running-cost transparency: this record states the drivers of the fleet's token cost and states plainly that a per-cycle range is unmeasured, rather than implying a number."
+      ],
+      "summary": "The credibility release: fixes from the 2026-11-26 three-model evaluation (ChatGPT, Claude, and Gemini, one identical prompt). The fit check stops guessing, the companion fails closed and publishes its evidence rules, application mechanics are stated per platform, counting units are defined, and running cost is stated honestly as unmeasured.",
+      "version": "1.0.8"
+    },
+    {
+      "added": [
+        "The companion layer (companion/ in the package): briefs built from the owner's own resume and the roles they have already applied to. No setup form, no new homework.",
+        "Interjections: plain-language notes on the owner's own search: a fitting title never applied to, a word employers keep asking for that the resume barely uses, the real cost of the remote-versus-onsite dial, in numbers.",
+        "Signals: roles the fleet has watched stay open for months, named with ages measured from the fleet's own first sighting, and roles that disappeared and came back.",
+        "Horizon briefs: roles forming in the owner's field before they have a settled name, detected from converging words across postings under different job titles, with the evidence shown."
+      ],
+      "date": "2026-11-26",
+      "improved": [
+        "Release notes discipline: this version history and the package changelog now state Added and Improved separately, starting with this release and every release from now on.",
+        "Setup's personalization checklist now covers the companion's terms file (swap point 31 in core/SWAP_POINTS.md), written from the owner's profile; the layer ships with a worked example and setup replaces it before the owner's first real brief.",
+        "Version stamps corrected to 1.0.7 in SETUP, QUICKSTART, and the install contract."
+      ],
+      "summary": "The guidance release: a companion layer that reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs: interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name. Release notes now state Added and Improved separately.",
+      "version": "1.0.7"
+    },
+    {
+      "date": "2026-11-25",
+      "summary": "Stranger-research patch: the install contract and this record now state the full label (six fields, staged consent, the two update gates); setup offers a resume trim before saving; the fleet doctor disables a board only on a corroborated 404 (three-run failure streak) and rewrites registries atomically; the update summary covers the troubleshooting playbook. SETUP and QUICKSTART version stamps corrected (they read 1.0.4 in 1.0.5).",
+      "version": "1.0.6"
+    },
+    {
+      "date": "2026-11-24",
+      "summary": "Agent release: machine-readable install contract (agent_install.json) inside the package and this public agent record. No behavior changes from 1.0.4.",
+      "version": "1.0.5"
+    },
+    {
+      "date": "2026-11-18",
+      "summary": "Regression-audit fixes. The Defense lane's hard clearance branch is enforced only against buyers who hold no active clearance (a cleared buyer is no longer dropped from cleared roles). Reports and alerts on a non-Gmail route re-issue their delivery instruction instead of being recorded as sent before delivery. Also: fleet doctor freshness and board-disabling fixes, Greenhouse profession screen passes the owner's own field first, delivery routes fail closed when no profile route is configured.",
+      "version": "1.0.4"
+    },
+    {
+      "date": "2026-11-18",
+      "summary": "The version reviewed in the published outside audits. Its verified findings were fixed in 1.0.4.",
+      "version": "1.0.3"
+    },
+    {
+      "date": "2026-11-18",
+      "summary": "Fixes from the first outside audit round (scorer initialization, report lane accounting, profile-driven search titles, fleet doctor loss handling).",
+      "version": "1.0.2"
+    },
+    {
+      "date": "2026-11-18",
+      "summary": "Self-repair layer (fleet doctor, troubleshooting guide, weekly health check), report date and path fixes, per-board time caps.",
+      "version": "1.0.1"
+    },
+    {
+      "date": "2026-11-17",
+      "summary": "First release.",
+      "version": "1.0.0"
+    }
+  ],
+  "what_it_is": "A job-search system that runs inside the owner's own AI assistant account. On a 48-hour rotation it reads live postings on employers' own career pages (1,400+ employers, 19 board lanes including Workday, Greenhouse, Lever, Ashby, SmartRecruiters, and iCIMS), scores each posting against the owner's resume by duties performed rather than job titles, delivers one Fleet Report per cycle, and submits applications only with the owner's approval on each application. A companion layer reads the owner's resume and the roles they have already applied to against the postings the fleet has collected, and writes plain-language briefs: interjections about the owner's own search, signals (roles open for months; roles that disappeared and came back), and horizon notes on roles forming before they have a settled name."
 }
