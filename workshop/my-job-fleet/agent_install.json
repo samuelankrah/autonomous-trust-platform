@@ -52,7 +52,7 @@
     "currency": "USD",
     "refunds": "No refunds; the buyer receives the complete files at purchase, so the sale is final. Platform exceptions (fraud, duplicate purchase) and statutory withdrawal rights (EU 14 days, Brazil 7 days) are honored by Gumroad.",
     "type": "one-time payment, no subscription",
-    "updates": "Every update is included in the purchase price and delivered through Gumroad."
+    "updates": "Every update is included in the purchase price and delivered through the register the buyer purchased from."
   },
   "product": "My Job Fleet (US Only)",
   "purchase_url": "https://samuelankrah.gumroad.com/l/myjobfleet",

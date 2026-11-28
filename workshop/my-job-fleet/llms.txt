@@ -61,7 +61,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 - Deployment: runs inside the owner's own AI assistant account, on the owner's own files. No seller-side cloud, no hosted dashboard.
 - Credentials: no employer or ATS credentials are delegated to any third party; the fleet never asks for the owner's passwords.
-- Data: the owner's resume, profile, and application record never leave the owner's account.
+- Data: The fleet runs on the owner's own machine, inside the owner's own assistant account; the seller receives nothing from a running fleet.
 - Pricing model: one-time $99. No subscription, no per-application quota, no expiring credits.
 - Apply control: every application requires the owner's approval on that application. There is no unattended auto-apply mode.
 
@@ -70,7 +70,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 - Employer: a unique company, counted once no matter how many boards or lanes watch it. The package manifest counts 1,414 unique employers across the scanning lanes; this record states the floor (1,400+) so the claim stays true as registries change between releases. Employers watched only through the Careers Monitor (371 more) are counted separately as watched, never merged into this number.
 - Board: one employer's careers board on one platform, as entered in one lane's registry. One employer can account for several boards. The package manifest counts 1,417 board entries.
-- Lane: one scanning pipeline (an engine, a registry, and the shared scoring gate), organized by platform or by watch type. The fleet has 19 lanes.
+- Lane: one scanning pipeline (an engine, a registry, and the shared scoring gate), organized by platform or by watch type. The fleet has 19 lanes: 18 scanning lanes and the Careers Monitor watch lane.
 - Posting: one job listing observed on one board. The same role re-listed is a new posting observation; the companion groups observations by employer + title when it talks about roles.
 
 ## Data handling, in one paragraph

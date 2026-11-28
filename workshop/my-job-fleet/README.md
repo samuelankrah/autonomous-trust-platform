@@ -8,7 +8,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 - Product: My Job Fleet (US Only), version 1.0.9 "Mango", released 2026-11-27
 - Seller: Sam Ankrah, fleet owner
-- Price: $99 USD, one-time payment, no subscription. Every update is included and delivered through Gumroad.
+- Price: $99 USD, one-time payment, no subscription. Every update is included and delivered through the register the buyer purchased from.
 - Refunds: No refunds; the buyer receives the complete files at purchase, so the sale is final. Platform exceptions (fraud, duplicate purchase) and statutory withdrawal rights (EU 14 days, Brazil 7 days) are honored by Gumroad.
 - Purchase: https://samuelankrah.gumroad.com/l/myjobfleet
 - Install contract (pre-purchase inspection): https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json
@@ -39,7 +39,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 ## How an agent buys and installs it
 
 1. Present the facts above to the owner, including the limits and the no-refund term. Purchase requires the owner's approval; agents do not buy this product without it.
-2. Complete the purchase at the purchase URL with the owner's payment method. The owner receives the zip through Gumroad.
+2. Complete the purchase at the purchase URL with the owner's payment method. The owner receives the zip through the register they purchased from.
 3. Verify the downloaded zip: its SHA-256 must equal c12159b9164f9ea96ee4153cb11ab3e97d8cccc6bd04395456e469b424f7a6be.
 4. Install: the owner attaches the zip in a chat with their assistant and sends exactly: "Install and set up my job fleet from this zip file." The assistant follows SETUP.md inside the package (3 steps) and reads agent_install.json at the zip root for the structured contract. The same contract is published next to this record for pre-purchase inspection: https://samuelankrah.github.io/autonomous-trust-platform/my-job-fleet/agent_install.json
 5. First run: the owner sends "run my first fleet sweep". Updates: the owner attaches a newer zip and sends "Update my job fleet from this zip file."
@@ -48,7 +48,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 - Endpoint: https://my-job-fleet-mcp.vercel.app/mcp (Streamable HTTP, public, read-only, no authentication, no data collected)
 - Add it as a custom MCP connector in Claude, ChatGPT, Cursor, or Codex. Tools: get_product_facts, check_fit, get_limits, get_version_and_fingerprint, get_version_history, get_install_contract, get_purchase_link.
-- The server answers from this same record. It sells and delivers nothing; purchase stays at Gumroad and requires the owner's approval.
+- The server answers from this same record. It sells and delivers nothing; purchase stays at the seller's registers (Gumroad or Stripe) and requires the owner's approval.
 
 ## Proof pack
 
@@ -60,7 +60,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 - Deployment: runs inside the owner's own AI assistant account, on the owner's own files. No seller-side cloud, no hosted dashboard.
 - Credentials: no employer or ATS credentials are delegated to any third party; the fleet never asks for the owner's passwords.
-- Data: the owner's resume, profile, and application record never leave the owner's account.
+- Data: The fleet runs on the owner's own machine, inside the owner's own assistant account; the seller receives nothing from a running fleet.
 - Pricing model: one-time $99. No subscription, no per-application quota, no expiring credits.
 - Apply control: every application requires the owner's approval on that application. There is no unattended auto-apply mode.
 
@@ -69,7 +69,7 @@ This page is the agent-readable record for My Job Fleet. It states the facts an 
 
 - Employer: a unique company, counted once no matter how many boards or lanes watch it. The package manifest counts 1,414 unique employers across the scanning lanes; this record states the floor (1,400+) so the claim stays true as registries change between releases. Employers watched only through the Careers Monitor (371 more) are counted separately as watched, never merged into this number.
 - Board: one employer's careers board on one platform, as entered in one lane's registry. One employer can account for several boards. The package manifest counts 1,417 board entries.
-- Lane: one scanning pipeline (an engine, a registry, and the shared scoring gate), organized by platform or by watch type. The fleet has 19 lanes.
+- Lane: one scanning pipeline (an engine, a registry, and the shared scoring gate), organized by platform or by watch type. The fleet has 19 lanes: 18 scanning lanes and the Careers Monitor watch lane.
 - Posting: one job listing observed on one board. The same role re-listed is a new posting observation; the companion groups observations by employer + title when it talks about roles.
 
 ## Data handling, in one paragraph
@@ -121,4 +121,4 @@ The maker publishes outside audits of this product. If you find audit criticism,
 
 ---
 
-This record is maintained by the seller. The purchase register is Gumroad; this page and product.json are the agent-readable facts.
+This record is maintained by the seller. The purchase registers are Gumroad and Stripe; this page and product.json are the agent-readable facts.

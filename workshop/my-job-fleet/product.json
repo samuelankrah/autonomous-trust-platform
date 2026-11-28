@@ -98,7 +98,7 @@
   "definitions": {
     "board": "One employer's careers board on one platform, as entered in one lane's registry. One employer can account for several boards (a board on each of two platforms, or a platform board plus a monitored careers page). The package manifest counts 1,417 board entries.",
     "employer": "A unique company, counted once no matter how many boards or lanes watch it. The package manifest counts 1,414 unique employers across the scanning lanes; this record states the floor (1,400+) so the claim stays true as registries change between releases. Employers watched only through the Careers Monitor (371 more) are counted separately as watched, never merged into this number.",
-    "lane": "One scanning pipeline: an engine, a registry, and the shared scoring gate, organized by platform (Workday, Greenhouse, and 14 more) or by watch type (Careers Monitor). The fleet has 19 lanes.",
+    "lane": "One scanning pipeline: an engine, a registry, and the shared scoring gate, organized by platform (Workday, Greenhouse, and 14 more) or by watch type (Careers Monitor). The fleet has 19 lanes: 18 scanning lanes and the Careers Monitor watch lane.",
     "posting": "One job listing observed on one board. The same role re-listed is a new posting observation; the companion's signals layer groups observations by employer + title when it talks about roles."
   },
   "does_not_fit": [
@@ -144,10 +144,10 @@
   "model": {
     "apply_control": "Every application requires the owner's approval on that specific application. There is no unattended auto-apply mode.",
     "credentials": "No employer or ATS credentials are delegated to any third party. The fleet never asks for the owner's passwords.",
-    "data": "The owner's resume, profile, and application record never leave the owner's account. Nothing is sent to the seller.",
+    "data": "The fleet runs on the owner's own machine, inside the owner's own assistant account; the owner's assistant provider processes what the fleet reads and writes, and employers receive only the applications the owner reviews and approves. The seller receives nothing from a running fleet.",
     "deployment": "Runs inside the owner's own AI assistant account, on the owner's own machine and files. There is no seller-side cloud and no hosted dashboard.",
     "pricing_model": "One-time payment of $99. No subscription, no per-application quota, no credits that expire.",
-    "updates": "All updates included, delivered as new packages through Gumroad; installing one carries the owner's profile and records forward."
+    "updates": "Every update is included in the purchase price and delivered through the register the buyer purchased from; installing one carries the owner's profile and records forward."
   },
   "operation": {
     "approval_rule": "Nothing is ever applied for without the owner's approval on that specific application",
