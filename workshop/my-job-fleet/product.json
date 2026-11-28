@@ -120,7 +120,7 @@
   ],
   "install": {
     "first_run_prompt": "run my first fleet sweep",
-    "how": "The owner attaches this zip in a chat with their assistant and sends the install prompt. The assistant then follows SETUP.md in this package exactly: three steps, shown to the owner as Step 1 of 3 (profile), Step 2 of 3 (fleet built), Step 3 of 3 (first sweep). The first Fleet Report lands in the owner's inbox in the same sitting.",
+    "how": "The owner attaches this zip in a chat with their assistant and sends the install prompt. The assistant then follows SETUP.md in this package exactly: three steps, shown to the owner as Step 1 of 3 (profile), Step 2 of 3 (fleet built), Step 3 of 3 (first sweep). The first Fleet Report is delivered in the same sitting by the route the owner chose in setup (email, or in-chat where the owner chose in-chat delivery).",
     "prompt": "Install and set up my job fleet from this zip file.",
     "staged_consent": "Each capability asks at its moment; declining pauses only that capability.",
     "update_behavior": "Installing a newer package over an existing fleet carries the owner's profile, history, and application records forward. Nothing earned is reset by an update. An update is accepted only when the new zip matches the SHA-256 published for that version and the new version is higher than the one installed.",
